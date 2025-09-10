@@ -37,7 +37,7 @@
     
 
 
-<title>intro</title>
+<title>Home</title>
 
 
 
@@ -52,7 +52,7 @@
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 
-<meta property="og:title" content="intro">
+<meta property="og:title" content="Home">
 
 
 
@@ -67,7 +67,7 @@
 
 <!-- Twitter Card -->
 
-<meta name="twitter:title" content="intro">
+<meta name="twitter:title" content="Home">
 
 
 
@@ -93,6 +93,9 @@
     
     <link href="css/fixes.css" rel="stylesheet">
     <link href="css/breadcrumbs.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet">
+    <link href="css/landing.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     
 
@@ -454,7 +457,24 @@
     <a data-slot="sidebar-menu-button" data-active="true" data-sidebar="menu-button" data-size="default" href="/" class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&amp;>span:last-child]:truncate [&amp;>svg]:size-4 [&amp;>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
 
         
-        Hola!
+        Home
+        
+
+        
+
+        
+
+        
+    </a>
+</li>
+                
+                
+                
+                <li data-slot="sidebar-menu-item" data-sidebar="menu-item" class="group/menu-item relative">
+    <a data-slot="sidebar-menu-button" data-active="false" data-sidebar="menu-button" data-size="default" href="/about/" class="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer/menu-button flex items-center gap-2 rounded-md p-2 text-left outline-hidden ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&amp;>span:last-child]:truncate [&amp;>svg]:size-4 [&amp;>svg]:shrink-0 data-[active=true]:bg-accent data-[active=true]:border-accent 3xl:fixed:w-full 3xl:fixed:max-w-48 relative h-[30px] w-fit overflow-visible border border-transparent text-[0.8rem] font-medium after:absolute after:inset-x-0 after:-inset-y-1 after:z-0 after:rounded-md">
+
+        
+        About
         
 
         
@@ -488,13 +508,13 @@
             <div id="page-header" class="flex items-start justify-between">
 
                 <h1 class="scroll-m-20 text-4xl font-semibold tracking-tight sm:text-3xl xl:text-4xl">
-                    intro
+                    Home
                 </h1>
 
                 <div class="flex items-center gap-2 pt-1.5">
                     
                     
-                    <a data-slot="button" id="next-button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7" href="/Blog/">
+                    <a data-slot="button" id="next-button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 extend-touch-target size-8 shadow-none md:size-7" href="/about/">
                         <span class="sr-only">Next</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-arrow-right ">
                             <path d="M5 12l14 0"></path>
@@ -517,7 +537,7 @@
 <script>
     const updatedAt = document.getElementById("updated_at");
     if (updatedAt) {
-        const date = new Date('2025-09-10T09:08:03+07:00');
+        const date = new Date('2025-09-11T06:21:27+07:00');
         updatedAt.textContent = date.toLocaleDateString();
     }
 </script>
@@ -527,37 +547,171 @@
 
     </div>
     <div class="typography w-full flex-1 *:data-[slot=alert]:first:mt-0">
-        <p>Hi there.</p>
-<div class="codehilite"><table class="codehilitetable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fibonacci</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-<span class="hll">        <span class="k">yield</span> <span class="n">a</span>
-</span><span class="hll">        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
-</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">fibonacci</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-</code></pre></div></td></tr></tbody></table></div>
+        <div id="nv-landing">
+    <title>somos libres</title>
+    <!--hero-->
+    <section class="nv-hero" data-aos="fade-up">
+        <div class="nv-wrap">
+            <div class="nv-hero-inner">
+                <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="Nabil"></a>
+                <div class="nv-hero-text">
+                    <p class="nv-overline">Hi, I’m Nabil — Developer • SecOps • Forensics</p>
+                    <h1 class="nv-title">
+                        I build delightful docs &amp; tools, and break things (in labs) to learn.
+                    </h1>
+                    <p class="nv-subtitle">
+                        Full-stack tinkerer, SOC jr., and digital-forensics enthusiast. I ship documentation sites, training labs, and tiny utilities — then write about them.
+                    </p>
+                    <div class="nv-cta">
+                        <a class="nv-btn nv-btn-primary" href="Blog/">Blog</a>
+                        <a class="nv-btn nv-btn-ghost" href="Lab/">Lab</a>
+                        <a class="nv-btn nv-btn-ghost" href="Materi/">Materi</a>
+                    </div>
+                    <div class="nv-social">
+                        <a href="mailto:you@example.com" aria-label="Email">Email</a>
+                        <span>·</span>
+                        <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+                        <span>·</span>
+                        <a href="https://x.com/your-handle" target="_blank" rel="noopener">X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--card-->
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="nv-wrap">
+            <div class="nv-sec-head">
+                <h2 class="nv-sec-title">Featured Projects</h2>
+                <a class="nv-link" href="lab/">See all →</a>
+            </div>
+            <div class="nv-grid">
+                <!--card 1-->
+                <article class="nv-card">
+                    <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-card-img" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="SafeApp"></a>
+                    <div class="nv-card-body">
+                        <h3 class="nv-card-title">SafeApp</h3>
+                        <p class="nv-card-desc">Disaster management app (Flutter + Firebase). Reports, live info, mitigation, and SOS.</p>
+                        <div class="nv-tags"><span>Flutter</span><span>Firebase</span><span>UI/UX</span></div>
+                        <div class="nv-card-cta">
+                            <a href="lab/safeapp/">Details</a>
+                            <a href="https://github.com/nwabel" target="_blank" rel="noopener">Repo</a>
+                        </div>
+                    </div>
+                </article>
+                <!--card 2-->
+                <article class="nv-card">
+                    <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-card-img" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="CodeFun"></a>
+                    <div class="nv-card-body">
+                        <h3 class="nv-card-title">CodeFun</h3>
+                        <p class="nv-card-desc">Bootcamp &amp; event platform for students (Laravel + React + Tailwind).</p>
+                        <div class="nv-tags"><span>Laravel</span><span>React</span><span>Tailwind</span></div>
+                        <div class="nv-card-cta">
+                            <a href="lab/codefun/">Details</a>
+                            <a href="https://github.com/nwabel" target="_blank" rel="noopener">Repo</a>
+                        </div>
+                    </div>
+                </article>
+                <!--card 3-->
+                <article class="nv-card">
+                    <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-card-img" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="DFIR Labs"></a>
+                    <div class="nv-card-body">
+                        <h3 class="nv-card-title">DFIR Labs</h3>
+                        <p class="nv-card-desc">Malware &amp; forensics labs with Redline, Autopsy, Cuckoo; writeups &amp; IOC hunting.</p>
+                        <div class="nv-tags"><span>DFIR</span><span>Malware</span><span>Writeup</span></div>
+                        <div class="nv-card-cta">
+                            <a href="lab/dfir/">Details</a>
+                            <a href="blog/">Posts</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!--raning teks-->
+    <section class="nv-marquee" aria-hidden="true">
+        <div class="nv-marquee-track"><span>Developer</span><span>SecOps</span><span>Forensics</span> <span>Docs</span><span>Training Labs</span><span>Open-Source</span></div>
+        <div class="nv-marquee-track" aria-hidden="true"><span>Developer</span><span>SecOps</span><span>Forensics</span> <span>Docs</span><span>Training Labs</span><span>Open-Source</span></div>
+    </section>
+    <!--stats wkwkwkwkwkwkwk-->
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="nv-wrap nv-stats">
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="4">0</div>
+                <div class="nv-stat-label">Years tinkering</div>
+            </div>
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="18">0</div>
+                <div class="nv-stat-label">Labs/Writeups</div>
+            </div>
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="36">0</div>
+                <div class="nv-stat-label">Blog posts</div>
+            </div>
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="12">0</div>
+                <div class="nv-stat-label">OSS repos</div>
+            </div>
+        </div>
+    </section>
+    <!--latest, niwPost.js, fallback manual-->
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="nv-wrap">
+            <div class="nv-sec-head">
+                <h2 class="nv-sec-title">Latest writing</h2>
+                <a class="nv-link" href="Blog/">All posts →</a>
+            </div>
+            <ul id="latest-posts-list" class="nv-latest">
+                <li>
+                    <time>—</time><a href="Blog/">How I build docs with shadcn</a>
+                    <p>Notes from migrating to a minimal, fast, dark-mode friendly docs stack…</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!--
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="150">
+        <div class="nv-wrap">
+            <h2 class="nv-sec-title">Skills</h2>
+            <ul class="nv-skills">
+                <li>AWS Basics</li>
+                <li>Docker</li>
+                <li>Python</li>
+                <li>JS/TS</li>
+                <li>React</li>
+                <li>Flutter</li>
+                <li>Tailwind</li>
+                <li>Linux</li>
+                <li>DFIR</li>
+                <li>SOC</li>
+            </ul>
+        </div>
+    </section>
+    -->
+    <!--kontak bawah-->
+    <section class="nv-section" data-aos="zoom-in" data-aos-delay="200">
+        <div class="nv-wrap nv-contact">
+            <h2 class="nv-sec-title">Let’s work together</h2>
+            <p>Open for collaboration, research, and freelance work.</p>
+            <div class="nv-cta">
+                <a class="nv-btn nv-btn-primary" href="mailto:you@example.com">Say Hello</a>
+                <a class="nv-btn nv-btn-ghost" href="about/">About Me</a>
+            </div>
+        </div>
+    </section>
+</div>
 
-<p>Footnotes[^1] have a label[^@#$%] and the footnote's content.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>HTML Document<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-</code></pre></div>
-
-<p><a class="foo bar" href="http://example.com" title="Some title!">link</a></p>
+<script>
+    document.body.setAttribute("data-landing", "");
+</script>
 
     </div>
 </article>
                                 <div class="mx-auto flex flex-wrap h-16 w-full max-w-2xl items-center gap-2 px-4 md:px-0">
     
     
-    <a data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 ml-auto shadow-none" href="/Blog/">
-        Index
+    <a data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 ml-auto shadow-none" href="/about/">
+        About
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-arrow-right ">
             <path d="M5 12l14 0"></path>
             <path d="M13 18l6 -6"></path>
@@ -580,7 +734,13 @@
                     
                     <a class="text-2xl font-medium" href=".">
                         
-                        Hola!
+                        Home
+                        
+                    </a>
+                    
+                    <a class="text-2xl font-medium" href="about/">
+                        
+                        About
                         
                     </a>
                     
@@ -599,6 +759,18 @@
                         <a class="text-2xl font-medium" href="Blog/">
                             
                             Index
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="Blog/1/">
+                            
+                            tes1
+                            
+                        </a>
+                        
+                        <a class="text-2xl font-medium" href="Blog/2/">
+                            
+                            tes2
                             
                         </a>
                         
@@ -711,6 +883,26 @@
      
 
 <script src="js/mobelLg.js"></script>
+
+     
+
+<script src="js/aosInit.js"></script>
+
+     
+
+<script src="js/landing.js"></script>
+
+     
+
+<script src="js/niwPost.js"></script>
+
+     
+
+<script src="js/counter.js"></script>
+
+     
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
      
 

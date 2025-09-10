@@ -1,0 +1,98 @@
+/* Pastikan konten landing tampil */
+#nv-landing { display: block !important; }
+
+/* Sembunyikan header/footer */
+body:has(#nv-landing) header,
+body:has(#nv-landing) footer {
+  display: none !important;
+}
+
+/* Sembunyikan sidebar kiri */
+[data-slot="sidebar-wrapper"]:has(#nv-landing) > [data-slot="sidebar"] {
+  display: none !important;
+}
+
+/* Hanya sisakan kolom yang mengandung landing (TOC kanan ikut hilang) */
+[data-slot="docs"]:has(#nv-landing) > *:not(:has(#nv-landing)) {
+  display: none !important;
+}
+
+/* Di dalam kolom konten, sisakan cabang yang berisi landing
+   (judul “Home”, breadcrumbs, next/prev, dst. tersembunyi) */
+article:has(#nv-landing) > *:not(:has(#nv-landing)) {
+  display: none !important;
+}
+
+/* Hilangkan elemen setelah <article> (page-nav bawah, dialog bottom menu, dll.) */
+article:has(#nv-landing) ~ * {
+  display: none !important;
+}
+
+/* Full-bleed untuk area utama */
+main:has(#nv-landing),
+main:has(#nv-landing) .container-wrapper,
+main:has(#nv-landing) [data-slot="docs"] {
+  margin: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Rasa landing layar penuh */
+body:has(#nv-landing) .nv-hero {
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+}
+
+/* ===== Layout collapse agar tidak “ngantri” 240px sisa sidebar ===== */
+[data-slot="sidebar-wrapper"]:has(#nv-landing) { display: block !important; }
+[data-slot="docs"]:has(#nv-landing) { display: block !important; }
+[style*="--sidebar-width"]:has(#nv-landing) { --sidebar-width: 0 !important; }
+main:has(#nv-landing) [class~="h-(--top-spacing)"] { display: none !important; }
+
+/* (opsional) pastikan konten tetap center via .nv-wrap */
+#nv-landing .nv-wrap { max-width: 1120px; margin-inline: auto; padding-inline: 1rem; }
+
+/* ===== Fallback tanpa :has() (aktif saat <body data-landing>) ===== */
+body[data-landing] header,
+body[data-landing] footer,
+body[data-landing] [data-slot="sidebar-wrapper"] > [data-slot="sidebar"] {
+  display: none !important;
+}
+body[data-landing] [style*="--sidebar-width"] { --sidebar-width: 0 !important; }
+
+/* ===== WIDEN LANDING TO MATCH HEADER GUTTERS ===== */
+
+/* 1) buang batas baca (typography) & article supaya bisa full width */
+main:has(#nv-landing) article,
+main:has(#nv-landing) .typography {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+/* 2) samakan gutter dengan header (.container-wrapper punya px-6 ≈ 24px) */
+main:has(#nv-landing) .container-wrapper {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  max-width: none !important;
+}
+
+/* 3) jangan batasi .nv-wrap lagi (biar ngikut container-wrapper di atas) */
+#nv-landing .nv-wrap {
+  max-width: none !important;
+  width: 100% !important;
+  padding-inline: 0 !important;
+  margin-inline: 0 !important;  /* no center; start persis dari gutter kiri */
+}
+
+/* (opsional) kalau mau benar2 edge-to-edge (tanpa gutter), 
+   tambahkan class `wide-edge` di <div id="nv-landing" class="wide-edge"> */
+#nv-landing.wide-edge .nv-wrap {
+  padding-inline: 0 !important;
+}
+main:has(#nv-landing) .container-wrapper:has(#nv-landing.wide-edge) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

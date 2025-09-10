@@ -2,7 +2,7 @@
   const NEW_TEXT = "Mau cari apa?";
 
   function updateHeaderSearchTrigger(root = document) {
-    // tombol search bawaan shadcn punya selector ini
+    // tombol search bawaan shadcn
     const triggers = [
       ...root.querySelectorAll('[data-slot="dialog-trigger"]'),
       ...root.querySelectorAll('button[onclick*="onSearchBarClick"]'),
