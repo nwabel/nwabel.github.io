@@ -1,0 +1,8 @@
+/* docs/css/breadcrumbs.css */
+.nw-breadcrumbs{margin:.5rem 0 .75rem;color:var(--muted-foreground)}
+.nw-bc-list{display:flex;flex-wrap:wrap;gap:.25rem .5rem;list-style:none;margin:0;padding:0}
+.nw-bc-item{display:inline-flex;align-items:center}
+.nw-bc-item+.nw-bc-item::before{content:"/";opacity:.5;margin:0 .5rem 0 .25rem}
+.nw-bc-link{color:inherit;text-decoration:none}
+.nw-bc-link:hover{text-decoration:underline}
+.nw-bc-current span{color:var(--foreground);font-weight:500}
