@@ -1,41 +1,61 @@
-site_name: nwabel
-site_url: https://nwabel.github.io
+# mkdocs.yml
+site_name: "nwabel"
+site_url: https://nwabel.github.io/
+repo_url: https://github.com/nwabel/nwabel.github.io
+
 theme:
-  name: terminal
-  font:
-    text: Aptos
-  logo: assets/images/logoku.png
-  favicon: assets/images/logoku.png
-  features:
-    - search.highlight
-    - navigation.tabs
-    - navigation.expand
-    - navigation.tracking
-    - navigation.top
-    - navigation.sections
-    - toc.follow 
-    - toc.autohide             
-    
-  palette:
-    #DARK MODE
-    - scheme: slate
-      toggle:
-        icon: material/weather-sunny
-        name: Dark Mode
-      primary: black
-      accent: red
-    #LIGHT MODE
-    - scheme: default
-      toggle:
-        icon: material/weather-night
-        name: Light Mode
-      primary: black
-      accent: red
+  name: shadcn
+  show_title: true # show the title in the top bar
+  show_stargazers: true # show the stargazers in the top bar  
+  pygments_style: # default styles 
+        light: shadcn-light
+        dark: github-dark
+  icon: heroicons:bug-ant    # biarkan icon valid (wajib format iconify)
+  favicon: assets/logoku.svg
+  topbar_sections: true # NEW!
+  katex_options: # optional
+    macros: # example of macros
+      "\\RR": "\\mathbb{R}" 
+      "\\dx": "\\mathrm{d}x"
+  show_datetime: true 
+  
+nav:
+  - Home: index.md
+  - About: about.md
+  - Blog:
+      - Index: Blog/index.md
+      - tes1: Blog/1.md
+      - tes2: Blog/2.md
+  - Lab:
+      - Index: Lab/index.md
+      - CVE 2015 3306: Lab/CVE-2015-3306.md
+      - Cryptanalysis: Lab/Cryptanalysis.md
+  - Materi:
+      - Index: Materi/index.md
+      - Kriptografi Intro: Materi/Kriptografi___Intro.md
+      - "Simetris dan Asimetris": "Materi/Kriptografi___Enkripsi Simetris dan Asimetris.md"
+      - asd:
+          - Materi/asd/index.md
+
+markdown_extensions:
+  - meta
+  - attr_list
+  - codehilite
+  - admonition
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.blocks.details
+  - pymdownx.blocks.tab
+  - pymdownx.progressbar
+  - pymdownx.tabbed
+  - codehilite
+  - shadcn.extensions.codexec
+  - shadcn.extensions.echarts.alpha
+  - fenced_code
 
 plugins:
   - search
-  - awesome-pages
-  - roamlinks
+  - excalidraw
   - glightbox:
       touchNavigation: true
       loop: false
@@ -54,32 +74,20 @@ plugins:
       shadow: true
       manual: false
 
-markdown_extensions:
-  - admonition
-  - toc:
-      permalink: true
-  - pymdownx.superfences
-  - pymdownx.highlight
-
 extra_css:
-  - stylesheets/extra.css
+  - css/fixes.css
+  - css/breadcrumbs.css
+  - css/home.css
+  - css/landing.css
+  - https://unpkg.com/aos@2.3.4/dist/aos.css
 
-extra:
-  social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/nwabel
-    - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/nabilsyawali/
-    - icon: fontawesome/solid/paper-plane
-      link: mailto:<nabilsywl@gmail.com>
-
-    
-  consent:
-    title: s
-    description: >- 
-
-
-      We use cookies to recognize your repeated visits and preferences, as well
-      as to measure the effectiveness of our documentation and whether users
-      find what they're searching for. With your consent, you're helping us to
-      make our documentation better.
+extra_javascript:
+  - js/fixes.js
+  - js/breadcrumbs.js
+  - js/loGoeEnd.js
+  - js/mobelLg.js
+  - js/aosInit.js
+  - js/landing.js
+  - js/niwPost.js
+  - js/counter.js
+  - https://unpkg.com/aos@2.3.4/dist/aos.js
