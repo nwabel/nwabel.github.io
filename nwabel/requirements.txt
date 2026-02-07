@@ -1,6 +1,6 @@
-mkdocs
-mkdocs-material
-mkdocs-shadcn
+mkdocs>=1.5.0
+mkdocs-material>=9.4.0
+mkdocs-shadcn>=0.4.0
 mkdocs-awesome-pages-plugin
 mkdocs-roamlinks-plugin
 mkdocs-glightbox
