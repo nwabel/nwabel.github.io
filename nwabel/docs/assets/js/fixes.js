@@ -166,3 +166,27 @@
     start();
   }
 })();
+
+// --- Reading Progress Bar Logic ---
+window.addEventListener('scroll', () => {
+  const progressBar = document.querySelector('.progress-bar');
+  if (progressBar) {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + "%";
+  }
+});
+
+// Munculin container progress bar otomatis di paling atas body
+document.addEventListener('DOMContentLoaded', () => {
+  const progressContainer = document.createElement('div');
+  progressContainer.className = 'progress-container';
+  
+  const progressBar = document.createElement('div');
+  progressBar.className = 'progress-bar';
+  progressBar.id = 'myBar';
+  
+  progressContainer.appendChild(progressBar);
+  document.body.prepend(progressContainer);
+});
