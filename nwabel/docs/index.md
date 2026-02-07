@@ -1,124 +1,157 @@
-# Welcome to MkDocs
----
-date:
-  created: 2023-12-31
----
+<div id="nv-landing">
+    <title>somos libres</title>
+    <!--hero-->
+    <section class="nv-hero" data-aos="fade-up">
+        <div class="nv-wrap">
+            <div class="nv-hero-inner">
+                <img class="nv-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&u=46e450415c1283b44b188c748c3051b3b5db0d48&v=4" alt="Nabil" />
+                <div class="nv-hero-text">
+                    <p class="nv-overline">Hi, I’m Nabil — Developer • SecOps • Forensics</p>
+                    <h1 class="nv-title">
+                        I build delightful docs & tools, and break things (in labs) to learn.
+                    </h1>
+                    <p class="nv-subtitle">
+                        Full-stack tinkerer, SOC jr., and digital-forensics enthusiast. I ship documentation sites, training labs, and tiny utilities — then write about them.
+                    </p>
+                    <div class="nv-cta">
+                        <a class="nv-btn nv-btn-primary" href="Blog/">Blog</a>
+                        <a class="nv-btn nv-btn-ghost" href="Lab/">Lab</a>
+                        <a class="nv-btn nv-btn-ghost" href="Materi/">Materi</a>
+                    </div>
+                    <div class="nv-social">
+                        <a href="mailto:you@example.com" aria-label="Email">Email</a>
+                        <span>·</span>
+                        <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+                        <span>·</span>
+                        <a href="https://x.com/your-handle" target="_blank" rel="noopener">X</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--card-->
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="nv-wrap">
+            <div class="nv-sec-head">
+                <h2 class="nv-sec-title">Featured Projects</h2>
+                <a class="nv-link" href="lab/">See all →</a>
+            </div>
+            <div class="nv-grid">
+                <!--card 1-->
+                <article class="nv-card">
+                    <img class="nv-card-img" src="https://avatars.githubusercontent.com/u/88957934?s=400&u=46e450415c1283b44b188c748c3051b3b5db0d48&v=4" alt="SafeApp" />
+                    <div class="nv-card-body">
+                        <h3 class="nv-card-title">SafeApp</h3>
+                        <p class="nv-card-desc">Disaster management app (Flutter + Firebase). Reports, live info, mitigation, and SOS.</p>
+                        <div class="nv-tags"><span>Flutter</span><span>Firebase</span><span>UI/UX</span></div>
+                        <div class="nv-card-cta">
+                            <a href="lab/safeapp/">Details</a>
+                            <a href="https://github.com/nwabel" target="_blank" rel="noopener">Repo</a>
+                        </div>
+                    </div>
+                </article>
+                <!--card 2-->
+                <article class="nv-card">
+                    <img class="nv-card-img" src="https://avatars.githubusercontent.com/u/88957934?s=400&u=46e450415c1283b44b188c748c3051b3b5db0d48&v=4" alt="CodeFun" />
+                    <div class="nv-card-body">
+                        <h3 class="nv-card-title">CodeFun</h3>
+                        <p class="nv-card-desc">Bootcamp & event platform for students (Laravel + React + Tailwind).</p>
+                        <div class="nv-tags"><span>Laravel</span><span>React</span><span>Tailwind</span></div>
+                        <div class="nv-card-cta">
+                            <a href="lab/codefun/">Details</a>
+                            <a href="https://github.com/nwabel" target="_blank" rel="noopener">Repo</a>
+                        </div>
+                    </div>
+                </article>
+                <!--card 3-->
+                <article class="nv-card">
+                    <img class="nv-card-img" src="https://avatars.githubusercontent.com/u/88957934?s=400&u=46e450415c1283b44b188c748c3051b3b5db0d48&v=4" alt="DFIR Labs" />
+                    <div class="nv-card-body">
+                        <h3 class="nv-card-title">DFIR Labs</h3>
+                        <p class="nv-card-desc">Malware & forensics labs with Redline, Autopsy, Cuckoo; writeups & IOC hunting.</p>
+                        <div class="nv-tags"><span>DFIR</span><span>Malware</span><span>Writeup</span></div>
+                        <div class="nv-card-cta">
+                            <a href="lab/dfir/">Details</a>
+                            <a href="blog/">Posts</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    <!--raning teks-->
+    <section class="nv-marquee" aria-hidden="true">
+        <div class="nv-marquee-track"><span>Developer</span><span>SecOps</span><span>Forensics</span> <span>Docs</span><span>Training Labs</span><span>Open-Source</span></div>
+        <div class="nv-marquee-track" aria-hidden="true"><span>Developer</span><span>SecOps</span><span>Forensics</span> <span>Docs</span><span>Training Labs</span><span>Open-Source</span></div>
+    </section>
+    <!--stats wkwkwkwkwkwkwk-->
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="nv-wrap nv-stats">
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="4">0</div>
+                <div class="nv-stat-label">Years tinkering</div>
+            </div>
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="18">0</div>
+                <div class="nv-stat-label">Labs/Writeups</div>
+            </div>
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="36">0</div>
+                <div class="nv-stat-label">Blog posts</div>
+            </div>
+            <div class="nv-stat">
+                <div class="nv-stat-num" data-count="12">0</div>
+                <div class="nv-stat-label">OSS repos</div>
+            </div>
+        </div>
+    </section>
+    <!--latest, niwPost.js, fallback manual-->
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="100">
+        <div class="nv-wrap">
+            <div class="nv-sec-head">
+                <h2 class="nv-sec-title">Latest writing</h2>
+                <a class="nv-link" href="Blog/">All posts →</a>
+            </div>
+            <ul id="latest-posts-list" class="nv-latest">
+                <li>
+                    <time>—</time><a href="Blog/">How I build docs with shadcn</a>
+                    <p>Notes from migrating to a minimal, fast, dark-mode friendly docs stack…</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <!--
+    <section class="nv-section" data-aos="fade-up" data-aos-delay="150">
+        <div class="nv-wrap">
+            <h2 class="nv-sec-title">Skills</h2>
+            <ul class="nv-skills">
+                <li>AWS Basics</li>
+                <li>Docker</li>
+                <li>Python</li>
+                <li>JS/TS</li>
+                <li>React</li>
+                <li>Flutter</li>
+                <li>Tailwind</li>
+                <li>Linux</li>
+                <li>DFIR</li>
+                <li>SOC</li>
+            </ul>
+        </div>
+    </section>
+    -->
+    <!--kontak bawah-->
+    <section class="nv-section" data-aos="zoom-in" data-aos-delay="200">
+        <div class="nv-wrap nv-contact">
+            <h2 class="nv-sec-title">Let’s work together</h2>
+            <p>Open for collaboration, research, and freelance work.</p>
+            <div class="nv-cta">
+                <a class="nv-btn nv-btn-primary" href="mailto:you@example.com">Say Hello</a>
+                <a class="nv-btn nv-btn-ghost" href="about/">About Me</a>
+            </div>
+        </div>
+    </section>
+</div>
 
-!!! note
-
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
-
-    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
-
-    massa, nec semper lorem quam in massa.
-
-!!! note "Phasellus posuere in sem ut cursus" /n
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
-
-    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
-
-    massa, nec semper lorem quam in massa.
-
-Then in your `mkdocs.yml`:
-
-!!! info "Information:"
-    Something **new** is coming to `mkdocs-shadcn`
-
-!!! note "Note:"
-    We notice that `x=2`
-
-!!! warning "Warning:"
-    There is a *risk* doing `x/0`
-
-!!! danger "Danger:"
-    Don't look at `node_modules` **please**!
-
-
-/// echarts
-{ 
-  /* echarts js config */
-}
-///
-
-### FAQ
-
-/// details | Is this theme an official shadcn port?
-No. But you can still [star it +heroicons:star+](hhttps://github.com/asiffer/mkdocs-shadcn)
-///
-
-
-/// details | Why a new mkdocs theme while `material` exists?
-First the [shadcn/ui](https://ui.shadcn.com/) theme is just incredible. 
-
-Actually, nothing can compete with the [material](https://squidfunk.github.io/mkdocs-material/) theme which is very mature and feature rich. 
-
-In addition to sticking to the shadcn theme, the idea is to remain a simple theme, providing some special built-in features that we may not find in other themes.
-///
-
-
-/// details | Is it open to contributions?
-Yes, yes and yes! On its own, the theme tries to provide more and more relevant extensions/plugins. But anyone can define what could be relevant! 
-
-[Open an issue](https://github.com/asiffer/mkdocs-shadcn/issues) and let us discuss about it +heroicons:face-smile+
-///
-
-/// details | Is `mkdocs-rube-goldberg-plugin-extension` supported?
-In general no.
-///
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-* `mkdocs -h` - Print help message and exit.
-
-![Alt](assets/images/logoku.png){ data-glightbox="title: Foto Keren" }
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+<script>
+    document.body.setAttribute("data-landing", "");
+</script>

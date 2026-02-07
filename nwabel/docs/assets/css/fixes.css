@@ -1,0 +1,99 @@
+button[title="Toggle layout"] { display: inline-flex !important; }
+
+header.bg-background {
+  border-bottom: 1px solid var(--border);
+}
+
+header a[href*="github.com"] { display: none !important; }
+header [data-slot="separator"] + a[href*="github.com"],
+header a[href*="github.com"] + [data-slot="separator"] {
+  display: none !important;
+}
+
+header #menu-button svg { display: none !important; visibility: hidden !important; }
+
+header #menu-button .w-4,
+header #menu-button .size-4,
+header #menu-button .w-\[16px\],
+header #menu-button .w-3,
+header #menu-button .size-3 {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  header button[title="Toggle layout"] {
+    display: none !important;
+  }
+
+  header button[title="Toggle layout"] + [data-slot="separator"],
+  header [data-slot="separator"] + button[title="Toggle layout"] {
+    display: none !important;
+  }
+}
+
+/*mobel search*/
+@media (max-width: 768px) {
+  header button[onclick="onSearchBarClick(event)"],
+  header [data-slot="dialog-trigger"] {
+    display: inline-flex !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    margin-left: 0.5rem;
+    min-width: 0;
+  }
+
+  header .md\:flex,
+  header .w-full {
+    display: flex !important;
+  }
+}
+
+footer .text-muted-foreground::after {
+  content:"|\00a0\00a0modified by nwabel";
+  color: var(--muted-foreground);
+  margin-left: 0.25rem;
+  white-space: nowrap;
+}
+
+footer { border-top: 1px solid var(--border); }
+
+body {
+  --footer-height: var(--header-height) !important;
+}
+
+/*backtotop*/
+#back-to-top {
+  position: fixed;
+  top: var(--btt-top, 4rem);
+  left: 50%;
+  transform: translateX(-50%) scale(.96);
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1;
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  cursor: pointer;
+  z-index: 70;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .16s ease, transform .16s ease,
+              background-color .16s ease, color .16s ease, border-color .16s ease;
+}
+#back-to-top.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+#back-to-top:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--accent);
+}
+#back-to-top svg { width: 16px; height: 16px; }

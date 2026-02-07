@@ -73,21 +73,20 @@ plugins:
       background: white
       shadow: true
       manual: false
-
-extra_css:
-  - css/fixes.css
-  - css/breadcrumbs.css
-  - css/home.css
-  - css/landing.css
-  - https://unpkg.com/aos@2.3.4/dist/aos.css
+  
+  extra_css:
+  - assets/css/home.css
+  - assets/css/landing.css
+  - assets/css/fixes.css
+  - assets/css/breadcrumbs.css
+  - stylesheets/extra.css
 
 extra_javascript:
-  - js/fixes.js
-  - js/breadcrumbs.js
-  - js/loGoeEnd.js
-  - js/mobelLg.js
-  - js/aosInit.js
-  - js/landing.js
-  - js/niwPost.js
-  - js/counter.js
-  - https://unpkg.com/aos@2.3.4/dist/aos.js
+  - assets/js/fixes.js
+  - assets/js/breadcrumbs.js
+  - assets/js/loGoeEnd.js
+  - assets/js/mobelLg.js
+  - assets/js/aosInit.js
+  - assets/js/landing.js
+  - assets/js/niwPost.js
+  - assets/js/counter.js
