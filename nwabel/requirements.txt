@@ -1,0 +1,6 @@
+mkdocs-material
+mkdocs-terminal-themes
+mkdocs-awesome-pages-plugin
+mkdocs-roamlinks-plugin
+mkdocs-glightbox
+pymdown-extensions

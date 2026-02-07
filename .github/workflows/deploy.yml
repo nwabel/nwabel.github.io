@@ -1,0 +1,25 @@
+name: Deploy-Nwabel-Otomatis
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r nwabel/requirements.txt
+
+      - name: Deploy to GitHub Pages
+        run: |
+          cd nwabel
+          mkdocs gh-deploy --force
