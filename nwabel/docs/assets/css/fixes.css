@@ -72,45 +72,53 @@ body {
   color: var(--foreground) !important;
 }
 
-/* Update Back to Top ke Kanan Bawah */
 #back-to-top {
   position: fixed;
-  bottom: 2rem; /* Jarak dari bawah */
-  right: 2rem;  /* Jarak dari kanan */
-  left: auto;   /* Matikan settingan left: 50% yang lama */
-  transform: scale(.96); /* Hapus translateX(-50%) */
+  /* Posisi Baru */
+  bottom: 2rem; 
+  right: 2rem;
   
+  /* Balikin Bentuk Asli Lu */
   display: inline-flex;
   align-items: center;
   gap: .4rem;
-  padding: .6rem 1rem; /* Bikin agak gede dikit biar enak diklik */
-  border-radius: 12px; /* Ganti bulat sempurna ke rounded kotak biar senada shadcn */
+  padding: .35rem .75rem;
+  border-radius: 999px; /* Bulat sempurna ala lu */
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--foreground);
   font-size: .8rem;
   font-weight: 500;
   line-height: 1;
-  box-shadow: 0 4px 16px rgba(0,0,0,.3); /* Pertegas shadow buat background item baru */
+  box-shadow: 0 4px 16px rgba(0,0,0,.18);
   cursor: pointer;
   z-index: 70;
   opacity: 0;
   pointer-events: none;
-  transition: all .2s ease;
+  
+  /* Transisi Asli Lu */
+  transition: opacity .16s ease, transform .16s ease,
+              background-color .16s ease, color .16s ease, border-color .16s ease;
+  
+  /* Transform tanpa centering */
+  transform: scale(.96);
 }
 
 #back-to-top.is-visible {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1); /* Balik ke scale normal pas muncul */
   pointer-events: auto;
 }
 
 #back-to-top:hover {
   background: var(--accent);
   color: var(--accent-foreground);
-  transform: translateY(-5px); /* Efek melayang pas di-hover */
+  border-color: var(--accent);
 }
 
+#back-to-top svg { width: 16px; height: 16px; }
+
+/*reading progress*/
 .progress-container {
   width: 100%;
   height: 5px !important; 
