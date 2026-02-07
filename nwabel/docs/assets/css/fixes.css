@@ -131,7 +131,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background: #3b82f6 !important; 
+  background: #fd34e5 !important; 
   width: 0%;
   box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Efek neon dikit biar hacker banget */
 }

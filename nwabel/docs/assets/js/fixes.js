@@ -171,17 +171,25 @@
 (function() {
     function getHeaderHeight() {
         const h = document.querySelector('header');
-        return h ? h.getBoundingClientRect().height : 64; // Default 64px kalau header ga ketemu
+        return h ? h.getBoundingClientRect().height : 64;
     }
 
     function createBar() {
+        // --- LOGIC ANTI-LANDING PAGE ---
+        // Cek apakah ini halaman utama (biasanya URL-nya "/" atau ga ada ".html")
+        const isLandingPage = window.location.pathname === '/' || 
+                             window.location.pathname.endsWith('index.html') ||
+                             document.querySelector('section[data-md-component="hero"]'); 
+
+        if (isLandingPage) return; // Kalau di landing page, berhenti di sini!
+        // -------------------------------
+
         try {
             let container = document.getElementById("progressContainer");
             if (!container) {
                 container = document.createElement('div');
                 container.id = "progressContainer";
                 container.className = "progress-container";
-                // Pasang tepat di bawah tinggi header
                 container.style.top = getHeaderHeight() + "px";
                 
                 container.innerHTML = '<div id="myBar" class="progress-bar"></div>';
@@ -190,20 +198,17 @@
         } catch (e) { console.error("Bar creation failed", e); }
     }
 
+    // ... sisa kodingan window.scroll dsb tetep sama ...
     window.addEventListener('scroll', () => {
         const bar = document.getElementById("myBar");
         if (bar) {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            bar.style.width = scrolled + "%";
+            if (height > 100) { // Cek biar ga muncul di halaman yang kependekan
+                const scrolled = (winScroll / height) * 100;
+                bar.style.width = scrolled + "%";
+            }
         }
-    });
-
-    // Update posisi bar kalau window di-resize (penting buat responsif)
-    window.addEventListener('resize', () => {
-        const container = document.getElementById("progressContainer");
-        if (container) container.style.top = getHeaderHeight() + "px";
     });
 
     if (document.readyState === 'loading') {
