@@ -21,15 +21,15 @@ theme:
   
 nav:
   - Home: index.md
-  - blog:
+  - Blog:
       - Index: blog/index.md
       - tes1: blog/1.md
       - tes2: blog/2.md
-  - lab:
+  - Lab:
       - Index: labs/index.md
       - CVE 2015 3306: labs/CVE-2015-3306.md
       - Cryptanalysis: labs/Cryptanalysis.md
-  - materi:
+  - Materi:
       - Index: materi/index.md
       - Kriptografi Intro: materi/Kriptografi___Intro.md
       - Simetris dan Asimetris: "materi/Kriptografi___Enkripsi Simetris dan Asimetris.md"
