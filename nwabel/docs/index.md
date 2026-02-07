@@ -6,24 +6,24 @@
             <div class="nv-hero-inner">
                 <img class="nv-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&u=46e450415c1283b44b188c748c3051b3b5db0d48&v=4" alt="Nabil" />
                 <div class="nv-hero-text">
-                    <p class="nv-overline">Hi, I’m Nabil — Developer • SecOps • Forensics</p>
+                    <p class="nv-overline">Guwej, I’m Nabil — Developer (kopas ai) • SecOps (kali) • Forensics (niatnya)</p>
                     <h1 class="nv-title">
-                        I build delightful docs & tools, and break things (in labs) to learn.
+                        I build delightful docs & tools (howak Howak), and break things (in labs) to learn.
                     </h1>
                     <p class="nv-subtitle">
-                        Full-stack tinkerer, SOC jr., and digital-forensics enthusiast. I ship documentation sites, training labs, and tiny utilities — then write about them.
+                        Full-stack tinkerer, SOC Eng Jr (Beneran). I ship documentation sites, training labs, and tiny utilities — then write about them.
                     </p>
                     <div class="nv-cta">
-                        <a class="nv-btn nv-btn-primary" href="Blog/">Blog</a>
-                        <a class="nv-btn nv-btn-ghost" href="Lab/">Lab</a>
-                        <a class="nv-btn nv-btn-ghost" href="Materi/">Materi</a>
+                        <a class="nv-btn nv-btn-primary" href="blog/">Blog</a>
+                        <a class="nv-btn nv-btn-ghost" href="labs/">Lab</a>
+                        <a class="nv-btn nv-btn-ghost" href="materi/">Materi</a>
                     </div>
                     <div class="nv-social">
-                        <a href="mailto:you@example.com" aria-label="Email">Email</a>
+                        <a href="#" aria-label="Email">Email</a>
                         <span>·</span>
-                        <a href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">LinkedIn</a>
+                        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
                         <span>·</span>
-                        <a href="https://x.com/your-handle" target="_blank" rel="noopener">X</a>
+                        <a href="#" target="_blank" rel="noopener">X</a>
                     </div>
                 </div>
             </div>
