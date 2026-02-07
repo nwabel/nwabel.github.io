@@ -1,12 +1,11 @@
+/*
 :root {
-  /* Ganti background utama jadi hitam yang lebih lembut */
   --background: #921e1e; 
   --foreground: #ffffff;
-  
-  /* Kalau lu mau nyesuain kartu/card agar tetap kelihatan */
   --card: #1a1a1a;
   --border: #262626;
 }
+*/
 
 button[title="Toggle layout"] { display: inline-flex !important; }
 
@@ -73,39 +72,57 @@ body {
   color: var(--foreground) !important;
 }
 
-/*backtotop*/
+/* Update Back to Top ke Kanan Bawah */
 #back-to-top {
   position: fixed;
-  top: var(--btt-top, 4rem);
-  left: 50%;
-  transform: translateX(-50%) scale(.96);
+  bottom: 2rem; /* Jarak dari bawah */
+  right: 2rem;  /* Jarak dari kanan */
+  left: auto;   /* Matikan settingan left: 50% yang lama */
+  transform: scale(.96); /* Hapus translateX(-50%) */
+  
   display: inline-flex;
   align-items: center;
   gap: .4rem;
-  padding: .35rem .75rem;
-  border-radius: 999px;
+  padding: .6rem 1rem; /* Bikin agak gede dikit biar enak diklik */
+  border-radius: 12px; /* Ganti bulat sempurna ke rounded kotak biar senada shadcn */
   border: 1px solid var(--border);
   background: var(--card);
   color: var(--foreground);
   font-size: .8rem;
   font-weight: 500;
   line-height: 1;
-  box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  box-shadow: 0 4px 16px rgba(0,0,0,.3); /* Pertegas shadow buat background item baru */
   cursor: pointer;
   z-index: 70;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .16s ease, transform .16s ease,
-              background-color .16s ease, color .16s ease, border-color .16s ease;
+  transition: all .2s ease;
 }
+
 #back-to-top.is-visible {
   opacity: 1;
-  transform: translateX(-50%) scale(1);
+  transform: scale(1);
   pointer-events: auto;
 }
+
 #back-to-top:hover {
   background: var(--accent);
   color: var(--accent-foreground);
-  border-color: var(--accent);
+  transform: translateY(-5px); /* Efek melayang pas di-hover */
 }
-#back-to-top svg { width: 16px; height: 16px; }
+
+.progress-container {
+  width: 100%;
+  height: 5px !important; 
+  background: rgba(255, 255, 255, 0.1) !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 2147483647 !important; /* Nilai maksimal z-index */
+}
+
+.progress-bar {
+  height: 100%;
+  background: #3b82f6 !important; 
+  width: 0%;
+}
