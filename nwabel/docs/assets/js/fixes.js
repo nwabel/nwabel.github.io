@@ -166,31 +166,3 @@
     start();
   }
 })();
-
-(function() {
-    function createBar() {
-        try {
-            if (!document.getElementById("myBar")) {
-                const container = document.createElement('div');
-                container.style = "width:100%; height:4px; position:fixed; top:0; left:0; z-index:2147483647;";
-                container.innerHTML = '<div id="myBar" style="width:0%; height:100%; background:#3b82f6; transition:width 0.1s;"></div>';
-                document.body.prepend(container);
-            }
-        } catch (e) { console.error("Bar creation failed", e); }
-    }
-
-    window.addEventListener('scroll', () => {
-        const bar = document.getElementById("myBar");
-        if (bar) {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            bar.style.width = ((winScroll / height) * 100) + "%";
-        }
-    });
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createBar);
-    } else {
-        createBar();
-    }
-})();
