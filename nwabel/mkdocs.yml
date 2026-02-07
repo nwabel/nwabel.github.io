@@ -21,21 +21,20 @@ theme:
   
 nav:
   - Home: index.md
-  - About: about.md
   - Blog:
-      - Index: Blog/index.md
-      - tes1: Blog/1.md
-      - tes2: Blog/2.md
+      - Index: blog/index.md
+      - tes1: blog/1.md
+      - tes2: blog/2.md
   - Lab:
-      - Index: Lab/index.md
-      - CVE 2015 3306: Lab/CVE-2015-3306.md
-      - Cryptanalysis: Lab/Cryptanalysis.md
+      - Index: labs/index.md
+      - CVE 2015 3306: labs/CVE-2015-3306.md
+      - Cryptanalysis: labs/Cryptanalysis.md
   - Materi:
-      - Index: Materi/index.md
-      - Kriptografi Intro: Materi/Kriptografi___Intro.md
-      - "Simetris dan Asimetris": "Materi/Kriptografi___Enkripsi Simetris dan Asimetris.md"
+      - Index: materi/index.md
+      - Kriptografi Intro: materi/Kriptografi___Intro.md
+      - Simetris dan Asimetris: "materi/Kriptografi___Enkripsi Simetris dan Asimetris.md"
       - asd:
-          - Materi/asd/index.md
+          - materi/asd/index.md
 
 markdown_extensions:
   - meta
@@ -75,6 +74,7 @@ plugins:
       manual: false
   
 extra_css:
+  - https://unpkg.com/aos@2.3.4/dist/aos.css
   - assets/css/home.css
   - assets/css/landing.css
   - assets/css/fixes.css
@@ -82,6 +82,7 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
+  - https://unpkg.com/aos@2.3.4/dist/aos.js
   - assets/js/fixes.js
   - assets/js/breadcrumbs.js
   - assets/js/loGoeEnd.js
