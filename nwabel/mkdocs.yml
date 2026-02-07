@@ -82,8 +82,8 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
-  - https://unpkg.com/aos@2.3.4/dist/aos.js
   - assets/js/fixes.js
+  - https://unpkg.com/aos@2.3.4/dist/aos.js
   - assets/js/breadcrumbs.js
   - assets/js/loGoeEnd.js
   - assets/js/mobelLg.js
