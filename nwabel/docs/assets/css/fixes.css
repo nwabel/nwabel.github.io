@@ -98,20 +98,18 @@ body {
 }
 #back-to-top svg { width: 16px; height: 16px; }
 
-/* --- Reading Progress Bar (Step 2) --- */
 .progress-container {
   width: 100%;
-  height: 3px; /* Tipis biar estetik */
-  background: transparent;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999; /* Pastiin di atas header lu */
+  height: 5px !important; 
+  background: rgba(255, 255, 255, 0.1) !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 2147483647 !important; /* Nilai maksimal z-index */
 }
 
 .progress-bar {
   height: 100%;
-  background: hsl(var(--primary)); /* Pake variabel warna utama shadcn lu */
+  background: #3b82f6 !important; 
   width: 0%;
-  transition: width 0.1s ease-out;
 }
