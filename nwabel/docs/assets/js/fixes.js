@@ -167,14 +167,25 @@
   }
 })();
 
+//reading progress
 (function() {
+    function getHeaderHeight() {
+        const h = document.querySelector('header');
+        return h ? h.getBoundingClientRect().height : 64; // Default 64px kalau header ga ketemu
+    }
+
     function createBar() {
         try {
-            if (!document.getElementById("myBar")) {
-                const container = document.createElement('div');
-                container.style = "width:100%; height:4px; position:fixed; top:0; left:0; z-index:2147483647;";
-                container.innerHTML = '<div id="myBar" style="width:0%; height:100%; background:#3b82f6; transition:width 0.1s;"></div>';
-                document.body.prepend(container);
+            let container = document.getElementById("progressContainer");
+            if (!container) {
+                container = document.createElement('div');
+                container.id = "progressContainer";
+                container.className = "progress-container";
+                // Pasang tepat di bawah tinggi header
+                container.style.top = getHeaderHeight() + "px";
+                
+                container.innerHTML = '<div id="myBar" class="progress-bar"></div>';
+                document.body.appendChild(container);
             }
         } catch (e) { console.error("Bar creation failed", e); }
     }
@@ -184,8 +195,15 @@
         if (bar) {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            bar.style.width = ((winScroll / height) * 100) + "%";
+            const scrolled = (winScroll / height) * 100;
+            bar.style.width = scrolled + "%";
         }
+    });
+
+    // Update posisi bar kalau window di-resize (penting buat responsif)
+    window.addEventListener('resize', () => {
+        const container = document.getElementById("progressContainer");
+        if (container) container.style.top = getHeaderHeight() + "px";
     });
 
     if (document.readyState === 'loading') {

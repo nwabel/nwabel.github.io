@@ -118,19 +118,20 @@ body {
 
 #back-to-top svg { width: 16px; height: 16px; }
 
-/*reading progress*/
+/* Reading Progress di Bawah Navbar */
 .progress-container {
   width: 100%;
-  height: 5px !important; 
-  background: rgba(255, 255, 255, 0.1) !important;
+  height: 2px !important; /* Tipis aja biar elegan */
+  background: rgba(255, 255, 255, 0.05) !important; /* Background bar super tipis */
   position: fixed !important;
-  top: 0 !important;
+  /* Kita kosongin top-nya, biar diatur via JS sesuai tinggi header */
   left: 0 !important;
-  z-index: 2147483647 !important; /* Nilai maksimal z-index */
+  z-index: 40 !important; /* Di bawah dropdown (z-50) tapi di atas konten */
 }
 
 .progress-bar {
   height: 100%;
   background: #3b82f6 !important; 
   width: 0%;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Efek neon dikit biar hacker banget */
 }
