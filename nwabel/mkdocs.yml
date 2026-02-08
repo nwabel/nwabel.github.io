@@ -11,7 +11,7 @@ theme:
         light: shadcn-light
         dark: github-dark
   icon: heroicons:bug-ant    # biarkan icon valid (wajib format iconify)
-  favicon: assets/logoku.svg
+  favicon: assets/images/logo/.svg
   topbar_sections: true # NEW!
   katex_options: # optional
     macros: # example of macros

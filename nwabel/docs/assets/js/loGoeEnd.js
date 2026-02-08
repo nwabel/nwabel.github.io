@@ -1,7 +1,7 @@
 (function () {
   console.log("[logo-swap] loaded");
 
-  const LOGO_PATH = "assets/logoku.svg";
+  const LOGO_PATH = "assets/images/logo/.svg";
 
   function basePath() {
     const guess = (window.BASE_URL || window.base_url || "/");

@@ -19,4 +19,4 @@ author: asiffer
 
 asdasd
 sdasd
-![alt](../assets/logoku.svg)
+![alt](../assets/images/logo/.svg)

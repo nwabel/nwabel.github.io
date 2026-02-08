@@ -7,26 +7,26 @@
   └──╼ $awk '{for(i=1;i<=NF;i++) printf "%c",$i; print ""}' nums.txt
   StarryNightVanGogh
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756082330586_0.png){:height 400, :width 780}
+  ![image.png](../assets/images/image_1756082330586_0.png){:height 400, :width 780}
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo -n 'TW9uYUxpc2FEYVZpbmNp' | base64 -d
   MonaLisaDaVinci
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756082583215_0.png)
+  ![image.png](../assets/images/image_1756082583215_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo '%54%68%65%53%63%72%65%61%6D%4D%75%6E%63%68' | sed 's/%//g' | xxd -r -p
   TheScreamMunch
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756082713067_0.png)
+  ![image.png](../assets/images/image_1756082713067_0.png)
 - id:: 68abb264-12e2-4df8-a49c-3be621898d84
   #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo '54686542697274684F6656656E7573426F74746963656C6C69' | xxd -r -p
   TheBirthOfVenusBotticelli
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756082832343_0.png)
+  ![image.png](../assets/images/image_1756082832343_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo '01000111 01101001 01110010 01101100 01010111 01101001 01110100 01101000 01000001 01010000 01100101 01100001 01110010 01101100 01000101 01100001 01110010 01110010 01101001 01101110 01100111 01010110 01100101 01110010 01101101 01100101 01100101 01110010' \
@@ -34,25 +34,25 @@
   | xxd -r -p
   GirlWithAPearlEarringVermeer
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756083116798_0.png)
+  ![image.png](../assets/images/image_1756083116798_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo -n 'KRUGKUDFOJZWS43UMVXGGZKPMZGWK3LPOJ4UIYLMNE======' | base32 -d
   ThePersistenceOfMemoryDali
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756083185136_0.png)
+  ![image.png](../assets/images/image_1756083185136_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo '=54=68=65=4E=69=67=68=74=57=61=74=63=68=52=65=6D=62=72=61=6E=64=74' \ | sed 's/=//g' | xxd -r -p
   TheNightWatchRembrandt
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756083263240_0.png)
+  ![image.png](../assets/images/image_1756083263240_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo '&#70;&#105;&#115;&#104;&#101;&#114;&#109;&#101;&#110;&#65;&#116;&#83;&#101;&#97;&#84;&#117;&#114;&#110;&#101;&#114;' \ | grep -oE '[0-9]+' | awk '{printf "%c", $1} END{print ""}'
   FishermenAtSeaTurner
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756083414374_0.png)
+  ![image.png](../assets/images/image_1756083414374_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $cat > msg.uue <<'EOF'
@@ -95,7 +95,7 @@
   1 password hash cracked, 0 left
   
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756084016065_0.png)
+  ![image.png](../assets/images/image_1756084016065_0.png)
 - #+BEGIN_EXAMPLE
   ┌─[y0tn@parrot]─[~/Hackviser/Labs/Cryptanalysis]
   └──╼ $echo '7610bae85f2b530654cc716772f1fe653373e892' > hash.txt
@@ -116,4 +116,4 @@
   1 password hash cracked, 0 left
   
   #+END_EXAMPLE
-  ![image.png](../assets/image_1756084123986_0.png)
+  ![image.png](../assets/images/image_1756084123986_0.png)

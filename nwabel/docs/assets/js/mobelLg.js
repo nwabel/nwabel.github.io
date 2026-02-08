@@ -1,5 +1,5 @@
 (function () {
-  const LOGO_SRC = "assets/logoku.svg";
+  const LOGO_SRC = "assets/images/logo/.svg";
   const SIZE = 22;
   function basePath() {
     const guess = (window.BASE_URL || window.base_url || "/");
