@@ -35,7 +35,8 @@ nav:
       - Simetris dan Asimetris: "wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md"
       - asd:
           - wiki/asd/index.md
-
+static_templates:
+    - 404.html
 markdown_extensions:
   - meta
   - attr_list
