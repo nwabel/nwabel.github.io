@@ -22,4 +22,6 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           cd nwabel
+          mkdocs build
+          cp site/404/index.html site/404.html
           mkdocs gh-deploy --force
