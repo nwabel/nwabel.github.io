@@ -22,17 +22,16 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           cd nwabel
-          mkdocs build
+          #/*mkdocs build
           
           # JURUS ADAPTIF: Cek dulu mana yang ada
-          if [ -d "site/404" ]; then
-            echo "Folder 404 ketemu, mindahin ke root..."
-            cp site/404/index.html site/404.html
-          elif [ -f "site/404.html" ]; then
-            echo "File 404.html udah di root, aman Ler!"
-          else
-            echo "Waduh, 404.html kaga kegenrate. Cek docs/404.md lu!"
-            exit 1
-          fi
-          pip install ghp-import
+          #if [ -d "site/404" ]; then
+          #  echo "Folder 404 ketemu, mindahin ke root..."
+          #  cp site/404/index.html site/404.html
+          #elif [ -f "site/404.html" ]; then
+          #  echo "File 404.html udah di root, aman Ler!"
+          #else
+          #  echo "Waduh, 404.html kaga kegenrate. Cek docs/404.md lu!"
+          #  exit 1
+          #fi
           mkdocs gh-deploy --force
