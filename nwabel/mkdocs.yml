@@ -18,23 +18,23 @@ theme:
       "\\RR": "\\mathbb{R}" 
       "\\dx": "\\mathrm{d}x"
   show_datetime: true 
-  
+
 nav:
   - Home: index.md
   - Blog:
       - Index: blog/index.md
       - tes1: blog/1.md
       - tes2: blog/2.md
-  - Lab:
-      - Index: labs/index.md
-      - CVE 2015 3306: labs/CVE-2015-3306.md
-      - Cryptanalysis: labs/Cryptanalysis.md
-  - Materi:
-      - Index: materi/index.md
-      - Kriptografi Intro: materi/Kriptografi___Intro.md
-      - Simetris dan Asimetris: "materi/Kriptografi___Enkripsi Simetris dan Asimetris.md"
+  - Wretap:
+      - Index: wretap/index.md
+      - CVE 2015 3306: wretap/CVE-2015-3306.md
+      - Cryptanalysis: wretap/Cryptanalysis.md
+  - Wiki:
+      - Index: wiki/index.md
+      - Kriptografi Intro: wiki/Kriptografi___Intro.md
+      - Simetris dan Asimetris: "wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md"
       - asd:
-          - materi/asd/index.md
+          - wiki/asd/index.md
 
 markdown_extensions:
   - meta

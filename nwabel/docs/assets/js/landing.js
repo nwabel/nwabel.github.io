@@ -1,31 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const landing = document.querySelector('#nv-landing');
-  if (!landing) return;
+  const landingContainer = document.querySelector('#nv-landing'); // Cek keberadaan elemen landing
+  if (!landingContainer) return;
 
-  // header & footer
+  // Hapus elemen global agar landing page bener-bener clean
   document.querySelector('header')?.remove();
   document.querySelector('footer')?.remove();
 
-  // sidebar kiri
-  landing.closest('[data-slot="sidebar-wrapper"]')
+  // Hapus sidebar kiri agar layout menjadi full-width
+  landingContainer.closest('[data-slot="sidebar-wrapper"]')
     ?.querySelector('[data-slot="sidebar"]')
     ?.remove();
 
-  // toc kanan
-  const docs = landing.closest('[data-slot="docs"]');
-  if (docs) {
-    [...docs.children].forEach(el => {
-      if (!el.contains(landing)) el.style.display = 'none';
+  // Sembunyikan kolom selain konten (seperti TOC kanan)
+  const docsWrapper = landingContainer.closest('[data-slot="docs"]');
+  if (docsWrapper) {
+    [...docsWrapper.children].forEach(child => {
+      if (!child.contains(landingContainer)) child.style.display = 'none';
     });
   }
 
-  const article = landing.closest('article');
-  if (article) {
-    [...article.children].forEach(el => {
-      if (!el.contains(landing)) el.style.display = 'none';
+  // Bersihkan elemen di dalam artikel (breadcrumb, judul otomatis, nav bawah)
+  const articleWrapper = landingContainer.closest('article');
+  if (articleWrapper) {
+    [...articleWrapper.children].forEach(child => {
+      if (!child.contains(landingContainer)) child.style.display = 'none';
     });
-    // hide page nav bawah, dialog menu, dll.)
-    let sib = article.nextElementSibling;
-    while (sib) { sib.style.display = 'none'; sib = sib.nextElementSibling; }
+
+    // Hilangkan semua elemen setelah artikel (dialog menu, dll.)
+    let sibling = articleWrapper.nextElementSibling;
+    while (sibling) { 
+      sibling.style.display = 'none'; 
+      sibling = sibling.nextElementSibling; 
+    }
   }
 });

@@ -1,219 +1,126 @@
-(function () {
-  const NEW_TEXT = "Mau cari apa?";
+/* --- SEARCH TEXT CUSTOMIZATION --- */
+(() => {
+  const SEARCH_PLACEHOLDER = "Mau cari apa?"; // Teks pengganti
 
-  function updateHeaderSearchTrigger(root = document) {
-    // tombol search bawaan shadcn
+  const updateSearchElements = (root = document) => {
+    // Cari tombol trigger search bawaan Shadcn
     const triggers = [
       ...root.querySelectorAll('[data-slot="dialog-trigger"]'),
       ...root.querySelectorAll('button[onclick*="onSearchBarClick"]'),
     ];
 
     triggers.forEach(btn => {
-      const spans = btn.querySelectorAll("span");
-      spans.forEach(span => {
-        if (/^Search/i.test(span.textContent.trim())) {
-          span.textContent = NEW_TEXT;
-        }
+      // Update label di dalam span
+      btn.querySelectorAll("span").forEach(span => {
+        if (/^Search/i.test(span.textContent.trim())) span.textContent = SEARCH_PLACEHOLDER;
       });
 
+      // Update text node langsung
       if (/^Search/i.test(btn.textContent.trim())) {
-        btn.childNodes.forEach(n => {
-          if (n.nodeType === 3 && /^Search/i.test(n.textContent.trim())) {
-            n.textContent = NEW_TEXT;
+        btn.childNodes.forEach(node => {
+          if (node.nodeType === 3 && /^Search/i.test(node.textContent.trim())) {
+            node.textContent = SEARCH_PLACEHOLDER;
           }
         });
       }
 
-      if (btn.getAttribute("aria-label")?.toLowerCase().startsWith("search")) {
-        btn.setAttribute("aria-label", NEW_TEXT);
-      }
-      if (btn.title?.toLowerCase().startsWith("search")) {
-        btn.title = NEW_TEXT;
-      }
+      // Update atribut accessibility
+      if (btn.getAttribute("aria-label")?.toLowerCase().startsWith("search")) btn.setAttribute("aria-label", SEARCH_PLACEHOLDER);
+      if (btn.title?.toLowerCase().startsWith("search")) btn.title = SEARCH_PLACEHOLDER;
     });
-  }
 
-  function updateDialogPlaceholder(root = document) {
+    // Update placeholder di dalam dialog
     const dialog = root.querySelector("#search-dialog") || root;
     dialog.querySelectorAll('input[data-slot="command-input"], input[type="text"][placeholder]')
-      .forEach(inp => {
-        if (/search/i.test(inp.placeholder)) {
-          inp.setAttribute("placeholder", NEW_TEXT);
-        }
+      .forEach(input => {
+        if (/search/i.test(input.placeholder)) input.setAttribute("placeholder", SEARCH_PLACEHOLDER);
       });
-  }
+  };
 
-  function apply(root = document) {
-    updateHeaderSearchTrigger(root);
-    updateDialogPlaceholder(root);
-  }
-
-  // initial
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => apply(document));
-  } else {
-    apply(document);
-  }
-
+  const initSearchFix = () => updateSearchElements();
+  document.addEventListener("DOMContentLoaded", initSearchFix);
+  
+  // Re-apply saat dialog terbuka
   document.addEventListener("click", (e) => {
-    const t = e.target.closest('[data-slot="dialog-trigger"], button[onclick*="onSearchBarClick"]');
-    if (t) {
-      requestAnimationFrame(() => setTimeout(() => apply(document), 30));
+    if (e.target.closest('[data-slot="dialog-trigger"], button[onclick*="onSearchBarClick"]')) {
+      requestAnimationFrame(() => setTimeout(initSearchFix, 30));
     }
   });
 
-  const mo = new MutationObserver(() => apply(document));
-  mo.observe(document.documentElement, { childList: true, subtree: true });
+  new MutationObserver(() => initSearchFix()).observe(document.documentElement, { childList: true, subtree: true });
 })();
 
-//backtotp
-(function () {
-  const THRESHOLD = 300;
-  const STAY_MS = 600;
-  const ID = 'back-to-top';
-  let lastY = window.scrollY;
-  let showUntil = 0;
-  let ticking = false;
+/* --- BACK TO TOP COMPONENT --- */
+(() => {
+  const SCROLL_THRESHOLD = 300; // Jarak scroll untuk muncul
+  const BTN_ID = 'back-to-top';
+  let isTicking = false;
 
-  const DEBUG = false;
+  const getHeaderHeight = () => {
+    const header = document.querySelector('header');
+    return header ? (header.getBoundingClientRect().height + 8) + 'px' : '4rem';
+  }; // Hitung jarak aman dari navbar
 
-  function log(...args){ if (DEBUG) console.log('[btt]', ...args); }
-
-  function headerHeightPx() {
-
-    const cs = getComputedStyle(document.body);
-    let hh = cs.getPropertyValue('--header-height').trim();
-    if (hh) return `calc(${hh} + 0.5rem)`;
-
-    const h = document.querySelector('header');
-    if (h) return (h.getBoundingClientRect().height + 8) + 'px';
-
-    return '4rem';
-  }
-
-  function ensureBtn() {
-    let btn = document.getElementById(ID);
+  const createBackToTop = () => {
+    let btn = document.getElementById(BTN_ID);
     if (!btn) {
       btn = document.createElement('button');
-      btn.id = ID;
+      btn.id = BTN_ID;
       btn.type = 'button';
-      btn.setAttribute('aria-label', 'Back to top');
+      btn.className = 'back-to-top'; // Sinkron dengan fixes.css
       btn.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-             fill="none" stroke="currentColor" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 19V5"></path>
-          <path d="M5 12l7-7 7 7"></path>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path>
         </svg>
-        <span>Back to top</span>
-      `;
-      btn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+        <span>Back to top</span>`;
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
       document.body.appendChild(btn);
     }
-    btn.style.setProperty('--btt-top', headerHeightPx());
     return btn;
-  }
+  };
 
-  function update() {
-    const btn = ensureBtn();
-    const y = window.scrollY;
-    const now = Date.now();
+  const updateBtnVisibility = () => {
+    const btn = createBackToTop();
+    btn.classList.toggle('is-visible', window.scrollY > SCROLL_THRESHOLD);
+    isTicking = false;
+  };
 
-    const scrollingUp = y < lastY - 3;
-    const pastThreshold = y > THRESHOLD;
-    btn.classList.toggle('is-visible', pastThreshold);
-    
-    if (pastThreshold && scrollingUp) {
-      showUntil = now + STAY_MS;
-      btn.classList.add('is-visible');
-      log('show (scrolling up)');
-    } else {
-      if (now > showUntil || !pastThreshold) {
-        btn.classList.remove('is-visible');
-        log('hide');
-      }
+  window.addEventListener('scroll', () => {
+    if (!isTicking) {
+      requestAnimationFrame(updateBtnVisibility);
+      isTicking = true;
     }
-
-    lastY = y;
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(update);
-    }
-  }
-
-  function onResize() {
-    const btn = document.getElementById(ID);
-    if (btn) btn.style.setProperty('--btt-top', headerHeightPx());
-  }
-
-  function start() {
-    ensureBtn();
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onResize);
-    window.addEventListener('orientationchange', onResize);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start);
-  } else {
-    start();
-  }
+  }, { passive: true });
 })();
 
-//reading progress
-(function() {
-    function getHeaderHeight() {
-        const h = document.querySelector('header');
-        return h ? h.getBoundingClientRect().height : 64;
+/* --- READING PROGRESS BAR --- */
+(() => {
+  // ... (kode lainnya)
+  const initProgressBar = () => {
+    // UPDATE: Tambahin 'wiki' dan 'writeups' ke dalam pengecekan kalau mau bar muncul di sana
+    const isLanding = window.location.pathname === '/' || window.location.pathname.endsWith('index.html') || document.querySelector('#nv-landing');
+    if (isLanding) return;
+
+    if (!document.getElementById("progressContainer")) {
+      const container = document.createElement('div');
+      container.id = "progressContainer";
+      container.className = "progress-container"; // Sinkron dengan fixes.css
+      container.style.top = getNavbarHeight() + "px";
+      container.innerHTML = '<div id="myBar" class="progress-bar"></div>';
+      document.body.appendChild(container);
     }
+  };
 
-    function createBar() {
-        // --- LOGIC ANTI-LANDING PAGE ---
-        // Cek apakah ini halaman utama (biasanya URL-nya "/" atau ga ada ".html")
-        const isLandingPage = window.location.pathname === '/' || 
-                             window.location.pathname.endsWith('index.html') ||
-                             document.querySelector('section[data-md-component="hero"]'); 
-
-        if (isLandingPage) return; // Kalau di landing page, berhenti di sini!
-        // -------------------------------
-
-        try {
-            let container = document.getElementById("progressContainer");
-            if (!container) {
-                container = document.createElement('div');
-                container.id = "progressContainer";
-                container.className = "progress-container";
-                container.style.top = getHeaderHeight() + "px";
-                
-                container.innerHTML = '<div id="myBar" class="progress-bar"></div>';
-                document.body.appendChild(container);
-            }
-        } catch (e) { console.error("Bar creation failed", e); }
+  window.addEventListener('scroll', () => {
+    const bar = document.getElementById("myBar");
+    if (bar) {
+      const scrollPos = document.documentElement.scrollTop;
+      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (totalHeight > 100) {
+        bar.style.width = (scrollPos / totalHeight * 100) + "%";
+      }
     }
+  });
 
-    // ... sisa kodingan window.scroll dsb tetep sama ...
-    window.addEventListener('scroll', () => {
-        const bar = document.getElementById("myBar");
-        if (bar) {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            if (height > 100) { // Cek biar ga muncul di halaman yang kependekan
-                const scrolled = (winScroll / height) * 100;
-                bar.style.width = scrolled + "%";
-            }
-        }
-    });
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', createBar);
-    } else {
-        createBar();
-    }
+  document.addEventListener("DOMContentLoaded", initProgressBar);
 })();

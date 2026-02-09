@@ -1,75 +1,74 @@
 (() => {
-  const HOME = "Home";
+  const HOME_LABEL = "Home"; // Label root navigasi
 
-  const basePath = (() => {
-    let b = (window.BASE_URL || "/");
-    try { b = new URL(b, location.origin).pathname; } catch {}
-    return b.endsWith("/") ? b : b + "/";
-  })();
+  const getBasePath = (() => {
+    let path = (window.BASE_URL || "/");
+    try { path = new URL(path, location.origin).pathname; } catch {}
+    return path.endsWith("/") ? path : path + "/";
+  })(); // Ambil base URL aplikasi
 
-  const prettify = (s) =>
-    decodeURIComponent(s)
-      .replace(/\.(html|md)$/i, "")
-      .replace(/[_-]+/g, " ")
+  const formatLabel = (str) =>
+    decodeURIComponent(str)
+      .replace(/\.(html|md)$/i, "") // Buang ekstensi file
+      .replace(/[_-]+/g, " ") // Ubah separator jadi spasi
       .trim()
       .replace(/\s+/g, " ")
-      .replace(/\b([a-z])([a-z0-9]*)/gi, (_, a, b) => a.toUpperCase() + b);
+      .replace(/\b([a-z])([a-z0-9]*)/gi, (_, first, rest) => first.toUpperCase() + rest); // Title Case
 
-  const h1Text = () => {
-    const h1 = document.querySelector("#page-header h1, article h1");
-    return (h1 ? h1.textContent : document.title).trim();
-  };
+  const getPageTitle = () => {
+    const header = document.querySelector("#page-header h1, article h1");
+    return (header ? header.textContent : document.title).trim();
+  }; // Ambil judul utama halaman
 
-  const build = () => {
-    let rel = location.pathname.startsWith(basePath)
-      ? location.pathname.slice(basePath.length)
+  const buildCrumbs = () => {
+    let relativePath = location.pathname.startsWith(getBasePath)
+      ? location.pathname.slice(getBasePath.length)
       : location.pathname;
-    rel = rel.replace(/^\/+/, "").replace(/\/+$/, "");
+    relativePath = relativePath.replace(/^\/+/, "").replace(/\/+$/, "");
 
-    let parts = rel ? rel.split("/") : [];
-    if (parts.length && /^index(\.(html|md))?$/i.test(parts.at(-1))) parts.pop();
+    let segments = relativePath ? relativePath.split("/") : [];
+    if (segments.length && /^index(\.(html|md))?$/i.test(segments.at(-1))) segments.pop();
 
-    const title = h1Text();
-    const out = [{ text: HOME, href: basePath }];
+    const currentPageTitle = getPageTitle();
+    const crumbs = [{ text: HOME_LABEL, href: getBasePath }];
 
-    if (parts.length === 0) {
-      out.push({ text: title, href: null });
-      return out;
+    if (segments.length === 0) {
+      crumbs.push({ text: currentPageTitle, href: null });
+      return crumbs;
     }
 
-    let acc = basePath;
-    for (let i = 0; i < parts.length - 1; i++) {
-      acc += parts[i] + "/";
-      out.push({ text: prettify(parts[i]), href: acc });
+    let accumulatedPath = getBasePath;
+    for (let i = 0; i < segments.length - 1; i++) {
+      accumulatedPath += segments[i] + "/";
+      crumbs.push({ text: formatLabel(segments[i]), href: accumulatedPath });
     }
 
-    const lastSeg = prettify(parts.at(-1));
-    out.push({ text: /^index$/i.test(title) ? lastSeg : title, href: null });
-    return out;
-  };
+    const lastSegment = formatLabel(segments.at(-1));
+    crumbs.push({ text: /^index$/i.test(currentPageTitle) ? lastSegment : currentPageTitle, href: null });
+    return crumbs;
+  }; // Susun data navigasi
 
-  const render = () => {
-    const crumbs = build();
+  const renderBreadcrumbs = () => {
+    const data = buildCrumbs();
     const nav = document.createElement("nav");
-    nav.className = "nw-breadcrumbs";
+    nav.className = "nw-breadcrumbs"; // Sinkron dengan breadcrumbs.css
     nav.setAttribute("aria-label", "Breadcrumb");
+    
     nav.innerHTML = `
-      <ol class="nw-bc-list">
-        ${crumbs
-          .map((c, i) =>
-            i === crumbs.length - 1 || !c.href
-              ? `<li class="nw-bc-item nw-bc-current"><span>${c.text}</span></li>`
-              : `<li class="nw-bc-item"><a class="nw-bc-link" href="${c.href}">${c.text}</a></li>`
-          )
-          .join("")}
-      </ol>`;
+      <ol class="nw-bc-list"> 
+        ${data.map((item, i) =>
+          i === data.length - 1 || !item.href
+            ? `<li class="nw-bc-item nw-bc-current"><span>${item.text}</span></li>`
+            : `<li class="nw-bc-item"><a class="nw-bc-link" href="${item.href}">${item.text}</a></li>`
+        ).join("")}
+      </ol>`; // HTML structure sinkron dengan CSS
 
-    document.querySelectorAll(".nw-breadcrumbs").forEach(n => n.remove());
-    const anchor = document.querySelector("#page-header") || document.querySelector("article") || document.querySelector("main");
-    anchor?.parentNode?.insertBefore(nav, anchor);
-  };
+    document.querySelectorAll(".nw-breadcrumbs").forEach(old => old.remove()); // Bersihkan elemen lama
+    const target = document.querySelector("#page-header") || document.querySelector("article") || document.querySelector("main");
+    target?.parentNode?.insertBefore(nav, target); // Inject ke DOM
+  }; // Eksekusi render
 
   (document.readyState === "loading")
-    ? document.addEventListener("DOMContentLoaded", render, { once: true })
-    : render();
+    ? document.addEventListener("DOMContentLoaded", renderBreadcrumbs, { once: true })
+    : renderBreadcrumbs(); // Runtime check
 })();

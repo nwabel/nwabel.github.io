@@ -1,58 +1,54 @@
-(function () {
-  console.log("[logo-swap] loaded");
+(() => {
+  const LOGO_FILENAME = "assets/images/logo/logoku.svg"; // Ganti ke logo.svg kalau perlu
+  const LOGO_SIZE = 25; // Ukuran logo (px)
 
-  const LOGO_PATH = "assets/images/logo/.svg";
-
-  function basePath() {
-    const guess = (window.BASE_URL || window.base_url || "/");
+  const getBasePath = () => {
+    const base = (window.BASE_URL || "/");
     try {
-      const p = new URL(guess, location.origin).pathname;
-      return p.endsWith("/") ? p : p + "/";
+      const path = new URL(base, location.origin).pathname;
+      return path.endsWith("/") ? path : path + "/";
     } catch {
       return "/";
     }
-  }
+  }; // Ambil base path aplikasi
 
-  function brandLink() {
-    const b = basePath();
-
+  const getBrandLink = () => {
+    const base = getBasePath();
     return (
-      document.querySelector(`header .container-wrapper a[href="${b}"][data-slot="button"]`) ||
-      document.querySelector(`header .container-wrapper a[href^="${location.origin}${b}"][data-slot="button"]`)
+      document.querySelector(`header .container-wrapper a[href="${base}"][data-slot="button"]`) ||
+      document.querySelector(`header .container-wrapper a[href^="${location.origin}${base}"][data-slot="button"]`)
     );
-  }
+  }; // Cari elemen link brand di navbar
 
-  function run() {
-    const link = brandLink();
-    if (!link) return console.warn("[logo-swap] brand link not found");
+  const swapLogo = () => {
+    const link = getBrandLink();
+    if (!link) return;
 
-    const svg = link.querySelector("svg");
-    if (!svg) return console.warn("[logo-swap] svg not found");
+    const originalSvg = link.querySelector("svg");
+    if (!originalSvg || link.querySelector('img[data-nwabel-logo]')) return;
 
-    if (link.querySelector('img[data-nwabel-logo]')) {
-      console.log("[logo-swap] already swapped");
-      return;
-    }
+    const newLogo = document.createElement("img");
+    newLogo.src = getBasePath() + LOGO_FILENAME.replace(/^\/+/, "") + "?v=2"; // Cache-busting v2
+    newLogo.alt = "nwabel-logo";
+    newLogo.width = LOGO_SIZE;
+    newLogo.height = LOGO_SIZE;
+    newLogo.setAttribute("data-nwabel-logo", "1");
+    
+    // Styling agar presisi di navbar
+    Object.assign(newLogo.style, {
+      display: "inline-block",
+      verticalAlign: "middle",
+      marginRight: "0.375rem"
+    });
 
-    const img = document.createElement("img");
-    img.src = basePath() + LOGO_PATH.replace(/^\/+/, "") + "?v=2"; // cache-busting
-    img.alt = "Logo";
-    img.width = 25;
-    img.height = 25;
-    img.style.display = "inline-block";
-    img.style.verticalAlign = "middle";
-    img.style.marginRight = "0.375rem";
-    img.setAttribute("data-nwabel-logo", "1");
+    originalSvg.style.display = "none"; // Sembunyikan SVG lama
+    originalSvg.parentNode.insertBefore(newLogo, originalSvg); // Inject logo baru
+  };
 
-    svg.style.display = "none";
-    svg.parentNode.insertBefore(img, svg);
-
-    console.log("[logo-swap] done");
-  }
-
+  // Eksekusi saat DOM siap
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run);
+    document.addEventListener("DOMContentLoaded", swapLogo);
   } else {
-    run();
+    swapLogo();
   }
 })();

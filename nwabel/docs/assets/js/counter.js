@@ -1,21 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const els = document.querySelectorAll('.nv-stat-num[data-count]');
-  if (!els.length) return;
+  const statsElements = document.querySelectorAll('.nv-stat-num[data-count]'); // grep angka
+  if (!statsElements.length) return;
 
-  const animate = (el) => {
-    const target = +el.dataset.count;
-    const dur = 900, start = performance.now();
-    const tick = (t) => {
-      const k = Math.min(1, (t - start) / dur);
-      el.textContent = Math.round(target * (0.2 + 0.8*k)); // ease-in-ish
-      if (k < 1) requestAnimationFrame(tick);
+  const runCounterAnimation = (element) => {
+    const targetValue = +element.dataset.count;
+    const animationDuration = 900;
+    const startTime = performance.now();
+
+    const updateValue = (currentTime) => {
+      const progress = Math.min(1, (currentTime - startTime) / animationDuration);
+      element.textContent = Math.round(targetValue * (0.2 + 0.8 * progress));
+      if (progress < 1) {
+        requestAnimationFrame(updateValue);
+      }
     };
-    requestAnimationFrame(tick);
+    
+    requestAnimationFrame(updateValue);
   };
 
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting){ animate(e.target); io.unobserve(e.target); }});
-  }, { threshold: 0.4 });
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runCounterAnimation(entry.target);
+        scrollObserver.unobserve(entry.target); // animasi jalan sekali
+      }
+    });
+  }, { threshold: 0.4 }); // trigger 40% viewport
 
-  els.forEach(el => io.observe(el));
+  statsElements.forEach(el => scrollObserver.observe(el)); // scroll
 });
