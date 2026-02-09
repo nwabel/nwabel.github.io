@@ -35,8 +35,7 @@ nav:
       - Simetris dan Asimetris: "wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md"
       - asd:
           - wiki/asd/index.md
-static_templates:
-    - 404.html
+
 markdown_extensions:
   - meta
   - attr_list
@@ -92,9 +91,3 @@ extra_javascript:
   - assets/js/landing.js
   - assets/js/niwPost.js
   - assets/js/counter.js
-
-use_directory_urls: false
-
-extra:
-  generate_404: true
-  not_found_template: 404.html
