@@ -15,8 +15,8 @@
                     </p>
                     <div class="nv-cta">
                         <a class="nv-btn nv-btn-primary" href="blog/">Blog</a>
-                        <a class="nv-btn nv-btn-ghost" href="labs/">Lab</a>
-                        <a class="nv-btn nv-btn-ghost" href="materi/">Materi</a>
+                        <a class="nv-btn nv-btn-ghost" href="wretap/">Wretap</a>
+                        <a class="nv-btn nv-btn-ghost" href="wiki/">Wiki</a>
                     </div>
                     <div class="nv-social">
                         <a href="#" aria-label="Email">Email</a>
