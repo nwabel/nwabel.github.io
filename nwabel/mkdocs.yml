@@ -91,3 +91,6 @@ extra_javascript:
   - assets/js/landing.js
   - assets/js/niwPost.js
   - assets/js/counter.js
+
+extra:
+  generate_404: true
