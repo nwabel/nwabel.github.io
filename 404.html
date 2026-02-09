@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oops! Nyasar, Ler.</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1d1d1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            max-width: 900px;
+            padding: 20px;
+            gap: 50px; /* Jarak antara gambar dan teks */
+        }
+
+        /* Bagian Gambar */
+        .image-section {
+            flex: 1;
+            text-align: right;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0; /* Radius dicabut biar bener-bener flat */
+            box-shadow: none; /* SHADOW DIHAPUS, LER! */
+            display: block;
+            margin-left: auto;
+        }
+
+        /* Bagian Teks */
+        .text-section {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 80px;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin: 10px 0;
+            color: #86868b;
+        }
+
+        p {
+            font-size: 18px;
+            color: #86868b;
+            margin-bottom: 30px;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center; /* Ini nengahin secara vertikal */
+            justify-content: center;
+            background-color: #1d1d1f;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+            line-height: 1; /* Penting biar ga ada space extra di atas/bawah teks */
+        }
+
+        /* JURUS BIAR CENTER PRESISI */
+        .btn-home span {
+            display: inline-block;
+            margin-right: 8px;
+            transform: translateY(-1px); /* Geser dikit ke atas biar seimbang secara visual */
+        }
+
+        .btn-home:hover {
+            transform: scale(1.05);
+            background-color: #fd34e5; /* Pink khas lu */
+        }
+
+        /* Responsive buat HP */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .image-section { text-align: center; }
+            .image-section img { margin: 0 auto; }
+            h1 { font-size: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="image-section">
+            <img src="/assets/images/ufo.gif" alt="404 Image">
+        </div>
+
+        <div class="text-section">
+            <h1>Ebujettt!</h1>
+            <h2>Cuma web static ini.</h2>
+            <p>Halaman yang lu cari kaga ada di direktori gwej, Ler. Mending balik sebelum makin dalem nyasarnya.</p>
+            <a href="/" class="btn-home">Balekkkkk</a>
+        </div>
+    </div>
+
+</body>
+</html>
