@@ -34,5 +34,5 @@ jobs:
             echo "Waduh, 404.html kaga kegenrate. Cek docs/404.md lu!"
             exit 1
           fi
-          
+          pip install ghp-import
           mkdocs gh-deploy --force
