@@ -94,7 +94,7 @@ extra_javascript:
   - assets/js/niwPost.js
   - assets/js/counter.js
 
-use_directory_urls: true
+use_directory_urls: false
 
 extra:
   generate_404: true
