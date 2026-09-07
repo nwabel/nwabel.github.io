@@ -99,6 +99,7 @@ extra_javascript:
 
 #use_directory_urls: false
 
-#extra:
+extra:
+  nojekyll: true
 #  generate_404: true
 #  not_found_template: 404.html
