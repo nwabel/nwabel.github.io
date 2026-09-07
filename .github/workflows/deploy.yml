@@ -13,25 +13,13 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install Dependencies
         run: |
-          pip install -r nwabel/requirements.txt
-
+          pip install --upgrade pip
+          pip install --upgrade --upgrade-strategy only-if-needed -r nwabel/requirements.txt
       - name: Deploy to GitHub Pages
         run: |
           cd nwabel
-          #/*mkdocs build
-          
-          # JURUS ADAPTIF: Cek dulu mana yang ada
-          #if [ -d "site/404" ]; then
-          #  echo "Folder 404 ketemu, mindahin ke root..."
-          #  cp site/404/index.html site/404.html
-          #elif [ -f "site/404.html" ]; then
-          #  echo "File 404.html udah di root, aman Ler!"
-          #else
-          #  echo "Waduh, 404.html kaga kegenrate. Cek docs/404.md lu!"
-          #  exit 1
-          #fi
           mkdocs gh-deploy --force
