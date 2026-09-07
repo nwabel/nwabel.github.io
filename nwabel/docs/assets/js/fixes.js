@@ -95,32 +95,42 @@
 
 /* --- READING PROGRESS BAR --- */
 (() => {
-  // ... (kode lainnya)
-  const initProgressBar = () => {
-    // UPDATE: Tambahin 'wiki' dan 'writeups' ke dalam pengecekan kalau mau bar muncul di sana
-    const isLanding = window.location.pathname === '/' || window.location.pathname.endsWith('index.html') || document.querySelector('#nv-landing');
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLanding = location.pathname === '/' || location.pathname.endsWith('/index.html') || document.querySelector('#nv-landing');
     if (isLanding) return;
 
-    if (!document.getElementById("progressContainer")) {
-      const container = document.createElement('div');
-      container.id = "progressContainer";
-      container.className = "progress-container"; // Sinkron dengan fixes.css
-      container.style.top = getNavbarHeight() + "px";
-      container.innerHTML = '<div id="myBar" class="progress-bar"></div>';
-      document.body.appendChild(container);
+    // Cari navbar
+    const navbar = document.querySelector('header.site-header, nav.navbar, .md-header, header, nav');
+    if (!navbar) {
+      console.warn('Navbar not found, fallback to body');
+      createProgress(document.body, 'fixed');
+      return;
     }
-  };
-
-  window.addEventListener('scroll', () => {
-    const bar = document.getElementById("myBar");
-    if (bar) {
-      const scrollPos = document.documentElement.scrollTop;
-      const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (totalHeight > 100) {
-        bar.style.width = (scrollPos / totalHeight * 100) + "%";
-      }
-    }
+    if (getComputedStyle(navbar).position === 'static') navbar.style.position = 'relative';
+    createProgress(navbar, 'absolute');
   });
 
-  document.addEventListener("DOMContentLoaded", initProgressBar);
+  function createProgress(parent, pos) {
+    let container = document.getElementById('progressContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'progressContainer';
+      container.className = `progress-container ${pos === 'fixed' ? 'fallback' : ''}`;
+      container.innerHTML = `<div id="myBar" class="progress-bar"></div>`;
+      parent.appendChild(container);
+    }
+    const bar = document.getElementById('myBar');
+    if (!bar) return;
+
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      bar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  }
 })();

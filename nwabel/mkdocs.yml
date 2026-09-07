@@ -49,6 +49,8 @@ markdown_extensions:
   - pymdownx.blocks.tab
   - pymdownx.progressbar
   - pymdownx.tabbed
+  - pymdownx.superfences
+  - pymdownx.highlight
   - codehilite
   - shadcn.extensions.codexec
   - shadcn.extensions.echarts.alpha
@@ -56,6 +58,7 @@ markdown_extensions:
 
 plugins:
   - search
+  - termynal
   - excalidraw
   - glightbox:
       touchNavigation: true
