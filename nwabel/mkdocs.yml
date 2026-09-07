@@ -19,9 +19,6 @@ theme:
       "\\dx": "\\mathrm{d}x"
   show_datetime: true 
 
-static_templates:
-  - 404.html
-
 nav:
   - Home: index.md
   - Blog:
@@ -38,7 +35,8 @@ nav:
       - Simetris dan Asimetris: "wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md"
       - asd:
           - wiki/asd/index.md
-    
+static_templates:
+    - 404.html
 markdown_extensions:
   - meta
   - attr_list
@@ -50,16 +48,14 @@ markdown_extensions:
   - pymdownx.blocks.tab
   - pymdownx.progressbar
   - pymdownx.tabbed
-  - pymdownx.superfences
-  - pymdownx.highlight
   - codehilite
   - shadcn.extensions.codexec
   - shadcn.extensions.echarts.alpha
   - fenced_code
 
 plugins:
-  - search
   - termynal
+  - search
   - excalidraw
   - glightbox:
       touchNavigation: true
@@ -98,9 +94,8 @@ extra_javascript:
   - assets/js/niwPost.js
   - assets/js/counter.js
 
-#use_directory_urls: false
+use_directory_urls: false
 
 extra:
-  nojekyll: true
-#  - generate_404: true
-#  - not_found_template: 404.html
+  generate_404: true
+  not_found_template: 404.html
