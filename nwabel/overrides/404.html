@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ID ditambahkan ke title dan link favicon agar bisa diubah via JS -->
     <title id="page-title">patKsonkPat</title>
     <link id="favicon" rel="icon" type="image/jpeg" href="/assets/images/wet.jpg">
     
@@ -19,6 +18,22 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
+            transition: background-color 0.2s ease;
+        }
+
+        /* ANIMASI LIVENESS DETECTION */
+        .liveness-flash {
+            animation: rgbFlash 0.5s infinite;
+        }
+
+        @keyframes rgbFlash {
+            0% { background-color: #FF0000; }   /* Red */
+            16% { background-color: #00FF00; }  /* Green */
+            33% { background-color: #0000FF; }  /* Blue */
+            50% { background-color: #A020F0; }  /* Purple */
+            66% { background-color: #FFFF00; }  /* Yellow */
+            83% { background-color: #FF1493; }  /* Pink */
+            100% { background-color: #FF0000; }
         }
 
         .container {
@@ -27,6 +42,10 @@
             align-items: center;
             max-width: 600px;
             padding: 20px;
+            /* Tambahan background putih transparan biar teks tetep kebaca pas lagi kedap-kedip */
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
         }
 
         .image-section img {
@@ -46,9 +65,10 @@
 
         p {
             font-size: 18px;
-            color: #86868b;
+            color: #1d1d1f;
             margin-bottom: 30px;
             min-height: 27px;
+            font-weight: 500;
         }
 
         .btn-home {
@@ -84,7 +104,8 @@
         }
     </style>
 </head>
-<body>
+<!-- Tambahin class animasi kedap-kedip di body -->
+<body class="liveness-flash" id="main-body">
 
     <div class="container">
         <div class="image-section">
@@ -100,25 +121,29 @@
 
     <script>
         setTimeout(() => {
-            // Ganti gambar utama
+            // Matiin efek kedap-kedip layar
+            const bodyRef = document.getElementById('main-body');
+            bodyRef.classList.remove('liveness-flash');
+            bodyRef.style.backgroundColor = '#ffffff'; // Balikin ke putih bersih
+
+            // Hilangin background transparan di container biar balik normal
+            document.querySelector('.container').style.background = 'transparent';
+            document.querySelector('.container').style.backdropFilter = 'none';
+
+            // Ganti gambar
             document.getElementById('status-image').src = '/assets/images/tru.jpg';
-            
-            // Ganti gambar favicon (gambar di title bar browser)
             document.getElementById('favicon').href = '/assets/images/tru.jpg';
             
-            // Ganti teks title di tab browser
+            // Ganti teks
             document.title = 'Verif Don';
-            
-            // Ganti judul dan deskripsi di halaman
             const titleElement = document.getElementById('status-title');
             titleElement.innerHTML = 'Verif Brasil';
             titleElement.classList.remove('loading-dots');
-            
             document.getElementById('status-desc').innerText = 'Verifikasi Berhasil: Uuu AAa uu aa uu aa.';
             
-            // Munculin tombol balik
+            // Munculin tombol
             document.getElementById('btn-back').style.display = 'inline-flex';
-        }, 3000); 
+        }, 3000); // 3 detik loading
     </script>
 
 </body>
