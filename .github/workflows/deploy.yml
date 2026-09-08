@@ -32,4 +32,4 @@ jobs:
       - name: Deploy to GitHub Pages
         run: |
           cd nwabel
-          ghp-import -m "Deploy site" -b gh-pages -p site
+          mkdocs gh-deploy --force
