@@ -134,3 +134,37 @@
     window.addEventListener('resize', update);
   }
 })();
+
+/*Copy page*/
+(() => {
+document.addEventListener("DOMContentLoaded", function () {
+    // 1. Targetkan spesifik tombol copy bawaan tema yang punya onclick fetch
+    const copyButtons = document.querySelectorAll('button[onclick*="fetch(`../..`)"]');
+
+    copyButtons.forEach(btn => {
+        // 2. Hapus fungsi bawaan yang nyalin sekampung
+        btn.removeAttribute('onclick');
+
+        // 3. Tambahkan fungsi baru untuk nyalin URL saja
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            
+            const currentUrl = window.location.href;
+
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                // (Opsional) Animasi ganti teks sementara biar user tau udah berhasil
+                const textSpan = btn.querySelector("span");
+                if (textSpan) {
+                    const originalText = textSpan.innerText;
+                    textSpan.innerText = "Link Copied!";
+                    setTimeout(() => {
+                        textSpan.innerText = originalText;
+                    }, 2000);
+                }
+            }).catch(err => {
+                console.error("Gagal nyalin link:", err);
+            });
+        });
+    });
+});
+})();
