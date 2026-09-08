@@ -5,6 +5,7 @@ repo_url: https://github.com/nwabel/nwabel.github.io
 
 theme:
   name: shadcn
+  custom_dir: overrides
   show_title: true # show the title in the top bar
   show_stargazers: true # show the stargazers in the top bar  
   pygments_style: # default styles 
@@ -35,8 +36,7 @@ nav:
       - Simetris dan Asimetris: "wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md"
       - asd:
           - wiki/asd/index.md
-static_templates:
-    - 404.html
+
 markdown_extensions:
   - meta
   - attr_list
