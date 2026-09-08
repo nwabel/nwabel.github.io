@@ -93,5 +93,3 @@ extra_javascript:
   - assets/js/landing.js
   - assets/js/niwPost.js
   - assets/js/counter.js
-
-use_directory_urls: false

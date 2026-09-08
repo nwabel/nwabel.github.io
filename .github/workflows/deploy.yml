@@ -9,17 +9,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
-          pip install --upgrade pip
-          pip install --upgrade --upgrade-strategy only-if-needed -r nwabel/requirements.txt
+          pip install -r nwabel/requirements.txt
+          pip install ghp-import
+
+      - name: Build MkDocs
+        run: |
+          cd nwabel
+          mkdocs build
+
+      - name: Copy 404.html to site root
+        run: |
+          cp nwabel/docs/404.html nwabel/site/404.html
+
       - name: Deploy to GitHub Pages
         run: |
           cd nwabel
-          mkdocs gh-deploy --force
+          ghp-import -m "Deploy site" -b gh-pages -p site
