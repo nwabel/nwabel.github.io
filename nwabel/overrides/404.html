@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pat kosonk pat</title>
+    <!-- ID ditambahkan ke title dan link favicon agar bisa diubah via JS -->
+    <title id="page-title">patKsonkPat</title>
+    <link id="favicon" rel="icon" type="image/jpeg" href="/assets/images/wet.jpg">
+    
     <style>
         body {
             margin: 0;
@@ -15,58 +18,42 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            text-align: center;
         }
 
         .container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            max-width: 900px;
+            max-width: 600px;
             padding: 20px;
-            gap: 50px; /* Jarak antara gambar dan teks */
-        }
-
-        /* Bagian Gambar */
-        .image-section {
-            flex: 1;
-            text-align: right;
         }
 
         .image-section img {
             max-width: 100%;
             height: auto;
-            border-radius: 0; /* Radius dicabut biar bener-bener flat */
-            box-shadow: none; /* SHADOW DIHAPUS, LER! */
-            display: block;
-            margin-left: auto;
-        }
-
-        /* Bagian Teks */
-        .text-section {
-            flex: 1;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            transition: opacity 0.3s ease;
         }
 
         h1 {
-            font-size: 80px;
-            margin: 0;
+            font-size: 48px;
+            margin: 0 0 10px 0;
             font-weight: 700;
-            letter-spacing: -2px;
-        }
-
-        h2 {
-            font-size: 32px;
-            margin: 10px 0;
-            color: #86868b;
+            letter-spacing: -1px;
         }
 
         p {
             font-size: 18px;
             color: #86868b;
             margin-bottom: 30px;
+            min-height: 27px;
         }
 
         .btn-home {
-            display: inline-flex;
-            align-items: center; /* Ini nengahin secara vertikal */
+            display: none;
+            align-items: center;
             justify-content: center;
             background-color: #1d1d1f;
             color: white;
@@ -75,31 +62,25 @@
             text-decoration: none;
             font-size: 16px;
             font-weight: 600;
-            transition: transform 0.2s ease;
-            line-height: 1; /* Penting biar ga ada space extra di atas/bawah teks */
-        }
-
-        /* JURUS BIAR CENTER PRESISI */
-        .btn-home span {
-            display: inline-block;
-            margin-right: 8px;
-            transform: translateY(-1px); /* Geser dikit ke atas biar seimbang secara visual */
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            line-height: 1;
         }
 
         .btn-home:hover {
             transform: scale(1.05);
-            background-color: #fd34e5; /* Pink khas lu */
+            background-color: #fd34e5;
         }
 
-        /* Responsive buat HP */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                text-align: center;
-            }
-            .image-section { text-align: center; }
-            .image-section img { margin: 0 auto; }
-            h1 { font-size: 60px; }
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
         }
     </style>
 </head>
@@ -107,16 +88,38 @@
 
     <div class="container">
         <div class="image-section">
-            <img src="/assets/images/ufo.gif" alt="404 Image">
+            <img id="status-image" src="/assets/images/wet.jpg" alt="Proses Verifikasi">
         </div>
 
         <div class="text-section">
-            <h1>eeeaaa (petrik)</h1>
-            <h2>Cuma web static ini.</h2>
-            <p>eeeaaa (patrik). eeeaaa (patrik). eeeaaa (patrik). eeeaaa (patrik). eeeaaa (patrik). eeeaaa (patrik).</p>
-            <a href="/" class="btn-home">Balekkkkk</a>
+            <h1 id="status-title">Virifikasi via Sikirinsut<span class="loading-dots" id="dots"></span></h1>
+            <p id="status-desc">Sabar yhh, sdank verif muka.</p>
+            <a href="/" class="btn-home" id="btn-back">Balekkkkk</a>
         </div>
     </div>
+
+    <script>
+        setTimeout(() => {
+            // Ganti gambar utama
+            document.getElementById('status-image').src = '/assets/images/tru.jpg';
+            
+            // Ganti gambar favicon (gambar di title bar browser)
+            document.getElementById('favicon').href = '/assets/images/tru.jpg';
+            
+            // Ganti teks title di tab browser
+            document.title = 'Verif Don';
+            
+            // Ganti judul dan deskripsi di halaman
+            const titleElement = document.getElementById('status-title');
+            titleElement.innerHTML = 'Verif Brasil';
+            titleElement.classList.remove('loading-dots');
+            
+            document.getElementById('status-desc').innerText = 'Verifikasi Berhasil: Uuu AAa uu aa uu aa.';
+            
+            // Munculin tombol balik
+            document.getElementById('btn-back').style.display = 'inline-flex';
+        }, 3000); 
+    </script>
 
 </body>
 </html>
