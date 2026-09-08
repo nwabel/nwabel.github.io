@@ -95,7 +95,3 @@ extra_javascript:
   - assets/js/counter.js
 
 use_directory_urls: false
-
-extra:
-  generate_404: true
-  not_found_template: 404.html
