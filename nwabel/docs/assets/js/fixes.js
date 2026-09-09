@@ -1,21 +1,22 @@
-/* --- SEARCH TEXT CUSTOMIZATION --- */
+/* ==========================================================================
+   1. SEARCH TEXT CUSTOMIZATION
+   ========================================================================== */
 (() => {
-  const SEARCH_PLACEHOLDER = "Mau cari apa?"; // Teks pengganti
+  const SEARCH_PLACEHOLDER = "Mau cari apa?";
 
   const updateSearchElements = (root = document) => {
-    // Cari tombol trigger search bawaan Shadcn
     const triggers = [
       ...root.querySelectorAll('[data-slot="dialog-trigger"]'),
       ...root.querySelectorAll('button[onclick*="onSearchBarClick"]'),
     ];
 
     triggers.forEach(btn => {
-      // Update label di dalam span
       btn.querySelectorAll("span").forEach(span => {
-        if (/^Search/i.test(span.textContent.trim())) span.textContent = SEARCH_PLACEHOLDER;
+        if (/^Search/i.test(span.textContent.trim())) {
+          span.textContent = SEARCH_PLACEHOLDER;
+        }
       });
 
-      // Update text node langsung
       if (/^Search/i.test(btn.textContent.trim())) {
         btn.childNodes.forEach(node => {
           if (node.nodeType === 3 && /^Search/i.test(node.textContent.trim())) {
@@ -24,56 +25,61 @@
         });
       }
 
-      // Update atribut accessibility
-      if (btn.getAttribute("aria-label")?.toLowerCase().startsWith("search")) btn.setAttribute("aria-label", SEARCH_PLACEHOLDER);
-      if (btn.title?.toLowerCase().startsWith("search")) btn.title = SEARCH_PLACEHOLDER;
+      if (btn.getAttribute("aria-label")?.toLowerCase().startsWith("search")) {
+        btn.setAttribute("aria-label", SEARCH_PLACEHOLDER);
+      }
+      if (btn.title?.toLowerCase().startsWith("search")) {
+        btn.title = SEARCH_PLACEHOLDER;
+      }
     });
 
-    // Update placeholder di dalam dialog
     const dialog = root.querySelector("#search-dialog") || root;
     dialog.querySelectorAll('input[data-slot="command-input"], input[type="text"][placeholder]')
       .forEach(input => {
-        if (/search/i.test(input.placeholder)) input.setAttribute("placeholder", SEARCH_PLACEHOLDER);
+        if (/search/i.test(input.placeholder)) {
+          input.setAttribute("placeholder", SEARCH_PLACEHOLDER);
+        }
       });
   };
 
   const initSearchFix = () => updateSearchElements();
+  
   document.addEventListener("DOMContentLoaded", initSearchFix);
   
-  // Re-apply saat dialog terbuka
   document.addEventListener("click", (e) => {
     if (e.target.closest('[data-slot="dialog-trigger"], button[onclick*="onSearchBarClick"]')) {
       requestAnimationFrame(() => setTimeout(initSearchFix, 30));
     }
   });
 
-  new MutationObserver(() => initSearchFix()).observe(document.documentElement, { childList: true, subtree: true });
+  new MutationObserver(() => initSearchFix()).observe(document.documentElement, { 
+    childList: true, 
+    subtree: true 
+  });
 })();
 
-/* --- BACK TO TOP COMPONENT --- */
-(() => {
-  const SCROLL_THRESHOLD = 300; // Jarak scroll untuk muncul
-  const BTN_ID = 'back-to-top';
-  let isTicking = false;
 
-  const getHeaderHeight = () => {
-    const header = document.querySelector('header');
-    return header ? (header.getBoundingClientRect().height + 8) + 'px' : '4rem';
-  }; // Hitung jarak aman dari navbar
+/* ==========================================================================
+   2. BACK TO TOP COMPONENT
+   ========================================================================== */
+(() => {
+  const SCROLL_THRESHOLD = 300;
+  const BTN_ID = "back-to-top";
+  let isTicking = false;
 
   const createBackToTop = () => {
     let btn = document.getElementById(BTN_ID);
     if (!btn) {
-      btn = document.createElement('button');
+      btn = document.createElement("button");
       btn.id = BTN_ID;
-      btn.type = 'button';
-      btn.className = 'back-to-top'; // Sinkron dengan fixes.css
+      btn.type = "button";
+      btn.className = "back-to-top";
       btn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 19V5"></path><path d="M5 12l7-7 7 7"></path>
         </svg>
         <span>Back to top</span>`;
-      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
       document.body.appendChild(btn);
     }
     return btn;
@@ -81,11 +87,11 @@
 
   const updateBtnVisibility = () => {
     const btn = createBackToTop();
-    btn.classList.toggle('is-visible', window.scrollY > SCROLL_THRESHOLD);
+    btn.classList.toggle("is-visible", window.scrollY > SCROLL_THRESHOLD);
     isTicking = false;
   };
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     if (!isTicking) {
       requestAnimationFrame(updateBtnVisibility);
       isTicking = true;
@@ -93,33 +99,22 @@
   }, { passive: true });
 })();
 
-/* --- READING PROGRESS BAR --- */
+
+/* ==========================================================================
+   3. READING PROGRESS BAR
+   ========================================================================== */
 (() => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const isLanding = location.pathname === '/' || location.pathname.endsWith('/index.html') || document.querySelector('#nv-landing');
-    if (isLanding) return;
-
-    // Cari navbar
-    const navbar = document.querySelector('header.site-header, nav.navbar, .md-header, header, nav');
-    if (!navbar) {
-      console.warn('Navbar not found, fallback to body');
-      createProgress(document.body, 'fixed');
-      return;
-    }
-    if (getComputedStyle(navbar).position === 'static') navbar.style.position = 'relative';
-    createProgress(navbar, 'absolute');
-  });
-
-  function createProgress(parent, pos) {
-    let container = document.getElementById('progressContainer');
+  const createProgress = (parent, pos) => {
+    let container = document.getElementById("progressContainer");
     if (!container) {
-      container = document.createElement('div');
-      container.id = 'progressContainer';
-      container.className = `progress-container ${pos === 'fixed' ? 'fallback' : ''}`;
+      container = document.createElement("div");
+      container.id = "progressContainer";
+      container.className = `progress-container ${pos === "fixed" ? "fallback" : ""}`;
       container.innerHTML = `<div id="myBar" class="progress-bar"></div>`;
       parent.appendChild(container);
     }
-    const bar = document.getElementById('myBar');
+    
+    const bar = document.getElementById("myBar");
     if (!bar) return;
 
     const update = () => {
@@ -130,45 +125,63 @@
     };
 
     update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
-  }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const isLanding = location.pathname === "/" || location.pathname.endsWith("/index.html") || document.querySelector("#nv-landing");
+    if (isLanding) return;
+
+    const navbar = document.querySelector("header.site-header, nav.navbar, .md-header, header, nav");
+    if (!navbar) {
+      createProgress(document.body, "fixed");
+      return;
+    }
+    
+    if (getComputedStyle(navbar).position === "static") {
+      navbar.style.position = "relative";
+    }
+    createProgress(navbar, "absolute");
+  });
 })();
 
-/*Copy page*/
+
+/* ==========================================================================
+   4. COPY PAGE URL SCRIPT
+   ========================================================================== */
 (() => {
-document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", () => {
     const copyButtons = document.querySelectorAll('button[onclick*="fetch(`../..`)"]');
 
     copyButtons.forEach(btn => {
-        // 2. Hapus fungsi bawaan yang nyalin sekampung
-        btn.removeAttribute('onclick');
+      btn.removeAttribute("onclick");
 
-        // 3. Tambahkan fungsi baru untuk nyalin URL saja
-        btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            
-            const currentUrl = window.location.href;
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const currentUrl = window.location.href;
 
-            navigator.clipboard.writeText(currentUrl).then(() => {
-                // (Opsional) Animasi ganti teks sementara biar user tau udah berhasil
-                const textSpan = btn.querySelector("span");
-                if (textSpan) {
-                    const originalText = textSpan.innerText;
-                    textSpan.innerText = "Link Copied!";
-                    setTimeout(() => {
-                        textSpan.innerText = originalText;
-                    }, 2000);
-                }
-            }).catch(err => {
-                console.error("Gagal nyalin link:", err);
-            });
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          const textSpan = btn.querySelector("span");
+          if (textSpan) {
+            const originalText = textSpan.innerText;
+            textSpan.innerText = "Link Copied!";
+            setTimeout(() => {
+              textSpan.innerText = originalText;
+            }, 2000);
+          }
+        }).catch(err => {
+          console.error("Gagal menyalin tautan:", err);
         });
+      });
     });
-});
+  });
 })();
 
-/* --- 1. BREADCRUMBS INJECTOR (Gabungan dari breadcrumbs.js) --- */
+
+/* ==========================================================================
+   5. BREADCRUMBS INJECTOR
+   ========================================================================== */
 (() => {
   const HOME_LABEL = "Home";
 
@@ -245,7 +258,9 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 
 
-/* --- 2. LOGO END / SWAPPER (Gabungan dari loGoeEnd.js) --- */
+/* ==========================================================================
+   6. LOGO SWAPPER (BRAND HEADER)
+   ========================================================================== */
 (() => {
   const LOGO_FILENAME = "assets/images/logo/logoku.svg";
   const LOGO_SIZE = 25;
@@ -300,20 +315,26 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 
 
-/* --- 3. MOBILE BURGER LOGO (Gabungan dari mobelLg.js) --- */
-(function () {
+/* ==========================================================================
+   7. MOBILE BURGER LOGO REPLACER
+   ========================================================================== */
+(() => {
   const LOGO_SRC = "assets/images/logo/logoku.svg";
   const SIZE = 22;
-  function basePath() {
+
+  const getBasePath = () => {
     const guess = (window.BASE_URL || window.base_url || "/");
     try {
       const p = new URL(guess, location.origin).pathname;
       return p.endsWith("/") ? p : p + "/";
-    } catch { return "/"; }
-  }
-  const B = basePath();
+    } catch { 
+      return "/"; 
+    }
+  };
 
-  function nukeOldIconContainers(btn) {
+  const B = getBasePath();
+
+  const nukeOldIconContainers = (btn) => {
     btn.querySelectorAll("svg").forEach(el => el.remove());
     btn.querySelectorAll("div, span, i").forEach(el => {
       const cls = el.className || "";
@@ -326,16 +347,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const rect = el.getBoundingClientRect();
       const tinyBox = (rect.width && rect.width <= 20) && (rect.height && rect.height <= 20);
-
-      const isTextish = /\btext|label|sr-only\b/i.test(cls) || /\bMenu\b/i.test(el.textContent||"");
+      const isTextish = /\btext|label|sr-only\b/i.test(cls) || /\bMenu\b/i.test(el.textContent || "");
 
       if (!isTextish && (tinyClass || tinyBox)) {
         el.remove();
       }
     });
-  }
+  };
 
-  function ensureLogo(btn) {
+  const ensureLogo = (btn) => {
     if (btn.querySelector('img[data-mobile-burger]')) return;
 
     const img = document.createElement("img");
@@ -344,6 +364,7 @@ document.addEventListener("DOMContentLoaded", function () {
     img.width = SIZE;
     img.height = SIZE;
     img.setAttribute("data-mobile-burger", "1");
+    
     Object.assign(img.style, {
       display: "inline-block",
       verticalAlign: "middle",
@@ -353,15 +374,15 @@ document.addEventListener("DOMContentLoaded", function () {
     btn.prepend(img);
     btn.style.gap = "0.35rem";
     btn.style.paddingLeft = "8px";
-  }
+  };
 
-  function run() {
-    const btn = document.querySelector('header #menu-button');
+  const run = () => {
+    const btn = document.querySelector("header #menu-button");
     if (!btn) return;
 
     nukeOldIconContainers(btn);
     ensureLogo(btn);
-  }
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", run);
@@ -369,11 +390,16 @@ document.addEventListener("DOMContentLoaded", function () {
     run();
   }
 
-  const mo = new MutationObserver(() => run());
-  mo.observe(document.body, { childList: true, subtree: true });
+  new MutationObserver(() => run()).observe(document.body, { 
+    childList: true, 
+    subtree: true 
+  });
 })();
 
-/* --- OTOMATIS TANDAI HALAMAN HOME --- */
+
+/* ==========================================================================
+   8. AUTO-FLAG HOME PAGE (.is-home CLASS)
+   ========================================================================== */
 (() => {
   const path = window.location.pathname;
   if (path === "/" || path.endsWith("/index.html") || path === window.BASE_URL) {
