@@ -1,4 +1,3 @@
-# mkdocs.yml
 site_name: "nwabel"
 site_url: https://nwabel.github.io/
 repo_url: https://github.com/nwabel/nwabel.github.io
@@ -6,36 +5,36 @@ repo_url: https://github.com/nwabel/nwabel.github.io
 theme:
   name: shadcn
   custom_dir: overrides
-  show_title: true # show the title in the top bar
-  show_stargazers: true # show the stargazers in the top bar  
-  pygments_style: # default styles 
+  show_title: true
+  show_stargazers: true
+  pygments_style:
         light: shadcn-light
         dark: github-dark
-  icon: heroicons:bug-ant    # biarkan icon valid (wajib format iconify)
+  icon: heroicons:bug-ant
   favicon: assets/images/logo/.svg
-  topbar_sections: true # NEW!
-  katex_options: # optional
-    macros: # example of macros
+  topbar_sections: true
+  katex_options:
+    macros:
       "\\RR": "\\mathbb{R}" 
       "\\dx": "\\mathrm{d}x"
   show_datetime: true 
 
 nav:
   - Home: index.md
-  - Blog:
-      - Index: blog/index.md
-      - tes1: blog/1.md
-      - tes2: blog/2.md
+  - Finding Nemo:
+      - Index: finding/index.md
   - Wretap:
       - Index: wretap/index.md
-      - CVE 2015 3306: wretap/CVE-2015-3306.md
-      - Cryptanalysis: wretap/Cryptanalysis.md
+      - DFIR (Blue Team):
+          - Lab 1: wretap/dfir/lab1.md
+      - Threat Hunting:
+          - Lab 2: wretap/threat-hunting/lab2.md
   - Wiki:
       - Index: wiki/index.md
       - Kriptografi Intro: wiki/Kriptografi___Intro.md
-      - Simetris dan Asimetris: "wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md"
-      - asd:
-          - wiki/asd/index.md
+  - Blok:
+      - Index: blog/index.md
+      - tes1: blog/1.md
 
 markdown_extensions:
   - meta
@@ -78,18 +77,10 @@ plugins:
 extra_css:
   - https://unpkg.com/aos@2.3.4/dist/aos.css
   - assets/css/home.css
-  - assets/css/landing.css
   - assets/css/fixes.css
-  - assets/css/breadcrumbs.css
   - stylesheets/extra.css
 
 extra_javascript:
-  - assets/js/fixes.js
   - https://unpkg.com/aos@2.3.4/dist/aos.js
-  - assets/js/breadcrumbs.js
-  - assets/js/loGoeEnd.js
-  - assets/js/mobelLg.js
-  - assets/js/aosInit.js
-  - assets/js/landing.js
+  - assets/js/fixes.js
   - assets/js/niwPost.js
-  - assets/js/counter.js

@@ -88,3 +88,129 @@ body { --footer-height: var(--header-height) !important; background-color: var(-
     display: block;
   }
 }
+
+/* docs/css/breadcrumbs.css */
+.nw-breadcrumbs{margin:.5rem 0 .75rem;color:var(--muted-foreground)}
+.nw-bc-list{display:flex;flex-wrap:wrap;gap:.25rem .5rem;list-style:none;margin:0;padding:0}
+.nw-bc-item{display:inline-flex;align-items:center}
+.nw-bc-item+.nw-bc-item::before{content:"/";opacity:.5;margin:0 .5rem 0 .25rem}
+.nw-bc-link{color:inherit;text-decoration:none}
+.nw-bc-link:hover{text-decoration:underline}
+.nw-bc-current span{color:var(--foreground);font-weight:500}
+
+/* ==========================================================================
+   NV-LANDING & GLOBAL FIXES CLEANED STYLESHEET
+   ========================================================================== */
+
+/* 1. Breadcrumbs Component Styling */
+.nw-breadcrumbs {
+  margin: .5rem 0 .75rem;
+  color: var(--muted-foreground);
+}
+.nw-bc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nw-bc-item {
+  display: inline-flex;
+  align-items: center;
+}
+.nw-bc-item + .nw-bc-item::before {
+  content: "/";
+  opacity: .5;
+  margin: 0 .5rem 0 .25rem;
+}
+.nw-bc-link {
+  color: inherit;
+  text-decoration: none;
+}
+.nw-bc-link:hover {
+  text-decoration: underline;
+}
+.nw-bc-current span {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+/* 2. Full-Screen & Layout Cleaner for Home Page (Using .is-home class) */
+body.is-home {
+  overflow-x: hidden;
+}
+
+body.is-home header,
+body.is-home footer,
+body.is-home .w-\(--sidebar-width\),
+body.is-home div.sticky.top-\[calc\(var\(--header-height\)\+1px\)\].ml-auto.hidden,
+body.is-home #page-header,
+body.is-home .nw-breadcrumbs,
+body.is-home .mx-auto.flex.flex-wrap.h-16,
+body.is-home .grow.text-muted-foreground,
+body.is-home .md-source-file {
+  display: none !important;
+}
+
+/* Expand content area to full-width without theme containers */
+body.is-home .container-wrapper,
+body.is-home .md-content,
+body.is-home .md-main__inner,
+body.is-home article.w-full,
+body.is-home div[data-slot="docs"],
+body.is-home .flex.min-w-0.flex-1.flex-col {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  grid-column: 1 / -1 !important;
+}
+
+body.is-home .group\/sidebar-wrapper {
+  display: block !important;
+  grid-template-columns: none !important;
+}
+
+/* Force landing page container to absolute full viewport width */
+#nv-landing {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+}
+
+/* --- Paksa Full Screen Responsive Satu Layar Penuh --- */
+body.is-home {
+  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body.is-home #inner-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.is-home main.flex.flex-1.flex-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero section diatur agar proporsional memenuhi layar awal */
+#nv-landing .nv-hero {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+

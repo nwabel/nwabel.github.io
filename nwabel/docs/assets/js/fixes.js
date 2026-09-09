@@ -138,7 +138,6 @@
 /*Copy page*/
 (() => {
 document.addEventListener("DOMContentLoaded", function () {
-    // 1. Targetkan spesifik tombol copy bawaan tema yang punya onclick fetch
     const copyButtons = document.querySelectorAll('button[onclick*="fetch(`../..`)"]');
 
     copyButtons.forEach(btn => {
@@ -167,4 +166,217 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+})();
+
+/* --- 1. BREADCRUMBS INJECTOR (Gabungan dari breadcrumbs.js) --- */
+(() => {
+  const HOME_LABEL = "Home";
+
+  const getBasePath = (() => {
+    let path = (window.BASE_URL || "/");
+    try { path = new URL(path, location.origin).pathname; } catch {}
+    return path.endsWith("/") ? path : path + "/";
+  })();
+
+  const formatLabel = (str) =>
+    decodeURIComponent(str)
+      .replace(/\.(html|md)$/i, "")
+      .replace(/[_-]+/g, " ")
+      .trim()
+      .replace(/\s+/g, " ")
+      .replace(/\b([a-z])([a-z0-9]*)/gi, (_, first, rest) => first.toUpperCase() + rest);
+
+  const getPageTitle = () => {
+    const header = document.querySelector("#page-header h1, article h1");
+    return (header ? header.textContent : document.title).trim();
+  };
+
+  const buildCrumbs = () => {
+    let relativePath = location.pathname.startsWith(getBasePath)
+      ? location.pathname.slice(getBasePath.length)
+      : location.pathname;
+    relativePath = relativePath.replace(/^\/+/, "").replace(/\/+$/, "");
+
+    let segments = relativePath ? relativePath.split("/") : [];
+    if (segments.length && /^index(\.(html|md))?$/i.test(segments.at(-1))) segments.pop();
+
+    const currentPageTitle = getPageTitle();
+    const crumbs = [{ text: HOME_LABEL, href: getBasePath }];
+
+    if (segments.length === 0) {
+      crumbs.push({ text: currentPageTitle, href: null });
+      return crumbs;
+    }
+
+    let accumulatedPath = getBasePath;
+    for (let i = 0; i < segments.length - 1; i++) {
+      accumulatedPath += segments[i] + "/";
+      crumbs.push({ text: formatLabel(segments[i]), href: accumulatedPath });
+    }
+
+    const lastSegment = formatLabel(segments.at(-1));
+    crumbs.push({ text: /^index$/i.test(currentPageTitle) ? lastSegment : currentPageTitle, href: null });
+    return crumbs;
+  };
+
+  const renderBreadcrumbs = () => {
+    const data = buildCrumbs();
+    const nav = document.createElement("nav");
+    nav.className = "nw-breadcrumbs";
+    nav.setAttribute("aria-label", "Breadcrumb");
+    
+    nav.innerHTML = `
+      <ol class="nw-bc-list"> 
+        ${data.map((item, i) =>
+          i === data.length - 1 || !item.href
+            ? `<li class="nw-bc-item nw-bc-current"><span>${item.text}</span></li>`
+            : `<li class="nw-bc-item"><a class="nw-bc-link" href="${item.href}">${item.text}</a></li>`
+        ).join("")}
+      </ol>`;
+
+    document.querySelectorAll(".nw-breadcrumbs").forEach(old => old.remove());
+    const target = document.querySelector("#page-header") || document.querySelector("article") || document.querySelector("main");
+    target?.parentNode?.insertBefore(nav, target);
+  };
+
+  (document.readyState === "loading")
+    ? document.addEventListener("DOMContentLoaded", renderBreadcrumbs, { once: true })
+    : renderBreadcrumbs();
+})();
+
+
+/* --- 2. LOGO END / SWAPPER (Gabungan dari loGoeEnd.js) --- */
+(() => {
+  const LOGO_FILENAME = "assets/images/logo/logoku.svg";
+  const LOGO_SIZE = 25;
+
+  const getBasePath = () => {
+    const base = (window.BASE_URL || "/");
+    try {
+      const path = new URL(base, location.origin).pathname;
+      return path.endsWith("/") ? path : path + "/";
+    } catch {
+      return "/";
+    }
+  };
+
+  const getBrandLink = () => {
+    const base = getBasePath();
+    return (
+      document.querySelector(`header .container-wrapper a[href="${base}"][data-slot="button"]`) ||
+      document.querySelector(`header .container-wrapper a[href^="${location.origin}${base}"][data-slot="button"]`)
+    );
+  };
+
+  const swapLogo = () => {
+    const link = getBrandLink();
+    if (!link) return;
+
+    const originalSvg = link.querySelector("svg");
+    if (!originalSvg || link.querySelector('img[data-nwabel-logo]')) return;
+
+    const newLogo = document.createElement("img");
+    newLogo.src = getBasePath() + LOGO_FILENAME.replace(/^\/+/, "") + "?v=2";
+    newLogo.alt = "nwabel-logo";
+    newLogo.width = LOGO_SIZE;
+    newLogo.height = LOGO_SIZE;
+    newLogo.setAttribute("data-nwabel-logo", "1");
+    
+    Object.assign(newLogo.style, {
+      display: "inline-block",
+      verticalAlign: "middle",
+      marginRight: "0.375rem"
+    });
+
+    originalSvg.style.display = "none";
+    originalSvg.parentNode.insertBefore(newLogo, originalSvg);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", swapLogo);
+  } else {
+    swapLogo();
+  }
+})();
+
+
+/* --- 3. MOBILE BURGER LOGO (Gabungan dari mobelLg.js) --- */
+(function () {
+  const LOGO_SRC = "assets/images/logo/logoku.svg";
+  const SIZE = 22;
+  function basePath() {
+    const guess = (window.BASE_URL || window.base_url || "/");
+    try {
+      const p = new URL(guess, location.origin).pathname;
+      return p.endsWith("/") ? p : p + "/";
+    } catch { return "/"; }
+  }
+  const B = basePath();
+
+  function nukeOldIconContainers(btn) {
+    btn.querySelectorAll("svg").forEach(el => el.remove());
+    btn.querySelectorAll("div, span, i").forEach(el => {
+      const cls = el.className || "";
+      const tinyClass =
+        /\bw-4\b/.test(cls) ||
+        /\bsize-4\b/.test(cls) ||
+        /\bw-\[16px\]\b/.test(cls) ||
+        /\bw-3\b/.test(cls) ||
+        /\bsize-3\b/.test(cls);
+
+      const rect = el.getBoundingClientRect();
+      const tinyBox = (rect.width && rect.width <= 20) && (rect.height && rect.height <= 20);
+
+      const isTextish = /\btext|label|sr-only\b/i.test(cls) || /\bMenu\b/i.test(el.textContent||"");
+
+      if (!isTextish && (tinyClass || tinyBox)) {
+        el.remove();
+      }
+    });
+  }
+
+  function ensureLogo(btn) {
+    if (btn.querySelector('img[data-mobile-burger]')) return;
+
+    const img = document.createElement("img");
+    img.src = B + LOGO_SRC.replace(/^\/+/, "") + "?v=3";
+    img.alt = "Menu";
+    img.width = SIZE;
+    img.height = SIZE;
+    img.setAttribute("data-mobile-burger", "1");
+    Object.assign(img.style, {
+      display: "inline-block",
+      verticalAlign: "middle",
+      marginRight: "8px"
+    });
+
+    btn.prepend(img);
+    btn.style.gap = "0.35rem";
+    btn.style.paddingLeft = "8px";
+  }
+
+  function run() {
+    const btn = document.querySelector('header #menu-button');
+    if (!btn) return;
+
+    nukeOldIconContainers(btn);
+    ensureLogo(btn);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+
+  const mo = new MutationObserver(() => run());
+  mo.observe(document.body, { childList: true, subtree: true });
+})();
+
+/* --- OTOMATIS TANDAI HALAMAN HOME --- */
+(() => {
+  const path = window.location.pathname;
+  if (path === "/" || path.endsWith("/index.html") || path === window.BASE_URL) {
+    document.body.classList.add("is-home");
+  }
 })();

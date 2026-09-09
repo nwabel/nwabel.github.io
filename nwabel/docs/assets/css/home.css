@@ -66,3 +66,20 @@
 /* A11y & Cleanups */
 @media (prefers-reduced-motion: reduce) { [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; } }
 article h1:first-child, .md-content h1:first-child { display: none; } /* Keep landing clean */
+
+/* Badge Kategori Latest Posts */
+.nv-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  border: 1px solid transparent;
+}
+
+.nv-badge-wretap { background: color-mix(in srgb, #ef4444 15%, transparent); color: #ef4444; border-color: color-mix(in srgb, #ef4444 30%, transparent); }
+.nv-badge-wiki { background: color-mix(in srgb, #3b82f6 15%, transparent); color: #3b82f6; border-color: color-mix(in srgb, #3b82f6 30%, transparent); }
+.nv-badge-blok { background: color-mix(in srgb, #10b981 15%, transparent); color: #10b981; border-color: color-mix(in srgb, #10b981 30%, transparent); }
