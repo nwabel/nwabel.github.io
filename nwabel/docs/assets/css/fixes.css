@@ -17,16 +17,6 @@ header a[href*="github.com"] + [data-slot="separator"] {
   display: none !important;
 }
 
-header #menu-button svg, 
-header #menu-button .w-4, 
-header #menu-button .size-4, 
-header #menu-button .w-\[16px\], 
-header #menu-button .w-3, 
-header #menu-button .size-3 {
-  display: none !important;
-  visibility: hidden !important;
-}
-
 /* Mobile Layout Adjustments */
 @media (max-width: 768px) {
   header button[title="Toggle layout"],
@@ -284,4 +274,50 @@ body.is-home .group\/sidebar-wrapper {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+}
+
+/* ==========================================================================
+   REPLACE BURGER MOBILE
+   ========================================================================== */
+
+/* Upsize logo navbar desktop */
+header a[data-slot="button"] img,
+header a[data-slot="button"] svg {
+  width: 25px !important;
+  height: 25px !important;
+  max-width: unset !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin-right: 0.375rem !important;
+}
+
+/* Replace burger icon */
+header #menu-button::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-image: url('/assets/images/logo/logoku.svg'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+header #menu-button {
+  gap: 0.35rem !important;
+  padding-left: 8px !important;
+}
+
+/* 3. Hide burger icon */
+header #menu-button > div,
+header #menu-button > svg,
+header #menu-button .w-4,
+header #menu-button .size-4,
+header #menu-button .w-\[16px\],
+header #menu-button .w-3,
+header #menu-button .size-3 {
+  display: none !important;
+  visibility: hidden !important;
 }

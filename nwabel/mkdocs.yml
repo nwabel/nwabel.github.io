@@ -10,8 +10,9 @@ theme:
   pygments_style:
         light: shadcn-light
         dark: github-dark
-  icon: heroicons:bug-ant
+  icon: assets/images/logo/logoku.svg
   favicon: assets/images/logo/logoku.svg
+  logo: assets/images/logo/logoku.svg
   topbar_sections: true
   katex_options:
     macros:

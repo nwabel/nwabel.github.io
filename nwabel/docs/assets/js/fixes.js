@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. SEARCH TEXT CUSTOMIZATION
+   Sercing
    ========================================================================== */
 (() => {
   const SEARCH_PLACEHOLDER = "Mau cari apa?";
@@ -60,7 +60,7 @@
 
 
 /* ==========================================================================
-   2. BACK TO TOP COMPONENT
+   Bektutop
    ========================================================================== */
 (() => {
   const SCROLL_THRESHOLD = 300;
@@ -101,7 +101,7 @@
 
 
 /* ==========================================================================
-   3. READING PROGRESS BAR
+   Reading progress bar
    ========================================================================== */
 (() => {
   const createProgress = (parent, pos) => {
@@ -148,33 +148,98 @@
 
 
 /* ==========================================================================
-   4. COPY PAGE URL SCRIPT
+   Serling
    ========================================================================== */
 (() => {
-  document.addEventListener("DOMContentLoaded", () => {
-    const copyButtons = document.querySelectorAll('button[onclick*="fetch(`../..`)"]');
+  const SHARE_SVG = `<svg class="tabler-icon tabler-icon-share nv-share-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><line x1="8.7" y1="10.7" x2="15.3" y2="7.3"></line><line x1="8.7" y1="13.3" x2="15.3" y2="16.7"></line></svg>`;
+  const CHECK_SVG = `<svg class="tabler-icon tabler-icon-check nv-share-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 12l5 5l10 -10"></path></svg>`;
 
-    copyButtons.forEach(btn => {
-      btn.removeAttribute("onclick");
+  const showToast = (msg) => {
+    let existing = document.getElementById("nv-toast");
+    if (existing) existing.remove();
 
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const currentUrl = window.location.href;
-
-        navigator.clipboard.writeText(currentUrl).then(() => {
-          const textSpan = btn.querySelector("span");
-          if (textSpan) {
-            const originalText = textSpan.innerText;
-            textSpan.innerText = "Link Copied!";
-            setTimeout(() => {
-              textSpan.innerText = originalText;
-            }, 2000);
-          }
-        }).catch(err => {
-          console.error("Gagal menyalin tautan:", err);
-        });
-      });
+    const toast = document.createElement("div");
+    toast.id = "nv-toast";
+    toast.innerText = msg;
+    Object.assign(toast.style, {
+      position: "fixed",
+      bottom: "12%",
+      left: "50%",
+      transform: "translateX(-50%) translateY(20px)",
+      backgroundColor: "#10b981", 
+      color: "white",
+      padding: "0.5rem 1rem",
+      borderRadius: "99px",
+      fontSize: "0.85rem",
+      fontWeight: "500",
+      zIndex: "99999",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+      opacity: "0",
+      pointerEvents: "none",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
     });
+
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.style.opacity = "1";
+      toast.style.transform = "translateX(-50%) translateY(0)";
+    });
+
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(-50%) translateY(20px)";
+      setTimeout(() => toast.remove(), 300);
+    }, 2000);
+  };
+
+  const fixShareButton = (btn) => {
+    if (btn.dataset.shareFixed) return;
+    btn.dataset.shareFixed = "1";
+    btn.removeAttribute("onclick");
+
+    const oldSvg = btn.querySelector("svg");
+    if (oldSvg) oldSvg.remove();
+    btn.insertAdjacentHTML("afterbegin", SHARE_SVG);
+
+    const textSpan = btn.querySelector("span");
+    if (textSpan) textSpan.innerText = "Share";
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const currentUrl = window.location.href;
+
+      navigator.clipboard.writeText(currentUrl).then(() => {
+        const currentIcon = btn.querySelector(".nv-share-icon");
+        if (currentIcon) currentIcon.outerHTML = CHECK_SVG;
+        
+        if (textSpan) textSpan.innerText = "Copied!";
+        showToast("Link disalin!");
+
+        setTimeout(() => {
+          const checkIcon = btn.querySelector(".nv-share-icon");
+          if (checkIcon) checkIcon.outerHTML = SHARE_SVG;
+          if (textSpan) textSpan.innerText = "Share";
+        }, 2000);
+      }).catch(err => console.error("Gagal menyalin:", err));
+    });
+  };
+
+  const scanAndFix = () => {
+    // Cari tombol target bawaan
+    document.querySelectorAll('button[onclick*="fetch("], button[onclick*="clipboard"]').forEach(fixShareButton);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scanAndFix);
+  } else {
+    scanAndFix();
+  }
+
+  new MutationObserver(scanAndFix).observe(document.body, { 
+    childList: true, 
+    subtree: true 
   });
 })();
 
@@ -256,146 +321,6 @@
     ? document.addEventListener("DOMContentLoaded", renderBreadcrumbs, { once: true })
     : renderBreadcrumbs();
 })();
-
-
-/* ==========================================================================
-   6. LOGO SWAPPER (BRAND HEADER)
-   ========================================================================== */
-(() => {
-  const LOGO_FILENAME = "assets/images/logo/logoku.svg";
-  const LOGO_SIZE = 25;
-
-  const getBasePath = () => {
-    const base = (window.BASE_URL || "/");
-    try {
-      const path = new URL(base, location.origin).pathname;
-      return path.endsWith("/") ? path : path + "/";
-    } catch {
-      return "/";
-    }
-  };
-
-  const getBrandLink = () => {
-    const base = getBasePath();
-    return (
-      document.querySelector(`header .container-wrapper a[href="${base}"][data-slot="button"]`) ||
-      document.querySelector(`header .container-wrapper a[href^="${location.origin}${base}"][data-slot="button"]`)
-    );
-  };
-
-  const swapLogo = () => {
-    const link = getBrandLink();
-    if (!link) return;
-
-    const originalSvg = link.querySelector("svg");
-    if (!originalSvg || link.querySelector('img[data-nwabel-logo]')) return;
-
-    const newLogo = document.createElement("img");
-    newLogo.src = getBasePath() + LOGO_FILENAME.replace(/^\/+/, "") + "?v=2";
-    newLogo.alt = "nwabel-logo";
-    newLogo.width = LOGO_SIZE;
-    newLogo.height = LOGO_SIZE;
-    newLogo.setAttribute("data-nwabel-logo", "1");
-    
-    Object.assign(newLogo.style, {
-      display: "inline-block",
-      verticalAlign: "middle",
-      marginRight: "0.375rem"
-    });
-
-    originalSvg.style.display = "none";
-    originalSvg.parentNode.insertBefore(newLogo, originalSvg);
-  };
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", swapLogo);
-  } else {
-    swapLogo();
-  }
-})();
-
-
-/* ==========================================================================
-   7. MOBILE BURGER LOGO REPLACER
-   ========================================================================== */
-(() => {
-  const LOGO_SRC = "assets/images/logo/logoku.svg";
-  const SIZE = 22;
-
-  const getBasePath = () => {
-    const guess = (window.BASE_URL || window.base_url || "/");
-    try {
-      const p = new URL(guess, location.origin).pathname;
-      return p.endsWith("/") ? p : p + "/";
-    } catch { 
-      return "/"; 
-    }
-  };
-
-  const B = getBasePath();
-
-  const nukeOldIconContainers = (btn) => {
-    btn.querySelectorAll("svg").forEach(el => el.remove());
-    btn.querySelectorAll("div, span, i").forEach(el => {
-      const cls = el.className || "";
-      const tinyClass =
-        /\bw-4\b/.test(cls) ||
-        /\bsize-4\b/.test(cls) ||
-        /\bw-\[16px\]\b/.test(cls) ||
-        /\bw-3\b/.test(cls) ||
-        /\bsize-3\b/.test(cls);
-
-      const rect = el.getBoundingClientRect();
-      const tinyBox = (rect.width && rect.width <= 20) && (rect.height && rect.height <= 20);
-      const isTextish = /\btext|label|sr-only\b/i.test(cls) || /\bMenu\b/i.test(el.textContent || "");
-
-      if (!isTextish && (tinyClass || tinyBox)) {
-        el.remove();
-      }
-    });
-  };
-
-  const ensureLogo = (btn) => {
-    if (btn.querySelector('img[data-mobile-burger]')) return;
-
-    const img = document.createElement("img");
-    img.src = B + LOGO_SRC.replace(/^\/+/, "") + "?v=3";
-    img.alt = "Menu";
-    img.width = SIZE;
-    img.height = SIZE;
-    img.setAttribute("data-mobile-burger", "1");
-    
-    Object.assign(img.style, {
-      display: "inline-block",
-      verticalAlign: "middle",
-      marginRight: "8px"
-    });
-
-    btn.prepend(img);
-    btn.style.gap = "0.35rem";
-    btn.style.paddingLeft = "8px";
-  };
-
-  const run = () => {
-    const btn = document.querySelector("header #menu-button");
-    if (!btn) return;
-
-    nukeOldIconContainers(btn);
-    ensureLogo(btn);
-  };
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", run);
-  } else {
-    run();
-  }
-
-  new MutationObserver(() => run()).observe(document.body, { 
-    childList: true, 
-    subtree: true 
-  });
-})();
-
 
 /* ==========================================================================
    8. AUTO-FLAG HOME PAGE (.is-home CLASS)
