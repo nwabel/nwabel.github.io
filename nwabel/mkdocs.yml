@@ -11,7 +11,7 @@ theme:
         light: shadcn-light
         dark: github-dark
   icon: heroicons:bug-ant
-  favicon: assets/images/logo/.svg
+  favicon: assets/images/logo/logoku.svg
   topbar_sections: true
   katex_options:
     macros:
