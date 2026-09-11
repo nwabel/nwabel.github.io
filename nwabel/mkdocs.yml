@@ -12,7 +12,6 @@ theme:
         dark: github-dark
   icon: assets/images/logo/logoku.svg
   favicon: assets/images/logo/logoku.svg
-  logo: assets/images/logo/logoku.svg
   topbar_sections: true
   katex_options:
     macros:
@@ -26,21 +25,33 @@ nav:
       - Index: finding/index.md
   - Wretap:
       - Index: wretap/index.md
-      - DFIR (Blue Team):
+      - Ini bisa buat ngatur sidebar juga: wretap/indexLabs.md
+      - Cryptanalysis: wretap/Cryptanalysis.md
+      - CVE 2015-3306: wretap/CVE-2015-3306.md
+      - DFIR:
           - Lab 1: wretap/dfir/lab1.md
       - Threat Hunting:
           - Lab 2: wretap/threat-hunting/lab2.md
+      - Tes:
+          - Baru: wretap/tes/baru.md
+          - Inijudulyak: wretap/tes/CVE-2015-3306.md
   - Wiki:
       - Index: wiki/index.md
       - Kriptografi Intro: wiki/Kriptografi___Intro.md
+      - Enkripsi Simetris & Asimetris: wiki/Kriptografi___Enkripsi Simetris dan Asimetris.md
+      - Terminal Guide: wiki/terminal-guide.md
+      - ASD:
+          - Index ASD: wiki/asd/index.md
   - Blok:
       - Index: blog/index.md
       - tes1: blog/1.md
+      - tes2: blog/2.md
+      - Posts:
+          - First: blog/posts/first.md
 
 markdown_extensions:
   - meta
   - attr_list
-  - codehilite
   - admonition
   - pymdownx.arithmatex:
       generic: true
