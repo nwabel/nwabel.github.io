@@ -1,0 +1,323 @@
+/* ==========================================================================
+   GLOBAL UI & NAVIGATION FIXES
+   ========================================================================== */
+
+/* Navbar & Header Customization */
+button[title="Toggle layout"] {
+  display: inline-flex !important;
+}
+
+header.bg-background {
+  border-bottom: 1px solid var(--border);
+}
+
+header a[href*="github.com"], 
+header [data-slot="separator"] + a[href*="github.com"],
+header a[href*="github.com"] + [data-slot="separator"] {
+  display: none !important;
+}
+
+/* Mobile Layout Adjustments */
+@media (max-width: 768px) {
+  header button[title="Toggle layout"],
+  header button[title="Toggle layout"] + [data-slot="separator"],
+  header [data-slot="separator"] + button[title="Toggle layout"] {
+    display: none !important;
+  }
+
+  header button[onclick="onSearchBarClick(event)"],
+  header [data-slot="dialog-trigger"] {
+    display: inline-flex !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    margin-left: 0.5rem;
+    min-width: 0;
+  }
+
+  header .md\:flex, 
+  header .w-full {
+    display: flex !important;
+  }
+}
+
+/* Footer Customization */
+footer {
+  border-top: 1px solid var(--border);
+}
+
+footer .text-muted-foreground::after {
+  content: "|\00a0\00a0modified by nwabel";
+  color: var(--muted-foreground);
+  margin-left: 0.25rem;
+  white-space: nowrap;
+}
+
+/* Core Body Styling */
+body {
+  --footer-height: var(--header-height) !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+
+/* ==========================================================================
+   WIDGETS & COMPONENTS
+   ========================================================================== */
+
+/* Back to Top Button */
+#back-to-top {
+  position: fixed;
+  bottom: 7rem;
+  right: 5rem;
+  z-index: 70;
+  opacity: 0;
+  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  font-size: .8rem;
+  font-weight: 500;
+  line-height: 1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+  cursor: pointer;
+  transition: opacity .16s ease, transform .16s ease, background-color .16s ease;
+  transform: scale(.96);
+}
+
+#back-to-top.is-visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+#back-to-top:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--accent);
+}
+
+#back-to-top svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Reading Progress Bar */
+.progress-container {
+  position: absolute !important;
+  bottom: -3px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 3px !important;
+  z-index: 99999 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+
+.progress-bar {
+  height: 40% !important;
+  width: 0%;
+  background: #ffef0c !important;
+  box-shadow: 0 0 8px rgba(253, 52, 229, .5);
+  transition: width .1s ease-out, opacity .2s ease;
+  opacity: 0;
+}
+
+.progress-bar:not([style*="width: 0%"]) {
+  opacity: 1;
+}
+
+/* TOC Left Border Divider */
+.sticky.ml-auto.hidden.w-72 {
+  position: sticky !important;
+  padding-left: 0.75rem;
+}
+
+.sticky.ml-auto.hidden.w-72::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3rem;
+  bottom: 0;
+  width: 0.5px;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+  display: none;
+  z-index: 1;
+}
+
+@media (min-width: 1280px) {
+  .sticky.ml-auto.hidden.w-72::before {
+    display: block;
+  }
+}
+
+
+/* ==========================================================================
+   BREADCRUMBS STYLING
+   ========================================================================== */
+
+.nw-breadcrumbs {
+  margin: .5rem 0 .75rem;
+  color: var(--muted-foreground);
+}
+
+.nw-bc-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem .5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nw-bc-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nw-bc-item + .nw-bc-item::before {
+  content: "/";
+  opacity: .5;
+  margin: 0 .5rem 0 .25rem;
+}
+
+.nw-bc-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nw-bc-link:hover {
+  text-decoration: underline;
+}
+
+.nw-bc-current span {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+
+/* ==========================================================================
+   LANDING PAGE (HOME) FULL-SCREEN OVERRIDES (.is-home)
+   ========================================================================== */
+
+body.is-home {
+  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body.is-home #inner-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.is-home main.flex.flex-1.flex-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide Unwanted Elements on Home */
+body.is-home header,
+body.is-home footer,
+body.is-home .w-\(--sidebar-width\),
+body.is-home div.sticky.top-\[calc\(var\(--header-height\)\+1px\)\].ml-auto.hidden,
+body.is-home #page-header,
+body.is-home .nw-breadcrumbs,
+body.is-home .mx-auto.flex.flex-wrap.h-16,
+body.is-home .grow.text-muted-foreground,
+body.is-home .md-source-file {
+  display: none !important;
+}
+
+/* Expand Content Area to Full Width */
+body.is-home .container-wrapper,
+body.is-home .md-content,
+body.is-home .md-main__inner,
+body.is-home article.w-full,
+body.is-home div[data-slot="docs"],
+body.is-home .flex.min-w-0.flex-1.flex-col {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  grid-column: 1 / -1 !important;
+}
+
+body.is-home .group\/sidebar-wrapper {
+  display: block !important;
+  grid-template-columns: none !important;
+}
+
+/* Landing Page Wrapper & Hero Section */
+#nv-landing {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+}
+
+#nv-landing .nv-hero {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   REPLACE BURGER MOBILE
+   ========================================================================== */
+
+/* Upsize logo navbar desktop */
+header a[data-slot="button"] img,
+header a[data-slot="button"] svg {
+  width: 25px !important;
+  height: 25px !important;
+  max-width: unset !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin-right: 0.375rem !important;
+}
+
+/* Replace burger icon */
+header #menu-button::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background-image: url('/assets/images/logo/logoku.svg'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+header #menu-button {
+  gap: 0.35rem !important;
+  padding-left: 8px !important;
+}
+
+/* 3. Hide burger icon */
+header #menu-button > div,
+header #menu-button > svg,
+header #menu-button .w-4,
+header #menu-button .size-4,
+header #menu-button .w-\[16px\],
+header #menu-button .w-3,
+header #menu-button .size-3 {
+  display: none !important;
+  visibility: hidden !important;
+}
