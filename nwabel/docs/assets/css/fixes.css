@@ -64,11 +64,17 @@ body {
    WIDGETS & COMPONENTS
    ========================================================================== */
 
-/* Back to Top Button */
+/* Back to Top Button
+   Posisi diatur lewat variabel di bawah (pojok kanan bawah, aman dari notch/home bar HP). */
+:root {
+  --nv-btt-right: 1.5rem;
+  --nv-btt-bottom: 1.5rem;
+}
+
 #back-to-top {
   position: fixed;
-  bottom: 7rem;
-  right: 5rem;
+  right: calc(var(--nv-btt-right) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--nv-btt-bottom) + env(safe-area-inset-bottom, 0px));
   z-index: 70;
   opacity: 0;
   pointer-events: none;
@@ -104,6 +110,13 @@ body {
 #back-to-top svg {
   width: 16px;
   height: 16px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nv-btt-right: 1rem;
+    --nv-btt-bottom: 1rem;
+  }
 }
 
 /* Reading Progress Bar */
@@ -327,10 +340,22 @@ header #menu-button::before {
   vertical-align: middle;
 }
 
+/* Layout tombol meniru versi lama tema: "flex lg:hidden" (tampil di bawah 1024px, hilang di desktop) */
 header #burger-button,
 header #menu-button {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  height: 2rem;
   gap: 0.35rem !important;
-  padding-left: 8px !important;
+  padding: 0 0 0 8px !important;
+}
+
+@media (min-width: 1024px) {
+  header #burger-button,
+  header #menu-button {
+    display: none !important;
+  }
 }
 
 /* 3. Hide burger icon (fungsi buka menu tetap dari tema: onMobileMenuButtonClick) */

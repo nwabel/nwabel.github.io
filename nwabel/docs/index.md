@@ -14,7 +14,7 @@
             </p>
         </div>
         <!-- Marquee Tools as Hero Bottom Bar (2 grup identik untuk loop mulus) -->
-        <div class="nv-marquee" data-aos="fade-in" data-aos-delay="200">
+        <div class="nv-marquee">
             <div class="nv-marquee-track">
                 <div class="nv-marquee-group"><span>Burp Suite</span><span aria-hidden="true">•</span><span>Splunk</span><span aria-hidden="true">•</span><span>Wireshark</span><span aria-hidden="true">•</span><span>Nmap</span><span aria-hidden="true">•</span><span>Metasploit</span><span aria-hidden="true">•</span><span>INI NGASAL YAA GA BENERAN WKWKW</span><span aria-hidden="true">•</span><span>Python</span><span aria-hidden="true">•</span><span>Bash</span><span aria-hidden="true">•</span><span>Docker</span><span aria-hidden="true">•</span></div>
                 <div class="nv-marquee-group" aria-hidden="true"><span>Burp Suite</span><span aria-hidden="true">•</span><span>Splunk</span><span aria-hidden="true">•</span><span>Wireshark</span><span aria-hidden="true">•</span><span>Nmap</span><span aria-hidden="true">•</span><span>Metasploit</span><span aria-hidden="true">•</span><span>INI NGASAL YAA GA BENERAN WKWKW</span><span aria-hidden="true">•</span><span>Python</span><span aria-hidden="true">•</span><span>Bash</span><span aria-hidden="true">•</span><span>Docker</span><span aria-hidden="true">•</span></div>
