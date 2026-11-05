@@ -223,6 +223,24 @@ body.is-home main.flex.flex-1.flex-col {
   flex-direction: column;
 }
 
+/* Mobile: 100vh di HP termasuk area address bar, dan height tetap di body
+   bisa bikin bagian bawah halaman terpotong / scroll bersarang.
+   Pakai min-height + svh, dan biarkan tinggi body mengikuti isi. */
+@media (max-width: 768px) {
+  body.is-home {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  body.is-home #inner-body {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}
+
 /* Hide Unwanted Elements on Home */
 body.is-home header,
 body.is-home footer,

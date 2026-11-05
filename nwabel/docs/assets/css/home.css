@@ -43,7 +43,7 @@
 }
 
 .nv-section {
-  padding: 2.5rem 0;
+  padding-block: 2.5rem;   /* hanya atas-bawah, jangan timpa padding-inline milik .nv-wrap */
 }
 
 
@@ -832,4 +832,64 @@ article h1:first-child,
   max-width: 60ch;
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
+}
+
+
+/* ==========================================================================
+   MOBILE FIXES
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Header disembunyikan di home -> tidak perlu dikurangi tinggi header.
+     svh = tinggi layar saat address bar tampil, jadi marquee tidak kepotong. */
+  .nv-landing-hero {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  .nv-hero-inner-full {
+    gap: 1.25rem;
+    padding-block: 2rem;
+  }
+
+  #nv-landing .nv-hero-roles {
+    font-size: 1.05rem;
+  }
+
+  /* Judul section + link di sebelahnya boleh turun baris */
+  .nv-sec-head {
+    flex-wrap: wrap;
+    row-gap: .25rem;
+  }
+
+  /* Tombol CTA melebar biar mudah di-tap */
+  .nv-cta .nv-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 380px) {
+  #nv-landing .nv-hero-hello {
+    font-size: 1.1rem;
+  }
+
+  #nv-landing .nv-hero-roles {
+    font-size: 1rem;     /* cegah teks ngetik pindah baris -> layout loncat */
+  }
+}
+
+/* Layar sentuh: tidak ada hover, jadi hilangkan hover "nyangkut" dan ganti feedback tap */
+@media (hover: none) {
+  .nv-card:hover,
+  .nv-card-interactive:hover,
+  .nv-latest li:hover {
+    border-color: var(--nv-card-border);
+    background: var(--nv-card-bg);
+  }
+
+  .nv-card:active,
+  .nv-card-interactive:active,
+  .nv-latest li:active {
+    background: var(--nv-card-muted);
+  }
 }
