@@ -80,6 +80,17 @@
     if (window.AOS) {
       AOS.init({ duration: 700, easing: "ease-out", once: true, offset: 40 });
     }
+    // Hero pas 1 layar: kurangi tinggi dengan jarak hero dari atas halaman (kalau ada elemen di atasnya)
+    var hero = document.querySelector(".nv-landing-hero");
+    function fitHero() {
+      if (!hero) return;
+      var top = hero.getBoundingClientRect().top + window.pageYOffset;
+      top = Math.min(Math.max(0, Math.round(top)), window.innerHeight * 0.5);
+      document.documentElement.style.setProperty("--nv-hero-top", top + "px");
+    }
+    fitHero();
+    window.addEventListener("load", fitHero);
+    window.addEventListener("resize", fitHero);
     // Typing animation peran di hero (AOS hanya untuk animasi scroll, bukan ngetik)
     var box = document.querySelector(".nv-hero-roles");
     if (!box) return;

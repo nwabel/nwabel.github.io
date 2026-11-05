@@ -72,8 +72,9 @@
 /* --- Landing hero: layar penuh, marquee selalu menempel di bawah --- */
 
 .nv-landing-hero {
-  min-height: calc(100vh - var(--header-height, 3.5rem));
-  min-height: calc(100svh - var(--header-height, 3.5rem));
+  /* --nv-hero-top diisi JS (jarak hero dari atas halaman), default 0 -> tepat 1 layar */
+  min-height: calc(100vh - var(--nv-hero-top, 0px));
+  min-height: calc(100svh - var(--nv-hero-top, 0px));
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -840,13 +841,6 @@ article h1:first-child,
    ========================================================================== */
 
 @media (max-width: 768px) {
-  /* Header disembunyikan di home -> tidak perlu dikurangi tinggi header.
-     svh = tinggi layar saat address bar tampil, jadi marquee tidak kepotong. */
-  .nv-landing-hero {
-    min-height: 100vh;
-    min-height: 100svh;
-  }
-
   .nv-hero-inner-full {
     gap: 1.25rem;
     padding-block: 2rem;

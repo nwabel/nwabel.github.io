@@ -244,6 +244,7 @@ body.is-home main.flex.flex-1.flex-col {
 /* Hide Unwanted Elements on Home */
 body.is-home header,
 body.is-home footer,
+body.is-home #bottom-navigation,   /* tombol prev/next bawaan tema (Index) */
 body.is-home .w-\(--sidebar-width\),
 body.is-home div.sticky.top-\[calc\(var\(--header-height\)\+1px\)\].ml-auto.hidden,
 body.is-home #page-header,
@@ -309,7 +310,10 @@ header a[data-slot="button"] svg {
   margin-right: 0.375rem !important;
 }
 
-/* Replace burger icon */
+/* Replace burger icon
+   Id tombol di tema sekarang = #burger-button (rule lama menarget #menu-button,
+   makanya tidak kena). Dua-duanya ditarget supaya aman. */
+header #burger-button::before,
 header #menu-button::before {
   content: "";
   display: inline-block;
@@ -323,12 +327,20 @@ header #menu-button::before {
   vertical-align: middle;
 }
 
+header #burger-button,
 header #menu-button {
   gap: 0.35rem !important;
   padding-left: 8px !important;
 }
 
-/* 3. Hide burger icon */
+/* 3. Hide burger icon (fungsi buka menu tetap dari tema: onMobileMenuButtonClick) */
+header #burger-button > div,
+header #burger-button > svg,
+header #burger-button .w-4,
+header #burger-button .size-4,
+header #burger-button .w-\[16px\],
+header #burger-button .w-3,
+header #burger-button .size-3,
 header #menu-button > div,
 header #menu-button > svg,
 header #menu-button .w-4,
