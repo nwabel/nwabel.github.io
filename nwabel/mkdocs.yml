@@ -34,7 +34,7 @@ nav:
           - Lab 2: wretap/threat-hunting/lab2.md
       - Tes:
           - Baru: wretap/tes/baru.md
-          - Inijudulyak: wretap/tes/CVE-2015-3306.md
+          - Inijudulyk: wretap/tes/CVE-2015-3306.md
   - Wiki:
       - Index: wiki/index.md
       - Kriptografi Intro: wiki/Kriptografi___Intro.md

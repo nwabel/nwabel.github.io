@@ -2,29 +2,25 @@
     <!-- Hero Section: Full Screen & Marquee at Bottom -->
     <section class="nv-landing-hero">
         <div class="nv-wrap nv-hero-inner-full" data-aos="fade-up">
-            <img class="nv-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="Nwabel">
-            <div class="nv-hero-text">
-                <h2 class="nv-overline">
-                    Guwej, Saya, I’m Nabil — Developer (full kopas EAY) • Satpam Server (mungkeeen) • Digital Forensics (niatnya)
-                </h2>
-                <p class="nv-title">
-                    I build delightful docs &amp; tools, and break things (in labs) to learn.
-                </p>
-                <p class="nv-sutitle">Full-stack tinkerer, SOC Analyst (kalo masih). <br> I ship documentation sites, training labs, and tiny utilities — then write about them.
-                </p>
+            <div class="nv-hero-greet">
+                <a class="glightbox nv-hero-avatar-link" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-hero-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="Nwabel"></a>
+                <h2 class="nv-hero-hello">Guwej, Saya, I’m Nabil</h2>
             </div>
+            <p class="nv-hero-title">I build <span class="nv-select">delightful</span> docs &amp; tools, and break things (in labs) to learn.</p>
+            <p class="nv-hero-lead">Full-stack tinkerer, SOC Analyst (kalo masih). I ship documentation sites, training labs, and tiny utilities — then write about them.</p>
+            <p class="nv-hero-roles">
+                <span class="nv-sr">Developer, Satpam Server, Digital Forensics</span>
+                <span aria-hidden="true"><span class="nv-type-role">Developer | Satpam Server | Digital Forensics</span><span class="nv-type-note"></span><span class="nv-type-caret"></span></span>
+            </p>
         </div>
-
-        <!-- Marquee Tools as Hero Bottom Bar -->
+        <!-- Marquee Tools as Hero Bottom Bar (2 grup identik untuk loop mulus) -->
         <div class="nv-marquee" data-aos="fade-in" data-aos-delay="200">
-            <div class="nv-wrap">
-                <div class="nv-marquee-track">
-                    <span>Burp Suite</span> •<span>Burp Suite</span> • <span>Splunk</span> • <span>Wireshark</span> • <span>Nmap</span> • <span>Metasploit</span> • <span>INI NGASAL YAA GA BENERAN WKWKW</span> • <span>Python</span> • <span>Bash</span> • <span>Docker</span> • <span>Burp Suite</span> • <span>Splunk</span> • <span>Wireshark</span> • <span>Nmap</span>
-                </div>
+            <div class="nv-marquee-track">
+                <div class="nv-marquee-group"><span>Burp Suite</span><span aria-hidden="true">•</span><span>Splunk</span><span aria-hidden="true">•</span><span>Wireshark</span><span aria-hidden="true">•</span><span>Nmap</span><span aria-hidden="true">•</span><span>Metasploit</span><span aria-hidden="true">•</span><span>INI NGASAL YAA GA BENERAN WKWKW</span><span aria-hidden="true">•</span><span>Python</span><span aria-hidden="true">•</span><span>Bash</span><span aria-hidden="true">•</span><span>Docker</span><span aria-hidden="true">•</span></div>
+                <div class="nv-marquee-group" aria-hidden="true"><span>Burp Suite</span><span aria-hidden="true">•</span><span>Splunk</span><span aria-hidden="true">•</span><span>Wireshark</span><span aria-hidden="true">•</span><span>Nmap</span><span aria-hidden="true">•</span><span>Metasploit</span><span aria-hidden="true">•</span><span>INI NGASAL YAA GA BENERAN WKWKW</span><span aria-hidden="true">•</span><span>Python</span><span aria-hidden="true">•</span><span>Bash</span><span aria-hidden="true">•</span><span>Docker</span><span aria-hidden="true">•</span></div>
             </div>
         </div>
     </section>
-    
 <!-- Below the Fold: Jelajahi Konten & Aktivitas Terakhir -->
     <section class="nv-section nv-wrap nv-below-fold" data-aos="fade-up">
         <div class="nv-sec-head" style="margin-bottom: 0.5rem;">
@@ -84,5 +80,31 @@
     if (window.AOS) {
       AOS.init({ duration: 700, easing: "ease-out", once: true, offset: 40 });
     }
+    // Typing animation peran di hero (AOS hanya untuk animasi scroll, bukan ngetik)
+    var box = document.querySelector(".nv-hero-roles");
+    if (!box) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var roleEl = box.querySelector(".nv-type-role");
+    var noteEl = box.querySelector(".nv-type-note");
+    var items = [
+      ["Developer", "full kopas EAY"],
+      ["Satpam Server", "mungkeeen"],
+      ["Digital Forensics", "niatnya"]
+    ];
+    var i = 0, n = 0, deleting = false;
+    box.classList.add("is-typing");
+    roleEl.textContent = "";
+    function tick() {
+      var role = items[i][0];
+      var full = role + " (" + items[i][1] + ")";
+      n += deleting ? -1 : 1;
+      roleEl.textContent = full.slice(0, Math.min(n, role.length));
+      noteEl.textContent = n > role.length ? full.slice(role.length, n) : "";
+      var delay = deleting ? 35 : 70;
+      if (!deleting && n === full.length) { deleting = true; delay = 1600; }
+      else if (deleting && n === 0) { deleting = false; i = (i + 1) % items.length; delay = 350; }
+      setTimeout(tick, delay);
+    }
+    setTimeout(tick, 700);
   });
 </script>

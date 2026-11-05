@@ -1,4 +1,36 @@
 /* ==========================================================================
+   VERCEL x SHADCN HYBRID VARIABLES (warna & gaya untuk semua "card")
+   Dipakai oleh: .nv-card, .nv-card-interactive, .nv-latest li, .nv-cta-panel
+   Ukuran (radius & padding) mengikuti .nv-card versi awal.
+   ========================================================================== */
+
+:root {
+  --nv-card-bg: #ffffff;
+  --nv-card-fg: #111111;
+  --nv-card-muted: #f7f7f7;
+  --nv-card-muted-fg: #666666;
+  --nv-card-border: #eaeaea;
+  --nv-card-border-hover: #cccccc;
+  --nv-card-radius: 1.2rem;   /* ukuran awal .nv-card */
+  --nv-card-padding: 1rem;    /* ukuran awal .nv-card-body */
+  --nv-card-transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
+  --nv-select-bg: rgba(0, 112, 243, 0.22);   /* warna "teks ter-seleksi" */
+}
+
+[data-theme="dark"],
+[data-md-color-scheme="slate"],
+.dark {
+  --nv-card-bg: #000000;
+  --nv-card-fg: #ededed;
+  --nv-card-muted: #111111;
+  --nv-card-muted-fg: #a1a1a1;
+  --nv-card-border: #333333;
+  --nv-card-border-hover: #555555;
+  --nv-select-bg: rgba(0, 112, 243, 0.5);
+}
+
+
+/* ==========================================================================
    CONTAINER & GLOBAL WRAPPERS
    ========================================================================== */
 
@@ -37,29 +69,161 @@
   }
 }
 
+/* --- Landing hero: layar penuh, marquee selalu menempel di bawah --- */
+
 .nv-landing-hero {
   min-height: calc(100vh - var(--header-height, 3.5rem));
+  min-height: calc(100svh - var(--header-height, 3.5rem));
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   box-sizing: border-box;
 }
 
 .nv-hero-inner-full {
-  display: grid;
+  flex: 1;                        /* isi ruang kosong -> marquee turun ke dasar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   gap: 1.5rem;
+  padding-block: 3rem;
+}
+
+/* Sapaan: avatar + nama (diperbesar) */
+#nv-landing .nv-hero-greet {
+  display: flex;
   align-items: center;
-  grid-template-columns: 96px 1fr;
-  margin: auto;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  gap: 1.1rem;
+}
+
+#nv-landing .nv-hero-avatar-link {
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: zoom-in;
+}
+
+#nv-landing .nv-hero-avatar {
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 0;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--nv-card-border);
+  box-shadow: 0 0 0 5px var(--nv-card-muted);
+  transition: box-shadow var(--nv-card-transition);
 }
 
 @media (min-width: 860px) {
-  .nv-hero-inner-full {
-    grid-template-columns: 120px 1fr;
-    gap: 2rem;
+  #nv-landing .nv-hero-avatar {
+    width: 112px;
+    height: 112px;
+    box-shadow: 0 0 0 6px var(--nv-card-muted);
   }
+}
+
+#nv-landing .nv-hero-avatar-link:hover .nv-hero-avatar {
+  box-shadow: 0 0 0 6px var(--nv-card-border);
+}
+
+#nv-landing .nv-hero-avatar-link:focus-visible {
+  outline: 2px solid var(--nv-card-fg);
+  outline-offset: 4px;
+}
+
+#nv-landing .nv-hero-hello {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+
+/* Headline besar */
+#nv-landing .nv-hero-title {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(2.25rem, 6.5vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+#nv-landing .nv-hero-lead {
+  margin: 0;
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--nv-card-muted-fg);
+}
+
+/* "delightful": seolah di-highlight kursor (seperti seleksi teks) */
+#nv-landing .nv-select {
+  padding-inline: .06em;
+  margin-inline: -.06em;
+  border-radius: .12em;
+  background-color: transparent;
+  background-image: linear-gradient(var(--nv-select-bg), var(--nv-select-bg));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation: nv-select .9s ease-out 1.1s forwards;   /* tunggu fade-up AOS selesai */
+}
+
+@keyframes nv-select {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+/* Peran: teks diketik -> dihapus -> diketik (lihat script di index.md) */
+#nv-landing .nv-hero-roles {
+  margin: .25rem 0 0;
+  min-height: 1.5em;                /* cegah layout loncat saat teks kosong */
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+#nv-landing .nv-type-note {
+  font-weight: 400;
+  color: var(--nv-card-muted-fg);
+}
+
+#nv-landing .nv-type-caret {
+  display: none;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: nv-blink 1s steps(1) infinite;
+}
+
+#nv-landing .nv-hero-roles.is-typing .nv-type-caret {
+  display: inline-block;
+}
+
+@keyframes nv-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Teks untuk screen reader (versi visual di-aria-hidden) */
+.nv-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 
@@ -188,20 +352,50 @@
 
 
 /* ==========================================================================
+   CARD SURFACE (SHARED)
+   Satu tampilan untuk: kartu menu, item "Apa apa aja", dan panel CTA.
+   Warna & gaya = Vercel x shadcn hybrid. Ukuran = .nv-card versi awal.
+   ========================================================================== */
+
+.nv-card,
+.nv-card-interactive,
+.nv-latest li,
+.nv-cta-panel {
+  box-sizing: border-box;
+  border: 1px solid var(--nv-card-border);
+  border-radius: var(--nv-card-radius);
+  background: var(--nv-card-bg);
+  color: var(--nv-card-fg);
+}
+
+.nv-card,
+.nv-card-interactive,
+.nv-latest li {
+  transition:
+    border-color var(--nv-card-transition),
+    background-color var(--nv-card-transition);
+}
+
+.nv-card {
+  overflow: hidden;
+}
+
+.nv-card:hover,
+.nv-card-interactive:hover,
+.nv-latest li:hover {
+  border-color: var(--nv-card-border-hover);
+  background: var(--nv-card-muted);
+}
+
+
+/* ==========================================================================
    CARDS & COMPONENTS
    ========================================================================== */
 
-.nv-card {
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  border-radius: 1.2rem;
-  overflow: hidden;
-  background: var(--card, transparent);
-  transition: transform .18s ease, box-shadow .18s ease;
-}
-
-.nv-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
+.nv-card-link {
+  text-decoration: none;
+  color: var(--nv-card-fg);
+  display: block;
 }
 
 .nv-card-img {
@@ -212,17 +406,82 @@
 }
 
 .nv-card-body {
-  padding: 1rem;
+  padding: var(--nv-card-padding);
 }
 
-.nv-card-title {
+.nv-card-title,
+.nv-card-body h3 {
   margin: .1rem 0 .35rem;
   font-size: 1.05rem;
+  color: var(--nv-card-fg);
 }
 
 .nv-card-desc {
   margin: 0 0 .6rem;
-  color: var(--muted-foreground, #6b7280);
+  color: var(--nv-card-muted-fg);
+}
+
+/* --- Varian struktur baru (opsional): .nv-card-interactive --- */
+
+.nv-card-interactive {
+  padding: var(--nv-card-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.nv-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.nv-card-icon {
+  font-size: 1.5rem;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: filter var(--nv-card-transition), opacity var(--nv-card-transition);
+}
+
+.nv-card-interactive:hover .nv-card-icon {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.nv-card-arrow {
+  color: var(--nv-card-muted-fg);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: all var(--nv-card-transition);
+}
+
+.nv-card-interactive:hover .nv-card-arrow {
+  opacity: 1;
+  color: var(--nv-card-fg);
+  transform: translate(0, 0);
+}
+
+.nv-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nv-heading-16 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  color: var(--nv-card-fg);
+}
+
+.nv-body-compact {
+  font-size: 0.875rem;
+  color: var(--nv-card-muted-fg);
+  margin: 0;
+  line-height: 1.5;
 }
 
 
@@ -230,9 +489,9 @@
    TAGS & LISTS
    ========================================================================== */
 
-.nv-tags, 
-.nv-skills, 
-.nv-tools, 
+.nv-tags,
+.nv-skills,
+.nv-tools,
 .nv-logos ul {
   display: flex;
   flex-wrap: wrap;
@@ -242,9 +501,9 @@
   margin: 0;
 }
 
-.nv-tags span, 
-.nv-skills li, 
-.nv-tools li, 
+.nv-tags span,
+.nv-skills li,
+.nv-tools li,
 .nv-logos li {
   font-size: .85rem;
   padding: .2rem .5rem;
@@ -254,7 +513,8 @@
 
 
 /* ==========================================================================
-   LATEST WRITING & NOW BAR
+   LATEST WRITING ("APA APA AJA") & NOW BAR
+   Tinggi item = tinggi awal (otomatis mengikuti isi, tanpa min-height).
    ========================================================================== */
 
 .nv-latest {
@@ -272,14 +532,23 @@
 }
 
 .nv-latest li {
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  border-radius: 1rem;
-  padding: 1rem;
-  background: var(--card, transparent);
+  padding: var(--nv-card-padding);
   display: flex;
   flex-direction: column;
   gap: .35rem;
-  min-height: 140px;
+}
+
+/* Teks di dalam item (hasil render dari niwPost.js) */
+.nv-latest li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nv-latest li p,
+.nv-latest li small,
+.nv-latest li time {
+  margin: 0;
+  color: var(--nv-card-muted-fg);
 }
 
 /* Batasi Aktivitas Terakhir maksimal 3 item (1 baris) biar pas selayar */
@@ -311,18 +580,38 @@
    ANIMATIONS (MARQUEE & STATS)
    ========================================================================== */
 
+/* Marquee: warna & border mengikuti card, selalu di dasar hero */
 .nv-marquee {
+  flex-shrink: 0;
   overflow: hidden;
-  border-block: 1px solid var(--border, rgba(125, 125, 125, .2));
+  background: var(--nv-card-bg);
+  color: var(--nv-card-muted-fg);
+  border-block: 1px solid var(--nv-card-border);
 }
 
 .nv-marquee-track {
-  display: inline-flex;
-  gap: 2.5rem;
-  padding: .7rem 1rem;
+  display: flex;
+  width: max-content;
+  animation: nv-marquee 32s linear infinite;
+}
+
+.nv-marquee:hover .nv-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Gaya awal: teks polos dipisah bullet. Lebar penuh layar + warna card. */
+.nv-marquee-group {
+  flex-shrink: 0;
+  min-width: 100vw;              /* tiap grup minimal selebar layar -> loop tanpa celah */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-block: .7rem;
+}
+
+.nv-marquee-group > span {
+  margin-inline: 1.25rem;        /* jarak minimal 2.5rem antar elemen, termasuk di sambungan loop */
   white-space: nowrap;
-  animation: nv-marquee 18s linear infinite;
-  opacity: .7;
 }
 
 @keyframes nv-marquee {
@@ -363,13 +652,11 @@
 
 /* ==========================================================================
    CTA PANEL & BADGES
+   Panel mengikuti surface card (tanpa efek hover karena isinya tombol).
    ========================================================================== */
 
 .nv-cta-panel {
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  background: var(--card, transparent);
-  border-radius: 1.1rem;
-  padding: 1.2rem;
+  padding: var(--nv-card-padding);
   display: flex;
   flex-direction: column;
   gap: .9rem;
@@ -381,6 +668,43 @@
     justify-content: space-between;
     align-items: center;
   }
+}
+
+.nv-cta-panel h3 {
+  color: var(--nv-card-fg);
+}
+
+.nv-cta-panel .nv-asd {
+  color: var(--nv-card-muted-fg);
+}
+
+/* Tombol di dalam panel ikut palet card */
+.nv-cta-panel .nv-btn {
+  transition:
+    border-color var(--nv-card-transition),
+    background-color var(--nv-card-transition),
+    opacity var(--nv-card-transition);
+}
+
+.nv-cta-panel .nv-btn-primary {
+  background: var(--nv-card-fg);
+  color: var(--nv-card-bg);
+  border-color: transparent;
+}
+
+.nv-cta-panel .nv-btn-primary:hover {
+  opacity: .85;
+}
+
+.nv-cta-panel .nv-btn-ghost {
+  background: transparent;
+  color: var(--nv-card-fg);
+  border-color: var(--nv-card-border);
+}
+
+.nv-cta-panel .nv-btn-ghost:hover {
+  border-color: var(--nv-card-border-hover);
+  background: var(--nv-card-muted);
 }
 
 .nv-cta-section {
@@ -424,15 +748,42 @@
    ACCESSIBILITY & CLEANUPS
    ========================================================================== */
 
+.nv-card-link:focus-visible,
+.nv-latest li a:focus-visible,
+.nv-btn:focus-visible {
+  outline: 2px solid var(--nv-card-fg);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-aos] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
+
+  .nv-card,
+  .nv-card-interactive,
+  .nv-latest li,
+  .nv-cta-panel .nv-btn,
+  .nv-card-icon,
+  .nv-card-arrow {
+    transition: none;
+  }
+
+  .nv-marquee-track,
+  .nv-type-caret {
+    animation: none;
+  }
+
+  /* highlight langsung tampil, tanpa animasi */
+  #nv-landing .nv-select {
+    animation: none;
+    background-size: 100% 100%;
+  }
 }
 
-article h1:first-child, 
+article h1:first-child,
 .md-content h1:first-child {
   display: none !important;
 }
@@ -481,14 +832,4 @@ article h1:first-child,
   max-width: 60ch;
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
-}
-
-.nv-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-.nv-card-link:hover {
-  border-color: var(--primary, #7c3aed);
 }
