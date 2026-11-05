@@ -323,16 +323,15 @@ header a[data-slot="button"] svg {
   margin-right: 0.375rem !important;
 }
 
-/* Replace burger icon
-   Id tombol di tema sekarang = #burger-button (rule lama menarget #menu-button,
-   makanya tidak kena). Dua-duanya ditarget supaya aman. */
-header #burger-button::before,
-header #menu-button::before {
+/* Replace burger icon (mobile)
+   Hook = tombol dengan onclick "onMobileMenuButtonClick", jadi kena di tema versi lama
+   (id="menu-button") maupun versi baru (id="burger-button"). */
+header :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"])::before {
   content: "";
   display: inline-block;
   width: 22px;
   height: 22px;
-  background-image: url('/assets/images/logo/logoku.svg'); 
+  background-image: url('/assets/images/logo/logoku.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -340,9 +339,8 @@ header #menu-button::before {
   vertical-align: middle;
 }
 
-/* Layout tombol meniru versi lama tema: "flex lg:hidden" (tampil di bawah 1024px, hilang di desktop) */
-header #burger-button,
-header #menu-button {
+/* Layout tombol meniru versi lama tema: "flex lg:hidden" (tampil < 1024px, hilang di desktop) */
+header :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) {
   display: flex !important;
   align-items: center;
   justify-content: flex-start;
@@ -352,27 +350,23 @@ header #menu-button {
 }
 
 @media (min-width: 1024px) {
-  header #burger-button,
-  header #menu-button {
+  header :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) {
     display: none !important;
   }
 }
 
-/* 3. Hide burger icon (fungsi buka menu tetap dari tema: onMobileMenuButtonClick) */
-header #burger-button > div,
-header #burger-button > svg,
-header #burger-button .w-4,
-header #burger-button .size-4,
-header #burger-button .w-\[16px\],
-header #burger-button .w-3,
-header #burger-button .size-3,
-header #menu-button > div,
-header #menu-button > svg,
-header #menu-button .w-4,
-header #menu-button .size-4,
-header #menu-button .w-\[16px\],
-header #menu-button .w-3,
-header #menu-button .size-3 {
+/* Sembunyikan ikon burger bawaan (wrapper ikon + svg). Teks "Menu" dibiarkan. */
+header :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) > div,
+header :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) > svg {
   display: none !important;
   visibility: hidden !important;
+}
+
+/* Logo + nama di header hanya untuk desktop (>= 1024px).
+   Di tema versi baru utility "hidden" bisa kalah dari class .button, jadi dipaksa di sini
+   supaya di mobile tidak muncul logo dobel. */
+@media (max-width: 1023.98px) {
+  header a[data-slot="button"] {
+    display: none !important;
+  }
 }
