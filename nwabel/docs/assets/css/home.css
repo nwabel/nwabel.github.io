@@ -1,9 +1,6 @@
 /* ==========================================================================
-   VERCEL x SHADCN HYBRID VARIABLES (warna & gaya untuk semua "card")
-   Dipakai oleh: .nv-card, .nv-card-interactive, .nv-latest li, .nv-cta-panel
-   Ukuran (radius & padding) mengikuti .nv-card versi awal.
+   VERCEL x SHADCN HYBRID VARIABLES
    ========================================================================== */
-
 :root {
   --nv-card-bg: #ffffff;
   --nv-card-fg: #111111;
@@ -11,10 +8,10 @@
   --nv-card-muted-fg: #666666;
   --nv-card-border: #eaeaea;
   --nv-card-border-hover: #cccccc;
-  --nv-card-radius: 1.2rem;   /* ukuran awal .nv-card */
-  --nv-card-padding: 1rem;    /* ukuran awal .nv-card-body */
+  --nv-card-radius: 1.2rem;
+  --nv-card-padding: 1rem;
   --nv-card-transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
-  --nv-select-bg: rgba(0, 112, 243, 0.22);   /* warna "teks ter-seleksi" */
+  --nv-select-bg: rgba(0, 112, 243, 0.22);
 }
 
 [data-theme="dark"],
@@ -29,11 +26,9 @@
   --nv-select-bg: rgba(0, 112, 243, 0.5);
 }
 
-
 /* ==========================================================================
    CONTAINER & GLOBAL WRAPPERS
    ========================================================================== */
-
 .nv-wrap {
   max-width: 1120px;
   margin-inline: auto;
@@ -43,14 +38,12 @@
 }
 
 .nv-section {
-  padding-block: 2.5rem;   /* hanya atas-bawah, jangan timpa padding-inline milik .nv-wrap */
+  padding-block: 2.5rem;
 }
 
-
 /* ==========================================================================
-   HERO SECTION (STANDARD & FULL-SCREEN LANDING)
+   HERO SECTION & LANDING
    ========================================================================== */
-
 .nv-hero {
   padding: 6rem 0 2.5rem;
 }
@@ -69,10 +62,7 @@
   }
 }
 
-/* --- Landing hero: layar penuh, marquee selalu menempel di bawah --- */
-
 .nv-landing-hero {
-  /* --nv-hero-top diisi JS (jarak hero dari atas halaman), default 0 -> tepat 1 layar */
   min-height: calc(100vh - var(--nv-hero-top, 0px));
   min-height: calc(100svh - var(--nv-hero-top, 0px));
   display: flex;
@@ -81,7 +71,7 @@
 }
 
 .nv-hero-inner-full {
-  flex: 1;                        /* isi ruang kosong -> marquee turun ke dasar */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,7 +80,6 @@
   padding-block: 3rem;
 }
 
-/* Sapaan: avatar + nama (diperbesar) */
 #nv-landing .nv-hero-greet {
   display: flex;
   align-items: center;
@@ -130,11 +119,6 @@
   box-shadow: 0 0 0 6px var(--nv-card-border);
 }
 
-#nv-landing .nv-hero-avatar-link:focus-visible {
-  outline: 2px solid var(--nv-card-fg);
-  outline-offset: 4px;
-}
-
 #nv-landing .nv-hero-hello {
   margin: 0;
   font-size: clamp(1.2rem, 2.6vw, 1.75rem);
@@ -144,7 +128,6 @@
   color: inherit;
 }
 
-/* Headline besar */
 #nv-landing .nv-hero-title {
   margin: 0;
   max-width: 22ch;
@@ -163,7 +146,6 @@
   color: var(--nv-card-muted-fg);
 }
 
-/* "delightful": seolah di-highlight kursor (seperti seleksi teks) */
 #nv-landing .nv-select {
   padding-inline: .06em;
   margin-inline: -.06em;
@@ -174,7 +156,7 @@
   background-size: 0% 100%;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  animation: nv-select .9s ease-out 1.1s forwards;   /* tunggu fade-up AOS selesai */
+  animation: nv-select .9s ease-out 1.1s forwards;
 }
 
 @keyframes nv-select {
@@ -183,10 +165,9 @@
   }
 }
 
-/* Peran: teks diketik -> dihapus -> diketik (lihat script di index.md) */
 #nv-landing .nv-hero-roles {
   margin: .25rem 0 0;
-  min-height: 1.5em;                /* cegah layout loncat saat teks kosong */
+  min-height: 1.5em;
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 600;
   line-height: 1.4;
@@ -217,7 +198,6 @@
   }
 }
 
-/* Teks untuk screen reader (versi visual di-aria-hidden) */
 .nv-sr {
   position: absolute;
   width: 1px;
@@ -227,51 +207,9 @@
   white-space: nowrap;
 }
 
-
-/* ==========================================================================
-   AVATAR & IDENTITY TYPOGRAPHY
-   ========================================================================== */
-
-.nv-avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  box-shadow: 0 0 0 6px rgba(125, 125, 125, .08);
-}
-
-@media (min-width: 860px) {
-  .nv-avatar {
-    width: 120px;
-    height: 120px;
-  }
-}
-
-.nv-overline {
-  opacity: .8;
-  font-size: .95rem;
-  margin: 0 0 .25rem;
-}
-
-.nv-title {
-  margin: .25rem 0 .5rem;
-  font-size: clamp(1.8rem, 3.4vw, 3rem);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.nv-subtitle {
-  color: var(--muted-foreground, #6b7280);
-  max-width: 68ch;
-  margin: 0;
-}
-
-
 /* ==========================================================================
    BUTTONS & SOCIALS
    ========================================================================== */
-
 .nv-cta {
   display: flex;
   flex-wrap: wrap;
@@ -302,29 +240,15 @@
   color: var(--foreground, inherit);
 }
 
-.nv-social {
-  margin-top: .5rem;
-  opacity: .85;
-  display: flex;
-  gap: .5rem;
-  flex-wrap: wrap;
-}
-
-
 /* ==========================================================================
    SECTION HEADERS & GRIDS
    ========================================================================== */
-
 .nv-sec-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.5rem;
-}
-
-.nv-sec-head-latest {
-  margin-top: 1rem;
 }
 
 .nv-sec-title {
@@ -340,26 +264,17 @@
 }
 
 @media (min-width: 700px) {
-  .nv-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .nv-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 1040px) {
-  .nv-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .nv-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-
 /* ==========================================================================
-   CARD SURFACE (SHARED)
-   Satu tampilan untuk: kartu menu, item "Apa apa aja", dan panel CTA.
-   Warna & gaya = Vercel x shadcn hybrid. Ukuran = .nv-card versi awal.
+   CARD SURFACE (SHARED VERCEL x SHADCN)
    ========================================================================== */
-
 .nv-card,
-.nv-card-interactive,
 .nv-latest li,
 .nv-cta-panel {
   box-sizing: border-box;
@@ -370,11 +285,8 @@
 }
 
 .nv-card,
-.nv-card-interactive,
 .nv-latest li {
-  transition:
-    border-color var(--nv-card-transition),
-    background-color var(--nv-card-transition);
+  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition);
 }
 
 .nv-card {
@@ -382,16 +294,10 @@
 }
 
 .nv-card:hover,
-.nv-card-interactive:hover,
 .nv-latest li:hover {
   border-color: var(--nv-card-border-hover);
   background: var(--nv-card-muted);
 }
-
-
-/* ==========================================================================
-   CARDS & COMPONENTS
-   ========================================================================== */
 
 .nv-card-link {
   text-decoration: none;
@@ -399,19 +305,11 @@
   display: block;
 }
 
-.nv-card-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  display: block;
-}
-
 .nv-card-body {
   padding: var(--nv-card-padding);
 }
 
-.nv-card-title,
-.nv-card-body h3 {
+.nv-card-body h3, .nv-card-title {
   margin: .1rem 0 .35rem;
   font-size: 1.05rem;
   color: var(--nv-card-fg);
@@ -422,102 +320,9 @@
   color: var(--nv-card-muted-fg);
 }
 
-/* --- Varian struktur baru (opsional): .nv-card-interactive --- */
-
-.nv-card-interactive {
-  padding: var(--nv-card-padding);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-decoration: none;
-}
-
-.nv-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-}
-
-.nv-card-icon {
-  font-size: 1.5rem;
-  filter: grayscale(100%);
-  opacity: 0.8;
-  transition: filter var(--nv-card-transition), opacity var(--nv-card-transition);
-}
-
-.nv-card-interactive:hover .nv-card-icon {
-  filter: grayscale(0%);
-  opacity: 1;
-}
-
-.nv-card-arrow {
-  color: var(--nv-card-muted-fg);
-  opacity: 0;
-  transform: translate(-4px, 4px);
-  transition: all var(--nv-card-transition);
-}
-
-.nv-card-interactive:hover .nv-card-arrow {
-  opacity: 1;
-  color: var(--nv-card-fg);
-  transform: translate(0, 0);
-}
-
-.nv-card-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.nv-heading-16 {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin: 0;
-  color: var(--nv-card-fg);
-}
-
-.nv-body-compact {
-  font-size: 0.875rem;
-  color: var(--nv-card-muted-fg);
-  margin: 0;
-  line-height: 1.5;
-}
-
-
 /* ==========================================================================
-   TAGS & LISTS
+   LATEST POSTS ("APA APA AJA")
    ========================================================================== */
-
-.nv-tags,
-.nv-skills,
-.nv-tools,
-.nv-logos ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .4rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.nv-tags span,
-.nv-skills li,
-.nv-tools li,
-.nv-logos li {
-  font-size: .85rem;
-  padding: .2rem .5rem;
-  border-radius: .6rem;
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-}
-
-
-/* ==========================================================================
-   LATEST WRITING ("APA APA AJA") & NOW BAR
-   Tinggi item = tinggi awal (otomatis mengikuti isi, tanpa min-height).
-   ========================================================================== */
-
 .nv-latest {
   list-style: none;
   margin: 0;
@@ -539,7 +344,6 @@
   gap: .35rem;
 }
 
-/* Teks di dalam item (hasil render dari niwPost.js) */
 .nv-latest li a {
   color: inherit;
   text-decoration: none;
@@ -552,36 +356,13 @@
   color: var(--nv-card-muted-fg);
 }
 
-/* Batasi Aktivitas Terakhir maksimal 3 item (1 baris) biar pas selayar */
 #latest-posts-list li:nth-child(n+4) {
   display: none !important;
 }
 
-.nv-nowbar-inner {
-  display: flex;
-  gap: .6rem;
-  align-items: center;
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  background: var(--card, transparent);
-  border-radius: 999px;
-  padding: .5rem .8rem;
-  width: fit-content;
-}
-
-.nv-nowbar .nv-dot {
-  width: .55rem;
-  height: .55rem;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 .25rem color-mix(in oklab, #22c55e 20%, transparent);
-}
-
-
 /* ==========================================================================
-   ANIMATIONS (MARQUEE & STATS)
+   MARQUEE LOOP ANIMATION
    ========================================================================== */
-
-/* Marquee: warna & border mengikuti card, selalu di dasar hero */
 .nv-marquee {
   flex-shrink: 0;
   overflow: hidden;
@@ -600,10 +381,9 @@
   animation-play-state: paused;
 }
 
-/* Gaya awal: teks polos dipisah bullet. Lebar penuh layar + warna card. */
 .nv-marquee-group {
   flex-shrink: 0;
-  min-width: 100vw;              /* tiap grup minimal selebar layar -> loop tanpa celah */
+  min-width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -611,51 +391,18 @@
 }
 
 .nv-marquee-group > span {
-  margin-inline: 1.25rem;        /* jarak minimal 2.5rem antar elemen, termasuk di sambungan loop */
+  margin-inline: 1.25rem;
   white-space: nowrap;
 }
 
 @keyframes nv-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
-
-.nv-stats {
-  display: grid;
-  gap: .8rem;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-@media (min-width: 900px) {
-  .nv-stats {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.nv-stat {
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  border-radius: 1rem;
-  padding: 1rem;
-  background: var(--card, transparent);
-  text-align: center;
-}
-
-.nv-stat-num {
-  font-weight: 800;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  line-height: 1;
-}
-
 
 /* ==========================================================================
-   CTA PANEL & BADGES
-   Panel mengikuti surface card (tanpa efek hover karena isinya tombol).
+   CTA PANEL
    ========================================================================== */
-
 .nv-cta-panel {
   padding: var(--nv-card-padding);
   display: flex;
@@ -679,12 +426,8 @@
   color: var(--nv-card-muted-fg);
 }
 
-/* Tombol di dalam panel ikut palet card */
 .nv-cta-panel .nv-btn {
-  transition:
-    border-color var(--nv-card-transition),
-    background-color var(--nv-card-transition),
-    opacity var(--nv-card-transition);
+  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition), opacity var(--nv-card-transition);
 }
 
 .nv-cta-panel .nv-btn-primary {
@@ -708,182 +451,39 @@
   background: var(--nv-card-muted);
 }
 
-.nv-cta-section {
-  padding-top: 0 !important;
-  padding-bottom: 4rem !important;
-}
-
-/* Category Badges for Latest Posts */
-.nv-badge {
-  display: inline-block;
-  padding: 0.15rem 0.6rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-  border: 1px solid transparent;
-}
-
-.nv-badge-wretap {
-  background: color-mix(in srgb, #ef4444 15%, transparent);
-  color: #ef4444;
-  border-color: color-mix(in srgb, #ef4444 30%, transparent);
-}
-
-.nv-badge-wiki {
-  background: color-mix(in srgb, #3b82f6 15%, transparent);
-  color: #3b82f6;
-  border-color: color-mix(in srgb, #3b82f6 30%, transparent);
-}
-
-.nv-badge-blok {
-  background: color-mix(in srgb, #10b981 15%, transparent);
-  color: #10b981;
-  border-color: color-mix(in srgb, #10b981 30%, transparent);
-}
-
-
 /* ==========================================================================
-   ACCESSIBILITY & CLEANUPS
+   MOBILE RESPONSIVENESS & TOUCH FIXES
    ========================================================================== */
+@media (max-width: 768px) {
+  .nv-hero-inner-full { gap: 1.25rem; padding-block: 2rem; }
+  #nv-landing .nv-hero-roles { font-size: 1.05rem; }
+  .nv-sec-head { flex-wrap: wrap; row-gap: .25rem; }
+  .nv-cta .nv-btn { flex: 1 1 auto; }
+}
 
-.nv-card-link:focus-visible,
-.nv-latest li a:focus-visible,
-.nv-btn:focus-visible {
-  outline: 2px solid var(--nv-card-fg);
-  outline-offset: 2px;
+@media (max-width: 380px) {
+  #nv-landing .nv-hero-hello { font-size: 1.1rem; }
+  #nv-landing .nv-hero-roles { font-size: 1rem; }
+}
+
+@media (hover: none) {
+  .nv-card:hover, .nv-latest li:hover {
+    border-color: var(--nv-card-border);
+    background: var(--nv-card-bg);
+  }
+  .nv-card:active, .nv-latest li:active {
+    background: var(--nv-card-muted);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-aos] {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
+    opacity: 1 !important; transform: none !important; transition: none !important;
   }
-
-  .nv-card,
-  .nv-card-interactive,
-  .nv-latest li,
-  .nv-cta-panel .nv-btn,
-  .nv-card-icon,
-  .nv-card-arrow {
-    transition: none;
-  }
-
-  .nv-marquee-track,
-  .nv-type-caret {
-    animation: none;
-  }
-
-  /* highlight langsung tampil, tanpa animasi */
-  #nv-landing .nv-select {
-    animation: none;
-    background-size: 100% 100%;
-  }
+  .nv-marquee-track, .nv-type-caret { animation: none; }
+  #nv-landing .nv-select { animation: none; background-size: 100% 100%; }
 }
 
-article h1:first-child,
-.md-content h1:first-child {
+article h1:first-child, .md-content h1:first-child {
   display: none !important;
-}
-
-
-/* ==========================================================================
-   MODERN LANDING PAGE EXTRAS
-   ========================================================================== */
-
-.nv-badge-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: var(--muted, rgba(125, 125, 125, 0.1));
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  border: 1px solid var(--border, rgba(125, 125, 125, 0.2));
-}
-
-.nv-badge-status .nv-dot {
-  width: 6px;
-  height: 6px;
-  background: #22c55e;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #22c55e;
-}
-
-.nv-title-new {
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin: 0 0 0.75rem 0;
-}
-
-.nv-highlight {
-  color: var(--primary, #7c3aed);
-}
-
-.nv-subtitle-new {
-  font-size: 1.05rem;
-  color: var(--muted-foreground, #6b7280);
-  max-width: 60ch;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-}
-
-
-/* ==========================================================================
-   MOBILE FIXES
-   ========================================================================== */
-
-@media (max-width: 768px) {
-  .nv-hero-inner-full {
-    gap: 1.25rem;
-    padding-block: 2rem;
-  }
-
-  #nv-landing .nv-hero-roles {
-    font-size: 1.05rem;
-  }
-
-  /* Judul section + link di sebelahnya boleh turun baris */
-  .nv-sec-head {
-    flex-wrap: wrap;
-    row-gap: .25rem;
-  }
-
-  /* Tombol CTA melebar biar mudah di-tap */
-  .nv-cta .nv-btn {
-    flex: 1 1 auto;
-  }
-}
-
-@media (max-width: 380px) {
-  #nv-landing .nv-hero-hello {
-    font-size: 1.1rem;
-  }
-
-  #nv-landing .nv-hero-roles {
-    font-size: 1rem;     /* cegah teks ngetik pindah baris -> layout loncat */
-  }
-}
-
-/* Layar sentuh: tidak ada hover, jadi hilangkan hover "nyangkut" dan ganti feedback tap */
-@media (hover: none) {
-  .nv-card:hover,
-  .nv-card-interactive:hover,
-  .nv-latest li:hover {
-    border-color: var(--nv-card-border);
-    background: var(--nv-card-bg);
-  }
-
-  .nv-card:active,
-  .nv-card-interactive:active,
-  .nv-latest li:active {
-    background: var(--nv-card-muted);
-  }
 }

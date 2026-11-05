@@ -8,11 +8,18 @@
             </div>
             <p class="nv-hero-title">I build <span class="nv-select">delightful</span> docs &amp; tools, and break things (in labs) to learn.</p>
             <p class="nv-hero-lead">Full-stack tinkerer, SOC Analyst (kalo masih). I ship documentation sites, training labs, and tiny utilities — then write about them.</p>
+            
+            <!-- Typing Animation Wrapper -->
             <p class="nv-hero-roles">
                 <span class="nv-sr">Developer, Satpam Server, Digital Forensics</span>
-                <span aria-hidden="true"><span class="nv-type-role">Developer | Satpam Server | Digital Forensics</span><span class="nv-type-note"></span><span class="nv-type-caret"></span></span>
+                <span aria-hidden="true">
+                    <span class="nv-type-role">Developer | Satpam Server | Digital Forensics</span>
+                    <span class="nv-type-note"></span>
+                    <span class="nv-type-caret"></span>
+                </span>
             </p>
         </div>
+        
         <!-- Marquee Tools as Hero Bottom Bar (2 grup identik untuk loop mulus) -->
         <div class="nv-marquee">
             <div class="nv-marquee-track">
@@ -21,7 +28,8 @@
             </div>
         </div>
     </section>
-<!-- Below the Fold: Jelajahi Konten & Aktivitas Terakhir -->
+
+    <!-- Below the Fold: Jelajahi Konten & Aktivitas Terakhir -->
     <section class="nv-section nv-wrap nv-below-fold" data-aos="fade-up">
         <div class="nv-sec-head" style="margin-bottom: 0.5rem;">
             <h2 class="nv-sec-title">Kali Aje Penasaran</h2>
@@ -71,7 +79,7 @@
     </section>
 </div>
 
-<!-- Script Inisialisasi & Fetcher -->
+<!-- Script Inisialisasi, Marquee Adjuster, & Fetcher -->
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script src="assets/js/niwPost.js"></script>
 <script>
@@ -80,7 +88,8 @@
     if (window.AOS) {
       AOS.init({ duration: 700, easing: "ease-out", once: true, offset: 40 });
     }
-    // Hero pas 1 layar: kurangi tinggi dengan jarak hero dari atas halaman (kalau ada elemen di atasnya)
+    
+    // Sesuaikan hero responsif biar pas 1 layar
     var hero = document.querySelector(".nv-landing-hero");
     function fitHero() {
       if (!hero) return;
@@ -91,7 +100,8 @@
     fitHero();
     window.addEventListener("load", fitHero);
     window.addEventListener("resize", fitHero);
-    // Typing animation peran di hero (AOS hanya untuk animasi scroll, bukan ngetik)
+    
+    // Typing animation
     var box = document.querySelector(".nv-hero-roles");
     if (!box) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
