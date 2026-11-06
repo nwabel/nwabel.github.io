@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">patKsonkPat</title>
+    <link id="favicon" rel="icon" type="image/jpeg" href="/assets/images/wet.jpg">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #1d1d1f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            transition: background-color 0.2s ease;
+        }
+
+        /* ANIMASI LIVENESS DETECTION */
+        .liveness-flash {
+            animation: rgbFlash 1.5s infinite;
+        }
+
+        @keyframes rgbFlash {
+            20% { background-color: #FF0000; }   /* Red */
+            40% { background-color: #00FF00; }  /* Green */
+            60% { background-color: #0000FF; }  /* Blue */
+            80% { background-color: #A020F0; }  /* Purple */
+            100% { background-color: #FFFF00; }  /* Yellow */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 30px;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #1d1d1f;
+            margin-bottom: 30px;
+            min-height: 27px;
+            font-weight: 500;
+        }
+
+        .btn-home {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background-color: #1d1d1f;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            line-height: 1;
+        }
+
+        .btn-home:hover {
+            transform: scale(1.05);
+            background-color: #fd34e5;
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<!-- Tambahin class animasi kedap-kedip di body -->
+<body class="liveness-flash" id="main-body">
+
+    <div class="container">
+        <div class="image-section">
+            <img id="status-image" src="/assets/images/wet.jpg" alt="Proses Verifikasi">
+        </div>
+
+        <div class="text-section">
+            <h1 id="status-title">Virifikasi via Sikirinsut<span class="loading-dots" id="dots"></span></h1>
+            <p id="status-desc">Sabar yhh, sdank verif muka.</p>
+            <a href="/" class="btn-home" id="btn-back">Balekkkkk</a>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            // Matiin efek kedap-kedip layar
+            const bodyRef = document.getElementById('main-body');
+            bodyRef.classList.remove('liveness-flash');
+            bodyRef.style.backgroundColor = '#ffffff'; // Balikin ke putih bersih
+
+            // Hilangin background transparan di container biar balik normal
+            document.querySelector('.container').style.background = 'transparent';
+            document.querySelector('.container').style.backdropFilter = 'none';
+
+            // Ganti gambar
+            document.getElementById('status-image').src = '/assets/images/tru.jpg';
+            document.getElementById('favicon').href = '/assets/images/tru.jpg';
+            
+            // Ganti teks
+            document.title = 'Verif Don';
+            const titleElement = document.getElementById('status-title');
+            titleElement.innerHTML = 'Verif Brasil';
+            titleElement.classList.remove('loading-dots');
+            document.getElementById('status-desc').innerText = 'Verifikasi Berhasil: Uuu AAa uu aa uu aa.';
+            
+            // Munculin tombol
+            document.getElementById('btn-back').style.display = 'inline-flex';
+        }, 3000); // 3 detik loading
+    </script>
+
+</body>
+</html>
