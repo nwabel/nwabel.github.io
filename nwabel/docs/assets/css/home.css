@@ -156,13 +156,19 @@
   background-size: 0% 100%;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  animation: nv-select .9s ease-out 1.1s forwards;
+  animation: nv-select 5s ease-out 1.1s infinite;
 }
 
 @keyframes nv-select {
-  to {
-    background-size: 100% 100%;
-  }
+  /* 0 → 18% (~0.9s): sweep-in halus */
+  0%      { background-size: 0% 100%;   animation-timing-function: ease-out; }
+  18%     { background-size: 100% 100%; }
+  /* 18% → 82%: tahan highlight (~3.2s) */
+  82%     { background-size: 100% 100%; }
+  /* 82% → 82.01%: snap instant balik ke 0 (durasi ~0.5ms, praktis tidak terlihat) */
+  82.01%  { background-size: 0% 100%; }
+  /* 82.01% → 100%: kosong nunggu loop berikutnya */
+  100%    { background-size: 0% 100%; }
 }
 
 #nv-landing .nv-hero-roles {
