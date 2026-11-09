@@ -99,7 +99,8 @@
       return hay.includes(q);
     });
 
-    const visible = filtered.slice(0, 6);
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const visible = filtered.slice(0, isMobile ? 3 : 6);
 
     if (!visible.length) {
       grid.innerHTML = `
@@ -111,6 +112,11 @@
     }
 
     grid.innerHTML = visible.map(renderCard).join("");
+  }
+
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
+  if (mobileQuery.addEventListener) {
+    mobileQuery.addEventListener("change", () => updateGrid());
   }
 
   // Setup Category Dropdown & Search Controls
