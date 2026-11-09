@@ -10,3 +10,5 @@
 
         for num in fibonacci(10):
             print(num)
+
+Test roamlinks: baca [[Kriptografi Intro]] untuk mulai belajar.

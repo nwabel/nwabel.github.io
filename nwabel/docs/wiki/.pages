@@ -1,0 +1,8 @@
+title: Wiki
+nav:
+  - index.md
+  - Kriptografi Intro: Kriptografi___Intro.md
+  - Enkripsi Simetris & Asimetris: Kriptografi___Enkripsi Simetris dan Asimetris.md
+  - Terminal Guide: terminal-guide.md
+  - ASD: asd
+  - ...

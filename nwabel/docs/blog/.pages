@@ -1,0 +1,7 @@
+title: Blok
+nav:
+  - index.md
+  - tes1: 1.md
+  - tes2: 2.md
+  - Posts: posts
+  - ...
