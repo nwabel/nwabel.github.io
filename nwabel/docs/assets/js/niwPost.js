@@ -11,6 +11,7 @@
     {
       title: "📝 Blok",
       url: "blog/",
+      pathLabel: "~/blog",
       summary: "Ramdom, yapping aza sesukan hati.",
       category: "Blok",
       tokenLabel: "Portal Utama",
@@ -20,6 +21,7 @@
     {
       title: "🛡️ Wretap",
       url: "wretap/",
+      pathLabel: "~/wretap",
       summary: "Dokumentasi penyelesaian CTF dan analisis kerentanan sistem.",
       category: "Wretap",
       tokenLabel: "Portal Utama",
@@ -29,6 +31,7 @@
     {
       title: "🧠 Wiki",
       url: "wiki/",
+      pathLabel: "~/wiki",
       summary: "Contekan-contekan gwej agar supaya tidak lupa ketika saat ditanya kolega.",
       category: "Wiki",
       tokenLabel: "Portal Utama",
@@ -40,6 +43,7 @@
   let activeCategory = "all";
   let searchQuery = "";
   let allPosts = [];
+  let isInitialRender = true;
 
   const escapeHtml = (str) =>
     String(str || "")
@@ -49,25 +53,33 @@
       .replace(/"/g, "&quot;");
 
   function renderCard(item) {
-    const dateStr = item.date
-      ? ` • ${item.date.toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}`
-      : "";
-    const tokenText = escapeHtml((item.tokenLabel || item.category) + dateStr);
+    const tokenText = escapeHtml(item.tokenLabel || item.category);
     const titleText = escapeHtml(item.title);
     const descText = escapeHtml(item.summary || "Baca selengkapnya di halaman ini.");
+    const metaText = escapeHtml(item.pathLabel || `~/${(item.category || "docs").toLowerCase()}`);
+    const actionText = item.isPortal ? "Buka Portal" : "Baca Tulisan";
     const badgeClass = item.isPortal
       ? "nv-badge-portal"
       : `nv-badge-${(item.category || "lainnya").toLowerCase()}`;
 
     return `
       <div class="nv-card">
-        <div class="nv-card-tokens">
-          <span class="nv-badge ${badgeClass}">${tokenText}</span>
+        <div class="nv-card-body">
+          <div class="nv-card-tokens">
+            <span class="nv-badge ${badgeClass}">${tokenText}</span>
+          </div>
+          <h3 class="nv-card-title">
+            <a href="${escapeHtml(item.url)}" class="nv-card-link">${titleText}</a>
+          </h3>
+          <p class="nv-card-desc">${descText}</p>
         </div>
-        <h3 class="nv-card-title">
-          <a href="${escapeHtml(item.url)}" class="nv-card-link">${titleText}</a>
-        </h3>
-        <p class="nv-card-desc">${descText}</p>
+        <div class="nv-card-footer">
+          <span class="nv-card-meta">${metaText}</span>
+          <span class="nv-card-action">
+            ${actionText}
+            <svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+          </span>
+        </div>
       </div>
     `;
   }
@@ -129,7 +141,7 @@
         });
         catMenu.hidden = true;
         catBtn.setAttribute("aria-expanded", "false");
-        updateGrid();
+        updateGrid(true);
       });
     });
 
@@ -144,7 +156,7 @@
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       searchQuery = e.target.value || "";
-      updateGrid();
+      updateGrid(true);
     });
   }
 
@@ -192,10 +204,13 @@
     else if (d.location.startsWith("wiki/")) category = "Wiki";
     else if (d.location.startsWith("blog/")) category = "Blok";
 
+    const cleanPath = d.location.replace(/\/+$/, "");
+
     return {
       title: d.title,
       url,
       date,
+      pathLabel: `~/${cleanPath}`,
       summary: summary || "Klik untuk membaca dokumentasi lengkap.",
       category,
       tokenLabel: category,

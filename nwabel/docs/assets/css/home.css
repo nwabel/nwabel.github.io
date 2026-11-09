@@ -8,6 +8,7 @@
   --nv-card-muted-fg: #666666;
   --nv-card-border: #eaeaea;
   --nv-card-border-hover: #cccccc;
+  --nv-accent-yellow: #ffef0c;
   --nv-card-radius: 1.2rem;
   --nv-card-padding: 1rem;
   --nv-card-transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
@@ -62,22 +63,64 @@
   }
 }
 
+/* Pastikan semua pembungkus di atas #nv-landing tanpa gap agar garis vertikal mentok sampai ujung atas layar */
+body.is-home :has(#nv-landing),
+body.is-home .typography {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 .nv-landing-hero {
-  min-height: calc(100vh - var(--nv-hero-top, 0px));
-  min-height: calc(100svh - var(--nv-hero-top, 0px));
+  height: 100vh;
+  height: 100svh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-.nv-hero-inner-full {
+.nv-hero-top-band {
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.nv-hero-top-band > .nv-frame {
+  height: 100%;
+}
+
+.nv-hero-main-band {
+  border-bottom: 0;
   flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-hero-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nv-hero-inner-full {
+  margin-block: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 1.5rem;
-  padding-block: 3rem;
+  gap: 1.4rem;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 860px) {
+  .nv-hero-inner-full {
+    padding: 2rem 2.25rem;
+  }
 }
 
 #nv-landing .nv-hero-greet {
@@ -308,8 +351,10 @@
   box-sizing: border-box;
 }
 
-/* Filter Header (sejajar dengan garis frame) */
+/* Filter Header (sejajar dengan garis frame, z-index di atas grid kartu supaya dropdown tidak ketiban) */
 .nv-sec-head {
+  position: relative;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -327,8 +372,8 @@
   flex-wrap: wrap;
 }
 
-.nv-sec-title {
-  margin: 0;
+#nv-landing .nv-sec-title {
+  margin: 0 !important;
   font-size: clamp(1.2rem, 2vw, 1.45rem);
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -366,9 +411,12 @@
 .nv-dropdown {
   position: relative;
   display: inline-block;
+  width: 195px;
 }
 
 .nv-dropdown-btn {
+  width: 100%;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -408,13 +456,15 @@
   position: absolute;
   top: calc(100% + 0.35rem);
   left: 0;
-  min-width: 180px;
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
   padding: 0.35rem;
   border-radius: 0.65rem;
   border: 1px solid var(--nv-card-border);
   background: var(--nv-card-bg);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
-  z-index: 50;
+  z-index: 100;
 }
 
 .nv-dropdown-menu[hidden] {
@@ -423,17 +473,18 @@
 
 .nv-dropdown-item {
   width: 100%;
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
   gap: 0.5rem;
-  padding: 0.42rem 0.6rem;
+  padding: 0.45rem 0.65rem;
   border: 0;
   border-radius: 0.4rem;
   background: transparent;
   color: var(--nv-card-fg);
   font-size: 0.8125rem;
   font-family: inherit;
-  text-align: left;
+  text-align: left !important;
   cursor: pointer;
   transition: background-color var(--nv-card-transition);
 }
@@ -497,6 +548,8 @@
 
 /* 6-Box Grid (3x2 on Desktop) */
 .nv-grid {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   display: grid;
@@ -520,28 +573,42 @@
   }
 }
 
-.nv-card {
+#nv-landing .nv-card {
   position: relative;
   width: 100%;
   min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 0.45rem;
-  padding: 1rem 1.15rem;
+  justify-content: space-between;
+  padding: 0;
   box-sizing: border-box;
   border: 1px solid var(--nv-card-border);
   border-radius: 0.75rem;
   background: var(--nv-card-bg);
   color: var(--nv-card-fg);
-  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition);
+  transition:
+    border-color var(--nv-card-transition),
+    box-shadow var(--nv-card-transition);
   overflow: hidden;
+  margin: 0 !important;
 }
 
-.nv-card:hover {
-  border-color: var(--nv-card-border-hover);
-  background: var(--nv-card-muted);
+#nv-landing .nv-card:hover {
+  border-color: var(--nv-accent-yellow);
+  box-shadow: 0 0 0 1px rgba(255, 239, 12, 0.35), 0 8px 22px -6px rgba(255, 239, 12, 0.16);
+}
+
+/* Bagian 1 (Atas): Hitam gelap / Card BG, posisi Badge -> Title -> Desc tersebar merata (tidak dempet) */
+.nv-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 1.25rem 1.35rem;
+  background: var(--nv-card-bg);
+  box-sizing: border-box;
 }
 
 .nv-card-tokens {
@@ -549,10 +616,10 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-bottom: 0.1rem;
 }
 
 .nv-badge {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   padding: 0.15rem 0.55rem;
@@ -570,11 +637,11 @@
   border-color: var(--nv-card-border-hover);
 }
 
-.nv-card-title {
-  margin: 0;
-  font-size: 1rem;
+#nv-landing .nv-card-title {
+  margin: 0 !important;
+  font-size: 1.05rem;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.35;
   letter-spacing: -0.01em;
   color: var(--nv-card-fg);
 }
@@ -591,15 +658,57 @@
   z-index: 1;
 }
 
-.nv-card-desc {
-  margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.45;
+#nv-landing .nv-card-desc {
+  margin: 0 !important;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  min-height: 3em;
   color: var(--nv-card-muted-fg);
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Bagian 2 (Bawah): Divider Line + Abu-abu gelap (Surface/Muted) + Path & Tombol Aksi */
+.nv-card-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 1.35rem;
+  border-top: 1px solid var(--nv-card-border);
+  background: var(--nv-card-muted);
+  box-sizing: border-box;
+  transition: border-color var(--nv-card-transition);
+}
+
+.nv-card-meta {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.75rem;
+  color: var(--nv-card-muted-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nv-card-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--nv-card-fg);
+}
+
+.nv-card-action .nv-arrow {
+  transition: transform var(--nv-card-transition);
+}
+
+#nv-landing .nv-card:hover .nv-card-action .nv-arrow {
+  transform: translateX(3px);
 }
 
 .nv-empty {
@@ -633,6 +742,7 @@
    MARQUEE LOOP ANIMATION
    ========================================================================== */
 .nv-marquee {
+  position: relative;
   flex-shrink: 0;
   overflow: hidden;
   background: var(--nv-card-bg);
@@ -718,6 +828,18 @@
 .nv-cta-panel .nv-btn-ghost:hover {
   border-color: var(--nv-card-border-hover);
   background: var(--nv-card-muted);
+}
+
+/* ==========================================================================
+DROPDOWN ICON ROTATION
+========================================================================== */
+.nv-dropdown-btn .nv-icon {
+color: var(--nv-card-muted-fg);
+transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nv-dropdown-btn[aria-expanded="true"] .nv-icon {
+transform: rotate(180deg);
 }
 
 /* ==========================================================================

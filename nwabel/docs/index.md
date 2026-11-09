@@ -1,23 +1,33 @@
 <div id="nv-landing">
-    <!-- Hero Section: Full Screen & Marquee at Bottom -->
+    <!-- Hero Section: Full Screen & Marquee at Bottom (Screen 1) -->
     <section class="nv-landing-hero">
-        <div class="nv-wrap nv-hero-inner-full" data-aos="fade-up">
-            <div class="nv-hero-greet">
-                <a class="glightbox nv-hero-avatar-link" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-hero-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="Nwabel"></a>
-                <h2 class="nv-hero-hello">Guwej, Saya, I’m Nabil</h2>
+        <!-- Top Architectural Band Line (garis kanan-kiri mentok sampai paling atas layar) -->
+        <div class="nv-band nv-hero-top-band" aria-hidden="true">
+            <div class="nv-frame"></div>
+        </div>
+
+        <!-- Main Hero Frame Connected to Marquee -->
+        <div class="nv-band nv-band-grow nv-hero-main-band">
+            <div class="nv-frame nv-hero-frame">
+                <div class="nv-hero-inner-full" data-aos="fade-up">
+                    <div class="nv-hero-greet">
+                        <a class="glightbox nv-hero-avatar-link" data-type="image" data-width="100%" data-height="auto" href="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" data-desc-position="bottom"><img class="nv-hero-avatar" src="https://avatars.githubusercontent.com/u/88957934?s=400&amp;u=46e450415c1283b44b188c748c3051b3b5db0d48&amp;v=4" alt="Nwabel"></a>
+                        <h2 class="nv-hero-hello">Guwej, Saya, I’m Nwabel</h2>
+                    </div>
+                    <p class="nv-hero-title">I build <span class="nv-select">delightful</span> docs &amp; tools, and break things (in labs) to learn.</p>
+                    <p class="nv-hero-lead">Full-stack tinkerer, SOC Analyst (kalo masih). I ship documentation sites, training labs, and tiny utilities — then write about them.</p>
+                    
+                    <!-- Typing Animation Wrapper -->
+                    <p class="nv-hero-roles">
+                        <span class="nv-sr">Developer, Satpam Server, Digital Forensics</span>
+                        <span aria-hidden="true">
+                            <span class="nv-type-role">Developer | Satpam Server | Digital Forensics</span>
+                            <span class="nv-type-note"></span>
+                            <span class="nv-type-caret"></span>
+                        </span>
+                    </p>
+                </div>
             </div>
-            <p class="nv-hero-title">I build <span class="nv-select">delightful</span> docs &amp; tools, and break things (in labs) to learn.</p>
-            <p class="nv-hero-lead">Full-stack tinkerer, SOC Analyst (kalo masih). I ship documentation sites, training labs, and tiny utilities — then write about them.</p>
-            
-            <!-- Typing Animation Wrapper -->
-            <p class="nv-hero-roles">
-                <span class="nv-sr">Developer, Satpam Server, Digital Forensics</span>
-                <span aria-hidden="true">
-                    <span class="nv-type-role">Developer | Satpam Server | Digital Forensics</span>
-                    <span class="nv-type-note"></span>
-                    <span class="nv-type-caret"></span>
-                </span>
-            </p>
         </div>
         
         <!-- Marquee Tools as Hero Bottom Bar (2 grup identik untuk loop mulus) -->
@@ -87,43 +97,79 @@
 
                     <div id="latest-posts-list" class="nv-grid">
                         <div class="nv-card">
-                            <div class="nv-card-tokens">
-                                <span class="nv-badge nv-badge-portal">Portal Utama</span>
+                            <div class="nv-card-body">
+                                <div class="nv-card-tokens">
+                                    <span class="nv-badge nv-badge-portal">Portal Utama</span>
+                                </div>
+                                <h3 class="nv-card-title">
+                                    <a href="blog/" class="nv-card-link">📝 Blok</a>
+                                </h3>
+                                <p class="nv-card-desc">Ramdom, yapping aza sesukan hati.</p>
                             </div>
-                            <h3 class="nv-card-title">
-                                <a href="blog/" class="nv-card-link">📝 Blok</a>
-                            </h3>
-                            <p class="nv-card-desc">Ramdom, yapping aza sesukan hati.</p>
+                            <div class="nv-card-footer">
+                                <span class="nv-card-meta">~/blog</span>
+                                <span class="nv-card-action">
+                                    Buka Portal
+                                    <svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+                                </span>
+                            </div>
                         </div>
 
                         <div class="nv-card">
-                            <div class="nv-card-tokens">
-                                <span class="nv-badge nv-badge-portal">Portal Utama</span>
+                            <div class="nv-card-body">
+                                <div class="nv-card-tokens">
+                                    <span class="nv-badge nv-badge-portal">Portal Utama</span>
+                                </div>
+                                <h3 class="nv-card-title">
+                                    <a href="wretap/" class="nv-card-link">🛡️ Wretap</a>
+                                </h3>
+                                <p class="nv-card-desc">Dokumentasi penyelesaian CTF dan analisis kerentanan sistem.</p>
                             </div>
-                            <h3 class="nv-card-title">
-                                <a href="wretap/" class="nv-card-link">🛡️ Wretap</a>
-                            </h3>
-                            <p class="nv-card-desc">Dokumentasi penyelesaian CTF dan analisis kerentanan sistem.</p>
+                            <div class="nv-card-footer">
+                                <span class="nv-card-meta">~/wretap</span>
+                                <span class="nv-card-action">
+                                    Buka Portal
+                                    <svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+                                </span>
+                            </div>
                         </div>
 
                         <div class="nv-card">
-                            <div class="nv-card-tokens">
-                                <span class="nv-badge nv-badge-portal">Portal Utama</span>
+                            <div class="nv-card-body">
+                                <div class="nv-card-tokens">
+                                    <span class="nv-badge nv-badge-portal">Portal Utama</span>
+                                </div>
+                                <h3 class="nv-card-title">
+                                    <a href="wiki/" class="nv-card-link">🧠 Wiki</a>
+                                </h3>
+                                <p class="nv-card-desc">Contekan-contekan gwej agar supaya tidak lupa ketika saat ditanya kolega.</p>
                             </div>
-                            <h3 class="nv-card-title">
-                                <a href="wiki/" class="nv-card-link">🧠 Wiki</a>
-                            </h3>
-                            <p class="nv-card-desc">Contekan-contekan gwej agar supaya tidak lupa ketika saat ditanya kolega.</p>
+                            <div class="nv-card-footer">
+                                <span class="nv-card-meta">~/wiki</span>
+                                <span class="nv-card-action">
+                                    Buka Portal
+                                    <svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+                                </span>
+                            </div>
                         </div>
 
                         <div class="nv-card">
-                            <div class="nv-card-tokens">
-                                <span class="nv-badge">Memuat...</span>
+                            <div class="nv-card-body">
+                                <div class="nv-card-tokens">
+                                    <span class="nv-badge">Memuat...</span>
+                                </div>
+                                <h3 class="nv-card-title">
+                                    <a href="#" class="nv-card-link">Loading contekan...</a>
+                                </h3>
+                                <p class="nv-card-desc">Mengambil tulisan terbaru...</p>
                             </div>
-                            <h3 class="nv-card-title">
-                                <a href="#" class="nv-card-link">Loading contekan...</a>
-                            </h3>
-                            <p class="nv-card-desc">Mengambil tulisan terbaru...</p>
+                            <div class="nv-card-footer">
+                                <span class="nv-card-meta">~/docs</span>
+                                <span class="nv-card-action">
+                                    Baca Tulisan
+                                    <svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

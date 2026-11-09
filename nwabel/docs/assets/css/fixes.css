@@ -239,6 +239,8 @@ body.is-home footer,
 body.is-home #bottom-navigation,   /* tombol prev/next bawaan tema (Index) */
 body.is-home .w-\(--sidebar-width\),
 body.is-home div.sticky.top-\[calc\(var\(--header-height\)\+1px\)\].ml-auto.hidden,
+body.is-home .h-\(--top-spacing\),
+body.is-home article.w-full > div:first-child:not(.typography),
 body.is-home #page-header,
 body.is-home .nw-breadcrumbs,
 body.is-home .mx-auto.flex.flex-wrap.h-16,
