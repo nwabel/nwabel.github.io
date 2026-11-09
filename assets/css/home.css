@@ -1,0 +1,947 @@
+/* ==========================================================================
+   VERCEL x SHADCN HYBRID VARIABLES
+   ========================================================================== */
+:root {
+  --nv-card-bg: #ffffff;
+  --nv-card-fg: #111111;
+  --nv-card-muted: #f7f7f7;
+  --nv-card-muted-fg: #666666;
+  --nv-card-border: #eaeaea;
+  --nv-card-border-hover: #cccccc;
+  --nv-accent-yellow: #ffef0c;
+  --nv-card-radius: 1.2rem;
+  --nv-card-padding: 1rem;
+  --nv-card-transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
+  --nv-select-bg: rgba(0, 112, 243, 0.22);
+}
+
+[data-theme="dark"],
+[data-md-color-scheme="slate"],
+.dark {
+  --nv-card-bg: #000000;
+  --nv-card-fg: #ededed;
+  --nv-card-muted: #111111;
+  --nv-card-muted-fg: #a1a1a1;
+  --nv-card-border: #333333;
+  --nv-card-border-hover: #555555;
+  --nv-select-bg: rgba(0, 112, 243, 0.5);
+}
+
+/* ==========================================================================
+   CONTAINER & GLOBAL WRAPPERS
+   ========================================================================== */
+.nv-wrap {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.nv-section {
+  padding-block: 2.5rem;
+}
+
+/* ==========================================================================
+   HERO SECTION & LANDING
+   ========================================================================== */
+.nv-hero {
+  padding: 6rem 0 2.5rem;
+}
+
+.nv-hero-inner {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+  grid-template-columns: 96px 1fr;
+}
+
+@media (min-width: 860px) {
+  .nv-hero-inner {
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Pastikan semua pembungkus di atas #nv-landing tanpa gap agar garis vertikal mentok sampai ujung atas layar */
+body.is-home :has(#nv-landing),
+body.is-home .typography {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.nv-landing-hero {
+  height: 100vh;
+  height: 100svh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.nv-hero-top-band {
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.nv-hero-top-band > .nv-frame {
+  height: 100%;
+}
+
+.nv-hero-main-band {
+  border-bottom: 0;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-hero-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nv-hero-inner-full {
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 860px) {
+  .nv-hero-inner-full {
+    padding: 2rem 2.25rem;
+  }
+}
+
+#nv-landing .nv-hero-greet {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+#nv-landing .nv-hero-avatar-link {
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+  border: 0;
+  border-radius: 999px;
+  cursor: zoom-in;
+}
+
+#nv-landing .nv-hero-avatar {
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 0;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--nv-card-border);
+  box-shadow: 0 0 0 5px var(--nv-card-muted);
+  transition: box-shadow var(--nv-card-transition);
+}
+
+@media (min-width: 860px) {
+  #nv-landing .nv-hero-avatar {
+    width: 112px;
+    height: 112px;
+    box-shadow: 0 0 0 6px var(--nv-card-muted);
+  }
+}
+
+#nv-landing .nv-hero-avatar-link:hover .nv-hero-avatar {
+  box-shadow: 0 0 0 6px var(--nv-card-border);
+}
+
+#nv-landing .nv-hero-hello {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+
+#nv-landing .nv-hero-title {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(2.25rem, 6.5vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+#nv-landing .nv-hero-lead {
+  margin: 0;
+  max-width: 56ch;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--nv-card-muted-fg);
+}
+
+#nv-landing .nv-select {
+  padding-inline: .06em;
+  margin-inline: -.06em;
+  border-radius: .12em;
+  background-color: transparent;
+  background-image: linear-gradient(var(--nv-select-bg), var(--nv-select-bg));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation: nv-select 5s ease-out 1.1s infinite;
+}
+
+@keyframes nv-select {
+  /* 0 → 18% (~0.9s): sweep-in halus */
+  0%      { background-size: 0% 100%;   animation-timing-function: ease-out; }
+  18%     { background-size: 100% 100%; }
+  /* 18% → 82%: tahan highlight (~3.2s) */
+  82%     { background-size: 100% 100%; }
+  /* 82% → 82.01%: snap instant balik ke 0 (durasi ~0.5ms, praktis tidak terlihat) */
+  82.01%  { background-size: 0% 100%; }
+  /* 82.01% → 100%: kosong nunggu loop berikutnya */
+  100%    { background-size: 0% 100%; }
+}
+
+#nv-landing .nv-hero-roles {
+  margin: .25rem 0 0;
+  min-height: 1.5em;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+#nv-landing .nv-type-note {
+  font-weight: 400;
+  color: var(--nv-card-muted-fg);
+}
+
+#nv-landing .nv-type-caret {
+  display: none;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: nv-blink 1s steps(1) infinite;
+}
+
+#nv-landing .nv-hero-roles.is-typing .nv-type-caret {
+  display: inline-block;
+}
+
+@keyframes nv-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.nv-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   BUTTONS & SOCIALS
+   ========================================================================== */
+.nv-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin-top: 1rem;
+}
+
+.nv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .7rem 1rem;
+  border-radius: .9rem;
+  font-weight: 600;
+  border: 1px solid var(--border, rgba(125, 125, 125, .25));
+  text-decoration: none;
+}
+
+.nv-btn-primary {
+  background: var(--primary, #7c3aed);
+  color: var(--primary-foreground, #fff);
+  border-color: transparent;
+}
+
+.nv-btn-ghost {
+  background: transparent;
+  color: var(--foreground, inherit);
+}
+
+/* ==========================================================================
+   DOCS BAND, FRAME & ARTICLE GRID WITH FILTER (SCREEN 2)
+   ========================================================================== */
+.nv-below-fold {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+  .nv-below-fold {
+    height: 100vh;
+    height: 100svh;
+    min-height: 620px;
+    max-height: 100svh;
+    overflow: hidden;
+  }
+}
+
+.nv-band {
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--nv-card-border);
+  position: relative;
+}
+
+.nv-band-grow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-band-cta {
+  flex-shrink: 0;
+  border-bottom: 0;
+}
+
+.nv-frame {
+  max-width: 1120px;
+  width: calc(100% - 2rem);
+  margin-inline: auto;
+  box-sizing: border-box;
+  border-inline: 1px solid var(--nv-card-border);
+}
+
+.nv-band-grow > .nv-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-docs-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Filter Header (sejajar dengan garis frame, z-index di atas grid kartu supaya dropdown tidak ketiban) */
+.nv-sec-head {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--nv-card-border);
+  flex-shrink: 0;
+}
+
+.nv-sec-title-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+#nv-landing .nv-sec-title {
+  margin: 0 !important;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--nv-card-fg);
+}
+
+.nv-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--nv-card-muted-fg);
+  text-decoration: none;
+  transition: color var(--nv-card-transition);
+}
+
+.nv-link:hover {
+  color: var(--nv-card-fg);
+  text-decoration: underline;
+}
+
+.nv-filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.nv-icon {
+  display: inline-block;
+  vertical-align: text-bottom;
+  flex-shrink: 0;
+}
+
+/* Category Dropdown */
+.nv-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 195px;
+}
+
+.nv-dropdown-btn {
+  width: 100%;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  height: 2.15rem;
+  padding: 0 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--nv-card-border);
+  background: var(--nv-card-bg);
+  color: var(--nv-card-fg);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition);
+}
+
+.nv-dropdown-btn:hover {
+  border-color: var(--nv-card-border-hover);
+  background: var(--nv-card-muted);
+}
+
+.nv-dropdown-label {
+  color: var(--nv-card-muted-fg);
+  font-weight: 400;
+}
+
+.nv-dropdown-val {
+  color: var(--nv-card-fg);
+  font-weight: 600;
+}
+
+.nv-dropdown-btn .nv-icon {
+  color: var(--nv-card-muted-fg);
+}
+
+.nv-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 0.35rem;
+  border-radius: 0.65rem;
+  border: 1px solid var(--nv-card-border);
+  background: var(--nv-card-bg);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+  z-index: 100;
+}
+
+.nv-dropdown-menu[hidden] {
+  display: none !important;
+}
+
+.nv-dropdown-item {
+  width: 100%;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.5rem;
+  padding: 0.45rem 0.65rem;
+  border: 0;
+  border-radius: 0.4rem;
+  background: transparent;
+  color: var(--nv-card-fg);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  text-align: left !important;
+  cursor: pointer;
+  transition: background-color var(--nv-card-transition);
+}
+
+.nv-dropdown-item:hover {
+  background: var(--nv-card-muted);
+}
+
+.nv-dropdown-item .nv-check {
+  opacity: 0;
+}
+
+.nv-dropdown-item.is-selected {
+  font-weight: 600;
+}
+
+.nv-dropdown-item.is-selected .nv-check {
+  opacity: 1;
+}
+
+/* Search Input */
+.nv-search {
+  margin: 0;
+}
+
+.nv-search-box {
+  display: inline-flex;
+  align-items: center;
+  height: 2.15rem;
+  padding-inline: 0.65rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--nv-card-border);
+  background: var(--nv-card-bg);
+  color: var(--nv-card-fg);
+  transition: border-color var(--nv-card-transition), box-shadow var(--nv-card-transition);
+}
+
+.nv-search-box:focus-within {
+  border-color: var(--nv-card-border-hover);
+  box-shadow: 0 0 0 2px var(--nv-select-bg);
+}
+
+.nv-search-icon {
+  color: var(--nv-card-muted-fg);
+  margin-right: 0.45rem;
+}
+
+.nv-search-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--nv-card-fg);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  width: 170px;
+}
+
+.nv-search-input::placeholder {
+  color: var(--nv-card-muted-fg);
+}
+
+/* 6-Box Grid (3x2 on Desktop) */
+.nv-grid {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  padding: 1.15rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 680px) {
+  .nv-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .nv-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+#nv-landing .nv-card {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--nv-card-border);
+  border-radius: 0.75rem;
+  background: var(--nv-card-bg);
+  color: var(--nv-card-fg);
+  transition:
+    border-color var(--nv-card-transition),
+    box-shadow var(--nv-card-transition);
+  overflow: hidden;
+  margin: 0 !important;
+}
+
+#nv-landing .nv-card:hover {
+  border-color: var(--nv-accent-yellow);
+  box-shadow: 0 0 0 1px rgba(255, 239, 12, 0.35), 0 8px 22px -6px rgba(255, 239, 12, 0.16);
+}
+
+/* Bagian 1 (Atas): Hitam gelap / Card BG, posisi Badge -> Title -> Desc tersebar merata (tidak dempet) */
+.nv-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.65rem;
+  padding: 1.25rem 1.35rem;
+  background: var(--nv-card-bg);
+  box-sizing: border-box;
+}
+
+.nv-card-tokens {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.nv-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--nv-card-border);
+  background: var(--nv-card-muted);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--nv-card-muted-fg);
+}
+
+.nv-badge-portal {
+  color: var(--nv-card-fg);
+  border-color: var(--nv-card-border-hover);
+}
+
+#nv-landing .nv-card-title {
+  margin: 0 !important;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--nv-card-fg);
+}
+
+.nv-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nv-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#nv-landing .nv-card-desc {
+  margin: 0 !important;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  min-height: 3em;
+  color: var(--nv-card-muted-fg);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Bagian 2 (Bawah): Divider Line + Abu-abu gelap (Surface/Muted) + Path & Tombol Aksi */
+.nv-card-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 1.35rem;
+  border-top: 1px solid var(--nv-card-border);
+  background: var(--nv-card-muted);
+  box-sizing: border-box;
+  transition: border-color var(--nv-card-transition);
+}
+
+.nv-card-meta {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.75rem;
+  color: var(--nv-card-muted-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nv-card-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--nv-card-fg);
+}
+
+.nv-card-action .nv-arrow {
+  transition: transform var(--nv-card-transition);
+}
+
+#nv-landing .nv-card:hover .nv-card-action .nv-arrow {
+  transform: translateX(3px);
+}
+
+.nv-empty {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: var(--nv-card-muted-fg);
+  border: 1px dashed var(--nv-card-border);
+  border-radius: 0.75rem;
+}
+
+/* CTA Band inside Frame */
+.nv-cta-wrap {
+  padding: 0.9rem 1.5rem;
+  box-sizing: border-box;
+}
+
+.nv-cta-panel {
+  box-sizing: border-box;
+  border: 1px solid var(--nv-card-border);
+  border-radius: 0.75rem;
+  background: var(--nv-card-bg);
+  color: var(--nv-card-fg);
+}
+
+/* ==========================================================================
+   MARQUEE LOOP ANIMATION
+   ========================================================================== */
+.nv-marquee {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--nv-card-bg);
+  color: var(--nv-card-muted-fg);
+  border-block: 1px solid var(--nv-card-border);
+}
+
+.nv-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: nv-marquee 32s linear infinite;
+}
+
+.nv-marquee:hover .nv-marquee-track {
+  animation-play-state: paused;
+}
+
+.nv-marquee-group {
+  flex-shrink: 0;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-block: .7rem;
+}
+
+.nv-marquee-group > span {
+  margin-inline: 1.25rem;
+  white-space: nowrap;
+}
+
+@keyframes nv-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   CTA PANEL
+   ========================================================================== */
+.nv-cta-panel {
+  padding: var(--nv-card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+@media (min-width: 860px) {
+  .nv-cta-panel {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.nv-cta-panel h3 {
+  color: var(--nv-card-fg);
+}
+
+.nv-cta-panel .nv-asd {
+  color: var(--nv-card-muted-fg);
+}
+
+.nv-cta-panel .nv-btn {
+  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition), opacity var(--nv-card-transition);
+}
+
+.nv-cta-panel .nv-btn-primary {
+  background: var(--nv-card-fg);
+  color: var(--nv-card-bg);
+  border-color: transparent;
+}
+
+.nv-cta-panel .nv-btn-primary:hover {
+  opacity: .85;
+}
+
+.nv-cta-panel .nv-btn-ghost {
+  background: transparent;
+  color: var(--nv-card-fg);
+  border-color: var(--nv-card-border);
+}
+
+.nv-cta-panel .nv-btn-ghost:hover {
+  border-color: var(--nv-card-border-hover);
+  background: var(--nv-card-muted);
+}
+
+/* ==========================================================================
+DROPDOWN ICON ROTATION
+========================================================================== */
+.nv-dropdown-btn .nv-icon {
+color: var(--nv-card-muted-fg);
+transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nv-dropdown-btn[aria-expanded="true"] .nv-icon {
+transform: rotate(180deg);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS & TOUCH FIXES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .nv-hero-inner-full { gap: 1.25rem; padding-block: 2rem; }
+  #nv-landing .nv-hero-roles { font-size: 1.05rem; }
+  .nv-sec-head {
+    padding: 0.85rem 1rem;
+    gap: 0.65rem;
+  }
+  .nv-sec-title-group {
+    width: 100%;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .nv-filter-controls {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .nv-dropdown {
+    width: 100%;
+    min-width: 0;
+  }
+  .nv-dropdown-btn {
+    width: 100%;
+    padding: 0 0.6rem;
+    font-size: 0.78rem;
+  }
+  .nv-dropdown-btn > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nv-search {
+    width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+  }
+  .nv-search-box {
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: 0.55rem;
+  }
+  .nv-search-icon {
+    margin-right: 0.35rem;
+  }
+  .nv-search-input {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.78rem;
+  }
+  .nv-grid {
+    padding: 1rem;
+    grid-template-columns: 1fr;
+  }
+  /* Di mobile tampilkan maksimal 3 kartu saja agar tidak kepanjangan */
+  #nv-landing .nv-grid > .nv-card:nth-child(n+4) {
+    display: none !important;
+  }
+  .nv-cta-wrap { padding: 0.85rem 1rem; }
+  .nv-cta .nv-btn { flex: 1 1 auto; }
+}
+
+@media (max-width: 400px) {
+  .nv-dropdown-label {
+    display: none;
+  }
+  .nv-filter-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 380px) {
+  #nv-landing .nv-hero-hello { font-size: 1.1rem; }
+  #nv-landing .nv-hero-roles { font-size: 1rem; }
+}
+
+@media (hover: none) {
+  .nv-card:hover, .nv-latest li:hover {
+    border-color: var(--nv-card-border);
+    background: var(--nv-card-bg);
+  }
+  .nv-card:active, .nv-latest li:active {
+    background: var(--nv-card-muted);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
+  .nv-marquee-track, .nv-type-caret { animation: none; }
+  #nv-landing .nv-select { animation: none; background-size: 100% 100%; }
+}
+
+article h1:first-child, .md-content h1:first-child {
+  display: none !important;
+}
