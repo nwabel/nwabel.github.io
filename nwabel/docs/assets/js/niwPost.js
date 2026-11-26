@@ -164,6 +164,22 @@
       searchQuery = e.target.value || "";
       updateGrid(true);
     });
+
+    // Sesuaikan label keycap (⌘ K di Mac, Ctrl K di OS lain) & aktifkan shortcut ⌘K / Ctrl+K di landing page
+    const kbdGroup = document.getElementById("nv-article-search-kbd");
+    const isMac = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || "");
+    if (kbdGroup && !isMac) {
+      kbdGroup.innerHTML = `<kbd class="nv-kbd">Ctrl</kbd><kbd class="nv-kbd">K</kbd>`;
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        e.stopPropagation();
+        searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => searchInput.focus(), 180);
+      }
+    }, true);
   }
 
   // Fetch articles from MkDocs search_index.json

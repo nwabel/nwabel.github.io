@@ -9,6 +9,8 @@
   --nv-card-border: #eaeaea;
   --nv-card-border-hover: #cccccc;
   --nv-accent-yellow: #ffef0c;
+  --nv-card-hover-yellow: rgba(180, 156, 0, 0.55);
+  --nv-line-accent: rgba(202, 178, 0, 0.28);
   --nv-card-radius: 1.2rem;
   --nv-card-padding: 1rem;
   --nv-card-transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
@@ -24,6 +26,8 @@
   --nv-card-muted-fg: #a1a1a1;
   --nv-card-border: #333333;
   --nv-card-border-hover: #555555;
+  --nv-card-hover-yellow: rgba(210, 194, 14, 0.52);
+  --nv-line-accent: rgba(255, 239, 12, 0.22);
   --nv-select-bg: rgba(0, 112, 243, 0.5);
 }
 
@@ -312,7 +316,8 @@ body.is-home .typography {
 .nv-band {
   width: 100%;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--nv-card-border);
+  border-bottom: 1px solid var(--nv-line-accent);
+  border-bottom: 1px solid var(--nv-line-accent);
   position: relative;
 }
 
@@ -333,7 +338,8 @@ body.is-home .typography {
   width: calc(100% - 2rem);
   margin-inline: auto;
   box-sizing: border-box;
-  border-inline: 1px solid var(--nv-card-border);
+  border-inline: 1px solid var(--nv-line-accent);
+  border-inline: 1px solid var(--nv-line-accent);
 }
 
 .nv-band-grow > .nv-frame {
@@ -361,7 +367,8 @@ body.is-home .typography {
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--nv-card-border);
+  border-bottom: 1px solid var(--nv-line-accent);
+  border-bottom: 1px solid var(--nv-line-accent);
   flex-shrink: 0;
 }
 
@@ -505,7 +512,7 @@ body.is-home .typography {
   opacity: 1;
 }
 
-/* Search Input */
+/* Search Input (disamakan dengan tombol search navbar + keycap simetris) */
 .nv-search {
   margin: 0;
 }
@@ -513,23 +520,38 @@ body.is-home .typography {
 .nv-search-box {
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   height: 2.15rem;
-  padding-inline: 0.65rem;
+  padding: 0 0.42rem 0 0.7rem;
   border-radius: 0.5rem;
   border: 1px solid var(--nv-card-border);
-  background: var(--nv-card-bg);
+  background: var(--nv-card-muted);
   color: var(--nv-card-fg);
-  transition: border-color var(--nv-card-transition), box-shadow var(--nv-card-transition);
+  cursor: text;
+  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition), box-shadow var(--nv-card-transition);
+}
+
+.nv-search-box:hover {
+  border-color: var(--nv-accent-yellow);
+  background: var(--nv-card-bg);
 }
 
 .nv-search-box:focus-within {
-  border-color: var(--nv-card-border-hover);
-  box-shadow: 0 0 0 2px var(--nv-select-bg);
+  border-color: var(--nv-accent-yellow);
+  background: var(--nv-card-bg);
+  box-shadow: 0 0 0 1px rgba(255, 239, 12, 0.25);
 }
 
 .nv-search-icon {
   color: var(--nv-card-muted-fg);
-  margin-right: 0.45rem;
+  flex-shrink: 0;
+  transition: color var(--nv-card-transition), transform var(--nv-card-transition);
+}
+
+.nv-search-box:hover .nv-search-icon,
+.nv-search-box:focus-within .nv-search-icon {
+  color: var(--nv-card-fg);
+  transform: scale(1.06);
 }
 
 .nv-search-input {
@@ -539,11 +561,16 @@ body.is-home .typography {
   color: var(--nv-card-fg);
   font-size: 0.8125rem;
   font-family: inherit;
-  width: 170px;
+  width: 145px;
+  min-width: 0;
 }
 
 .nv-search-input::placeholder {
   color: var(--nv-card-muted-fg);
+}
+
+.nv-search-box:focus-within .nv-search-kbd {
+  opacity: 0.45;
 }
 
 /* 6-Box Grid (3x2 on Desktop) */
@@ -595,8 +622,8 @@ body.is-home .typography {
 }
 
 #nv-landing .nv-card:hover {
-  border-color: var(--nv-accent-yellow);
-  box-shadow: 0 0 0 1px rgba(255, 239, 12, 0.35), 0 8px 22px -6px rgba(255, 239, 12, 0.16);
+  border-color: var(--nv-card-hover-yellow);
+  box-shadow: 0 6px 18px -6px rgba(210, 194, 14, 0.12);
 }
 
 /* Bagian 1 (Atas): Hitam gelap / Card BG, posisi Badge -> Title -> Desc tersebar merata (tidak dempet) */
@@ -747,7 +774,8 @@ body.is-home .typography {
   overflow: hidden;
   background: var(--nv-card-bg);
   color: var(--nv-card-muted-fg);
-  border-block: 1px solid var(--nv-card-border);
+  border-block: 1px solid var(--nv-line-accent);
+  border-block: 1px solid var(--nv-line-accent);
 }
 
 .nv-marquee-track {
@@ -888,10 +916,11 @@ transform: rotate(180deg);
   .nv-search-box {
     width: 100%;
     box-sizing: border-box;
-    padding-inline: 0.55rem;
+    padding-inline: 0.6rem;
+    gap: 0.35rem;
   }
-  .nv-search-icon {
-    margin-right: 0.35rem;
+  .nv-search-kbd {
+    display: none !important;
   }
   .nv-search-input {
     width: 100%;
