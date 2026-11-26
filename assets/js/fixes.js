@@ -412,16 +412,16 @@
     if (!h1 || !actions) return;
     pageHeader.dataset.nvHeaderFixed = "1";
 
-    const updatedEl = document.getElementById("updated_at");
-    const updatedRow = updatedEl?.closest("article > div:first-child > div:last-child");
+    const datesEl = document.getElementById("nv-page-dates") || document.getElementById("updated_at");
+    const updatedRow = datesEl?.closest("article > div:first-child > div:last-child");
 
     const metaBar = document.createElement("div");
     metaBar.className = "nv-article-meta";
 
     const metaLeft = document.createElement("div");
     metaLeft.className = "nv-article-meta-left";
-    if (updatedEl) {
-      metaLeft.appendChild(updatedEl);
+    if (datesEl) {
+      metaLeft.appendChild(datesEl);
       if (updatedRow && updatedRow !== pageHeader.parentElement) {
         updatedRow.remove();
       }
@@ -534,37 +534,11 @@
       return b.endsWith("/") ? b : b + "/";
     })();
 
-    // Hitung estimasi waktu baca otomatis untuk status pill (Opsi 4)
-    const articleText = (document.querySelector("article .typography")?.textContent || "").trim();
-    const wordCount = articleText ? articleText.split(/\s+/).filter(Boolean).length : 0;
-    const readMinutes = Math.max(1, Math.round(wordCount / 200));
-    const statusLabel = wordCount > 15 ? `read time: ~${readMinutes} min` : "status: online";
-
     // Pakai fade (tanpa translateY) pada footer agar tidak menambah ruang scroll 100px di bawah footer
     footer.setAttribute("data-aos", "fade");
     footer.setAttribute("data-aos-offset", "0");
 
     footer.innerHTML = `
-      <div class="nv-df-top">
-        <div class="nv-df-top-left">
-          <span class="nv-df-brand">~/nwabel/docs</span>
-          <span class="nv-df-status" title="Status halaman">
-            <span class="nv-df-status-dot" aria-hidden="true"></span>
-            <span>${statusLabel}</span>
-          </span>
-        </div>
-        <button type="button" class="nv-df-random-btn" aria-label="Buka catatan acak">
-          <svg class="nv-df-random-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="16 3 21 3 21 8"></polyline>
-            <line x1="4" y1="20" x2="21" y2="3"></line>
-            <polyline points="21 16 21 21 16 21"></polyline>
-            <line x1="15" y1="15" x2="21" y2="21"></line>
-            <line x1="4" y1="4" x2="9" y2="9"></line>
-          </svg>
-          <span>Random Note</span>
-        </button>
-      </div>
-
       <div class="nv-df-grid">
         <div class="nv-df-col">
           <p class="nv-df-eyebrow">Kontribusi</p>
@@ -584,6 +558,18 @@
           <div class="nv-df-links">
             <a href="https://github.com/nwabel" target="_blank" rel="noopener">GitHub (@nwabel)</a>
             <a href="mailto:nabilsywl@gmail.com">nabilsywl@gmail.com</a>
+          </div>
+          <div class="nv-df-col-action">
+            <button type="button" class="nv-df-random-btn" aria-label="Buka catatan acak">
+              <svg class="nv-df-random-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 3 21 3 21 8"></polyline>
+                <line x1="4" y1="20" x2="21" y2="3"></line>
+                <polyline points="21 16 21 21 16 21"></polyline>
+                <line x1="15" y1="15" x2="21" y2="21"></line>
+                <line x1="4" y1="4" x2="9" y2="9"></line>
+              </svg>
+              <span>Random Note</span>
+            </button>
           </div>
         </div>
       </div>

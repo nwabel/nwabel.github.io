@@ -362,58 +362,8 @@ footer.nv-docs-footer {
   overflow: clip;
 }
 
-.nv-df-top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.65rem 1rem;
-  padding: 0.85rem 1.5rem;
-  border-bottom: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-}
-
-.nv-df-top-left {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.55rem 0.75rem;
-  min-width: 0;
-}
-
-.nv-df-brand {
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-  font-size: 0.75rem;
-  color: var(--muted-foreground);
-  letter-spacing: 0.02em;
-}
-
-.nv-df-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.18rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid var(--nv-card-border, var(--border));
-  background: var(--nv-card-muted, var(--card));
-  color: var(--muted-foreground);
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-  font-size: 0.7rem;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.nv-df-status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--nv-accent-yellow, #ffef0c);
-  box-shadow: 0 0 6px rgba(255, 239, 12, 0.55);
-  animation: nv-df-pulse 2.4s ease-in-out infinite;
-}
-
-@keyframes nv-df-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(0.85); }
+.nv-df-col-action {
+  margin-top: 1rem;
 }
 
 .nv-df-random-btn {
@@ -475,25 +425,7 @@ footer.nv-docs-footer {
 }
 
 @media (max-width: 639.98px) {
-  .nv-df-top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.7rem;
-    padding: 0.9rem 1.25rem;
-  }
-
-  .nv-df-top-left {
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .nv-df-random-btn {
-    width: 100%;
-    min-height: 2.35rem;
-    padding: 0.45rem 0.85rem;
-  }
-
+  .nv-df-random-btn,
   .nv-df-btn {
     min-height: 2.35rem;
   }
@@ -520,7 +452,6 @@ footer.nv-docs-footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nv-df-status-dot,
   .nv-df-random-btn.is-loading .nv-df-random-icon {
     animation: none !important;
   }
@@ -986,17 +917,54 @@ body:not(.is-home) #page-header > h1 {
   gap: 0.35rem;
 }
 
-body:not(.is-home) #updated_at {
+.nv-page-dates {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.55rem;
   font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--muted-foreground);
-  opacity: 0.8;
-  white-space: nowrap;
+  line-height: 1;
 }
 
-body:not(.is-home) #updated_at::before {
-  content: "Updated • ";
-  opacity: 0.75;
+.nv-date-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0.82;
+  transition: opacity 0.18s ease, color 0.18s ease;
+}
+
+.nv-date-item:hover {
+  opacity: 1;
+  color: var(--foreground);
+}
+
+.nv-date-icon {
+  display: block;
+  width: 1.05em;
+  height: 1.05em;
+  flex-shrink: 0;
+  opacity: 0.88;
+  transform: translateY(-0.5px);
+}
+
+.nv-date-val {
+  display: inline-block;
+  line-height: 1;
+}
+
+.nv-date-sep {
+  line-height: 1;
+  opacity: 0.45;
+}
+
+.nv-date-item[hidden],
+.nv-date-sep[hidden] {
+  display: none !important;
 }
 
 body:not(.is-home) #copy-page,
@@ -1049,8 +1017,8 @@ body:not(.is-home) #next-button:active {
 }
 
 @media (max-width: 767.98px) {
-  body:not(.is-home) #updated_at::before {
-    content: "";
+  .nv-page-dates {
+    font-size: 0.7rem;
   }
 
   body:not(.is-home) #copy-page span {
@@ -1363,5 +1331,68 @@ a[data-slot="button"] svg {
   header .md\:flex,
   header .w-full {
     display: flex !important;
+  }
+
+  /* ========================================================================
+     FIX SCROLL MOBILE HIDDEN SIDEBAR (dialog#bottom-sidebar)
+     Tema mkdocs-shadcn meng-hardcode height: 857px & width: 504px serta
+     nested overflow sehingga sulit di-scroll di HP. Kita kunci pas ke 100dvh
+     dengan satu scroll container mulus + kunci scroll halaman di belakangnya.
+     ======================================================================== */
+  body:has(dialog#bottom-sidebar[open]) {
+    overflow: hidden !important;
+    touch-action: none;
+  }
+
+  dialog#bottom-sidebar[open] {
+    position: fixed !important;
+    inset: var(--header-height, 3.5rem) 0 0 0 !important;
+    transform: none !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: calc(100dvh - var(--header-height, 3.5rem)) !important;
+    max-height: calc(100dvh - var(--header-height, 3.5rem)) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    z-index: 60 !important;
+  }
+
+  dialog#bottom-sidebar > [data-slot="popover-content"] {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    touch-action: pan-y !important;
+    background: color-mix(in srgb, var(--background) 96%, transparent) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    box-sizing: border-box !important;
+  }
+
+  dialog#bottom-sidebar > [data-slot="popover-content"] > div {
+    overflow: visible !important;
+    gap: 1.75rem !important;
+    padding: 1.25rem 1.5rem calc(3rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  dialog#bottom-sidebar a {
+    display: flex;
+    align-items: center;
+    min-height: 2.35rem;
+    font-size: 1.25rem !important;
+    line-height: 1.35;
+    border-radius: 0.45rem;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+
+  dialog#bottom-sidebar a:active {
+    color: var(--nv-accent-yellow, #ffef0c);
+    transform: translateX(3px);
   }
 }

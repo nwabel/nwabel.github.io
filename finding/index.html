@@ -390,15 +390,74 @@
 
       
       <div class="grow text-muted-foreground pt-4 flex flex-row justify-end items-center">
-    <span id="updated_at" class="text-sm opacity-50 hover:opacity-100 transition-opacity duration-200" title="last update (local time)"></span>
+    <span id="nv-page-dates" class="nv-page-dates">
+        
+        <span id="created_at" class="nv-date-item nv-date-created" title="Created (local time)">
+            <svg class="nv-date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z"></path>
+                <path d="M16 3v4"></path>
+                <path d="M8 3v4"></path>
+                <path d="M4 11h16"></path>
+            </svg>
+            <span class="nv-date-val"></span>
+        </span>
+        
+        
+        <span id="nv-date-sep" class="nv-date-sep" aria-hidden="true" hidden="">·</span>
+        <span id="updated_at" class="nv-date-item nv-date-updated" title="Last updated (local time)">
+            <svg class="nv-date-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 8l0 4l2 2"></path>
+                <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"></path>
+            </svg>
+            <span class="nv-date-val"></span>
+        </span>
+        
+    </span>
 </div>
 
 <script>
-    const updatedAt = document.getElementById("updated_at");
-    if (updatedAt) {
-        const date = new Date('2026-09-09T10:37:57+07:00');
-        updatedAt.textContent = date.toLocaleDateString();
+(function () {
+    function fmt(iso) {
+        if (!iso) return "";
+        var d = new Date(iso);
+        if (isNaN(d.getTime())) return "";
+        var dd = String(d.getDate()).padStart(2, "0");
+        var mm = String(d.getMonth() + 1).padStart(2, "0");
+        var yyyy = d.getFullYear();
+        return dd + "/" + mm + "/" + yyyy;
     }
+
+    var createdIso = "2026-09-09T10:37:57+07:00";
+    var updatedIso = "2026-09-09T10:37:57+07:00";
+    var createdStr = fmt(createdIso);
+    var updatedStr = fmt(updatedIso);
+
+    var createdEl = document.getElementById("created_at");
+    var updatedEl = document.getElementById("updated_at");
+    var sepEl = document.getElementById("nv-date-sep");
+
+    if (createdEl && createdStr) {
+        var cVal = createdEl.querySelector(".nv-date-val");
+        if (cVal) cVal.textContent = createdStr;
+        createdEl.setAttribute("title", "Created: " + createdStr);
+        createdEl.setAttribute("aria-label", "Created " + createdStr);
+    }
+
+    if (updatedEl && updatedStr) {
+        if (createdStr && createdStr === updatedStr) {
+            updatedEl.hidden = true;
+            if (sepEl) sepEl.hidden = true;
+        } else {
+            var uVal = updatedEl.querySelector(".nv-date-val");
+            if (uVal) uVal.textContent = updatedStr;
+            updatedEl.setAttribute("title", "Updated: " + updatedStr);
+            updatedEl.setAttribute("aria-label", "Updated " + updatedStr);
+            if (createdEl && createdStr && sepEl) sepEl.hidden = false;
+        }
+    }
+})();
 </script>
 
       
