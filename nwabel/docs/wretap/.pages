@@ -4,4 +4,5 @@ nav:
   - Daftar Lab: indexLabs.md
   - Cryptanalysis: Cryptanalysis.md
   - CVE 2015-3306: CVE-2015-3306.md
+  - ...
 ignore: [tes]
