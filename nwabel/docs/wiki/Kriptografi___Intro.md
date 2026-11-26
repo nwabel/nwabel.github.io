@@ -37,5 +37,13 @@ Senin, 25 Agustus 2025 2:31
 		  *Contoh:* Pada smart card atau kartu kredit dengan chip, penyerang bisa menganalisis **waktu eksekusi enkripsi** atau **konsumsi listrik** untuk menebak kunci.
 		- **Statistical Attack (Serangan Statistik)**
 		  *Contoh:* Pada algoritma enkripsi lama seperti Caesar Cipher atau Vigenère Cipher, distribusi huruf dalam ciphertext masih menyerupai distribusi huruf dalam bahasa aslinya. Misalnya, huruf "E" paling sering muncul dalam bahasa Inggris. Penyerang bisa menebak pola ini untuk memecahkan kode.
--
+- [Non-repudiation]^[Jaminan bahwa pengirim tidak dapat menyangkal bahwa ia telah mengirim informasi tersebut.]
+[Kerckhoffs's Principle]^[#kerckhoffs]
+
+/// hover-card | kerckhoffs
+    position: bottom
+**Prinsip Kerckhoffs (1883)**
+
+Keamanan sistem kriptografi bergantung pada kerahasiaan *key*, bukan algoritmanya.
+///
 - tags:: #Kriptografi #CodeBreaking

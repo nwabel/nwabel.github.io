@@ -32,6 +32,8 @@ markdown_extensions:
   - codehilite
   - shadcn.extensions.codexec
   - shadcn.extensions.echarts.alpha
+  - shadcn.extensions.hover_card
+  - shadcn.extensions.iconify
   - fenced_code
 
 plugins:
