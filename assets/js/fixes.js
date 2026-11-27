@@ -136,9 +136,19 @@
       const textSpan = btn.querySelector("span");
       if (textSpan) textSpan.innerText = "Share";
 
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", async (e) => {
         e.preventDefault();
         e.stopPropagation();
+
+        const isMobile = window.matchMedia("(pointer: coarse)").matches || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+        if (isMobile && typeof navigator.share === "function") {
+          try {
+            await navigator.share({ title: document.title, url: location.href });
+            return;
+          } catch (err) {
+            if (err && err.name === "AbortError") return;
+          }
+        }
 
         navigator.clipboard
           .writeText(location.href)
