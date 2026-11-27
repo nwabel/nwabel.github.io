@@ -1,13 +1,15 @@
-(async function () {
+(async () => {
   "use strict";
-  if (window.__niwPostInitialized) return;
-  if (!document.querySelector("#nv-landing")) return;
+
+  if (window.__niwPostInitialized || !document.querySelector("#nv-landing")) return;
   window.__niwPostInitialized = true;
 
   const grid = document.getElementById("latest-posts-list");
   if (!grid) return;
 
-  const portalCards = [
+  const CATEGORY_MAP = { wretap: "Wretap", wiki: "Wiki", blog: "Blok" };
+
+  const PORTAL_CARDS = [
     {
       title: "📝 Blok",
       url: "blog/",
@@ -16,7 +18,7 @@
       category: "Blok",
       tokenLabel: "Portal Utama",
       isPortal: true,
-      categories: ["all", "Portal", "Blok"]
+      categories: ["all", "Portal", "Blok"],
     },
     {
       title: "🛡️ Wretap",
@@ -26,7 +28,7 @@
       category: "Wretap",
       tokenLabel: "Portal Utama",
       isPortal: true,
-      categories: ["all", "Portal", "Wretap"]
+      categories: ["all", "Portal", "Wretap"],
     },
     {
       title: "🧠 Wiki",
@@ -36,14 +38,16 @@
       category: "Wiki",
       tokenLabel: "Portal Utama",
       isPortal: true,
-      categories: ["all", "Portal", "Wiki"]
-    }
+      categories: ["all", "Portal", "Wiki"],
+    },
   ];
+
+  const ARROW_SVG = `<svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>`;
+  const mobileQuery = window.matchMedia("(max-width: 768px)");
 
   let activeCategory = "all";
   let searchQuery = "";
   let allPosts = [];
-  let isInitialRender = true;
 
   const escapeHtml = (str) =>
     String(str || "")
@@ -52,7 +56,7 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;");
 
-  function renderCard(item) {
+  const renderCard = (item) => {
     const tokenText = escapeHtml(item.tokenLabel || item.category);
     const titleText = escapeHtml(item.title);
     const descText = escapeHtml(item.summary || "Baca selengkapnya di halaman ini.");
@@ -75,97 +79,77 @@
         </div>
         <div class="nv-card-footer">
           <span class="nv-card-meta">${metaText}</span>
-          <span class="nv-card-action">
-            ${actionText}
-            <svg class="nv-icon nv-arrow" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
-          </span>
+          <span class="nv-card-action">${actionText}${ARROW_SVG}</span>
         </div>
       </div>
     `;
-  }
+  };
 
-  function updateGrid() {
+  const updateGrid = () => {
     const q = searchQuery.trim().toLowerCase();
-    const combined = [...portalCards, ...allPosts];
-
-    const filtered = combined.filter((item) => {
+    const filtered = [...PORTAL_CARDS, ...allPosts].filter((item) => {
       const catMatch =
         activeCategory === "all" ||
-        (item.categories && item.categories.includes(activeCategory)) ||
+        item.categories?.includes(activeCategory) ||
         item.category === activeCategory;
       if (!catMatch) return false;
       if (!q) return true;
-      const hay = `${item.title} ${item.summary} ${item.category} ${item.tokenLabel || ""}`.toLowerCase();
-      return hay.includes(q);
+      return `${item.title} ${item.summary} ${item.category} ${item.tokenLabel || ""}`.toLowerCase().includes(q);
     });
 
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    const visible = filtered.slice(0, isMobile ? 3 : 6);
+    const visible = filtered.slice(0, mobileQuery.matches ? 3 : 6);
+    grid.innerHTML = visible.length
+      ? visible.map(renderCard).join("")
+      : `<div class="nv-empty"><p>Engga nemu artikel yang cocok sama filter/pencarian ini.</p></div>`;
+  };
 
-    if (!visible.length) {
-      grid.innerHTML = `
-        <div class="nv-empty">
-          <p>Engga nemu artikel yang cocok sama filter/pencarian ini.</p>
-        </div>
-      `;
-      return;
-    }
+  mobileQuery.addEventListener?.("change", updateGrid);
 
-    grid.innerHTML = visible.map(renderCard).join("");
-  }
-
-  const mobileQuery = window.matchMedia("(max-width: 768px)");
-  if (mobileQuery.addEventListener) {
-    mobileQuery.addEventListener("change", () => updateGrid());
-  }
-
-  // Setup Category Dropdown & Search Controls
+  // Category Dropdown
   const catBtn = document.getElementById("nv-cat-btn");
   const catMenu = document.getElementById("nv-cat-menu");
   const catVal = document.getElementById("nv-cat-val");
-  const searchInput = document.getElementById("nv-article-search");
 
   if (catBtn && catMenu) {
+    const setMenuOpen = (open) => {
+      catMenu.hidden = !open;
+      catBtn.setAttribute("aria-expanded", String(open));
+    };
+
     catBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      const isOpen = !catMenu.hidden;
-      catMenu.hidden = isOpen;
-      catBtn.setAttribute("aria-expanded", String(!isOpen));
+      setMenuOpen(catMenu.hidden);
     });
 
-    catMenu.querySelectorAll("[data-category]").forEach((itemBtn) => {
+    const catItems = catMenu.querySelectorAll("[data-category]");
+    catItems.forEach((itemBtn) => {
       itemBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         activeCategory = itemBtn.getAttribute("data-category") || "all";
-        if (catVal) {
-          catVal.textContent = itemBtn.querySelector("span")?.textContent || "All categories";
-        }
-        catMenu.querySelectorAll("[data-category]").forEach((b) => {
+        if (catVal) catVal.textContent = itemBtn.querySelector("span")?.textContent || "All categories";
+        catItems.forEach((b) => {
           const selected = b === itemBtn;
           b.classList.toggle("is-selected", selected);
           b.setAttribute("aria-checked", String(selected));
         });
-        catMenu.hidden = true;
-        catBtn.setAttribute("aria-expanded", "false");
-        updateGrid(true);
+        setMenuOpen(false);
+        updateGrid();
       });
     });
 
     document.addEventListener("click", (e) => {
-      if (!catMenu.hidden && !e.target.closest("#nv-cat-dropdown")) {
-        catMenu.hidden = true;
-        catBtn.setAttribute("aria-expanded", "false");
-      }
+      if (!catMenu.hidden && !e.target.closest("#nv-cat-dropdown")) setMenuOpen(false);
     });
   }
 
+  // Search Input & ⌘K / Ctrl+K Shortcut
+  const searchInput = document.getElementById("nv-article-search");
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       searchQuery = e.target.value || "";
-      updateGrid(true);
+      updateGrid();
     });
 
-    // Sesuaikan label keycap (⌘ K di Mac, Ctrl K di OS lain) & aktifkan shortcut ⌘K / Ctrl+K di landing page
     const kbdGroup = document.getElementById("nv-article-search-kbd");
     const isMac = /Mac|iPhone|iPad|iPod/i.test(navigator.platform || navigator.userAgent || "");
     if (kbdGroup && !isMac) {
@@ -192,54 +176,51 @@
 
   let docs = [];
   try {
-    const idxURL = join("search/search_index.json");
-    const data = await (await fetch(idxURL, { cache: "no-store" })).json();
-    docs = (data.docs || data || [])
-      .filter((d) => d && d.location && d.title)
-      .filter((d) => /^(wretap|blog|wiki)\//i.test(d.location))
-      .filter((d) => !/^(wretap|blog|wiki)\/$/i.test(d.location))
-      .filter((d) => !/\/index\.html?$/i.test(d.location))
-      .filter((d) => !d.location.includes("#"));
+    const data = await (await fetch(join("search/search_index.json"), { cache: "no-store" })).json();
+    docs = (data.docs || data || []).filter(
+      (d) =>
+        d?.location &&
+        d.title &&
+        /^(wretap|blog|wiki)\//i.test(d.location) &&
+        !/^(wretap|blog|wiki)\/$/i.test(d.location) &&
+        !/\/index\.html?$/i.test(d.location) &&
+        !d.location.includes("#")
+    );
   } catch (e) {
     console.warn("[niwPost] gagal ambil search index:", e);
     updateGrid();
     return;
   }
 
-  async function getMeta(d) {
+  const getMeta = async (d) => {
     const url = join(d.location);
     let date = null;
     try {
       const html = await (await fetch(url, { cache: "no-store" })).text();
-      const m =
+      const match =
         html.match(/new Date\('([^']+)'\)/) ||
         html.match(/<time[^>]+datetime="([^"]+)"/i) ||
         html.match(/"datePublished"\s*:\s*"([^"]+)"/i);
-      if (m) date = new Date(m[1]);
-    } catch (_) {}
+      if (match) date = new Date(match[1]);
+    } catch {}
 
     const rawText = (d.text || "").replace(/\s+/g, " ").trim();
-    const summary = rawText.length > 110 ? rawText.slice(0, 110) + "…" : rawText;
-
-    let category = "Lainnya";
-    if (d.location.startsWith("wretap/")) category = "Wretap";
-    else if (d.location.startsWith("wiki/")) category = "Wiki";
-    else if (d.location.startsWith("blog/")) category = "Blok";
-
-    const cleanPath = d.location.replace(/\/+$/, "");
+    const summary = rawText.length > 110 ? `${rawText.slice(0, 110)}…` : rawText;
+    const prefix = d.location.split("/")[0].toLowerCase();
+    const category = CATEGORY_MAP[prefix] || "Lainnya";
 
     return {
       title: d.title,
       url,
       date,
-      pathLabel: `~/${cleanPath}`,
+      pathLabel: `~/${d.location.replace(/\/+$/, "")}`,
       summary: summary || "Klik untuk membaca dokumentasi lengkap.",
       category,
       tokenLabel: category,
       isPortal: false,
-      categories: ["all", category]
+      categories: ["all", category],
     };
-  }
+  };
 
   allPosts = (await Promise.all(docs.map(getMeta))).sort(
     (a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0)

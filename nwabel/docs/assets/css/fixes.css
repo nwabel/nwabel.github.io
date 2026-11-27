@@ -1,13 +1,33 @@
 /* ==========================================================================
-   GLOBAL UI & NAVIGATION FIXES
+   1. TOKENS & CORE GLOBAL OVERRIDES
    ========================================================================== */
-
-/* Navbar & Header Customization */
-button[title="Toggle layout"] {
-  display: inline-flex !important;
+:root {
+  --nv-line: var(--nv-line-accent, var(--nv-card-border, var(--border)));
+  --nv-mono: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  --nv-yellow: var(--nv-accent-yellow, #ffef0c);
+  --nv-btt-right: 1.5rem;
+  --nv-btt-bottom: 1.5rem;
 }
 
-/* Navbar Search Button (disamakan dengan desain .nv-df-top + keycap simetris) */
+body {
+  --footer-height: var(--header-height) !important;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+header.bg-background { border-bottom: 1px solid var(--nv-line); }
+footer { border-top: 1px solid var(--nv-line); }
+button[title="Toggle layout"] { display: inline-flex !important; }
+
+header a[href*="github.com"],
+header [data-slot="separator"] + a[href*="github.com"],
+header a[href*="github.com"] + [data-slot="separator"] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   2. NAVBAR SEARCH BUTTON & SHARED KBD GROUP
+   ========================================================================== */
 header button.nv-nav-search-btn {
   display: inline-flex !important;
   align-items: center !important;
@@ -29,14 +49,12 @@ header button.nv-nav-search-btn {
 }
 
 header button.nv-nav-search-btn:hover {
-  border-color: var(--nv-accent-yellow, #ffef0c) !important;
+  border-color: var(--nv-yellow) !important;
   color: var(--foreground) !important;
   background: var(--nv-card-bg, var(--background)) !important;
 }
 
-header button.nv-nav-search-btn:active {
-  transform: scale(0.985);
-}
+header button.nv-nav-search-btn:active { transform: scale(0.985); }
 
 .nv-nav-search-left {
   display: inline-flex !important;
@@ -62,7 +80,6 @@ header button.nv-nav-search-btn:hover .nv-nav-search-icon {
   text-overflow: ellipsis;
 }
 
-/* Shared Kbd Group (gaya shadcn <KbdGroup><Kbd>⌘</Kbd><Kbd>K</Kbd></KbdGroup>, simetris & sejajar) */
 .nv-kbd-group {
   flex-shrink: 0;
   display: inline-flex !important;
@@ -81,7 +98,7 @@ header button.nv-nav-search-btn:hover .nv-nav-search-icon {
   border: 1px solid var(--nv-card-border, var(--border));
   background: var(--nv-card-bg, var(--background));
   color: var(--muted-foreground);
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-family: var(--nv-mono);
   font-size: 0.7rem;
   font-weight: 500;
   line-height: 1;
@@ -89,72 +106,19 @@ header button.nv-nav-search-btn:hover .nv-nav-search-icon {
   transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
-/* Kompensasi optik simbol ⌘ agar tingginya sejajar & sama besar dengan huruf K */
 .nv-kbd.nv-kbd-sym {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   font-size: 0.84rem;
-  font-weight: 500;
 }
 
-header button.nv-nav-search-btn:hover .nv-kbd {
-  color: var(--foreground);
-}
-
-@media (max-width: 767.98px) {
-  header button.nv-nav-search-btn {
-    min-width: 0 !important;
-    height: 2.2rem !important;
-    padding: 0 0.7rem !important;
-  }
-
-  header button.nv-nav-search-btn .nv-kbd-group {
-    display: none !important;
-  }
-}
-
-header.bg-background {
-  border-bottom: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-}
-
-header a[href*="github.com"], 
-header [data-slot="separator"] + a[href*="github.com"],
-header a[href*="github.com"] + [data-slot="separator"] {
-  display: none !important;
-}
-
-/* Penyesuaian layout header di mobile ada di bagian REPLACE BURGER MOBILE (berlaku sampai 1023px). */
-
-/* Footer Customization */
-footer {
-  border-top: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-}
-
-/* Core Body Styling */
-body {
-  --footer-height: var(--header-height) !important;
-  background-color: var(--background) !important;
-  color: var(--foreground) !important;
-}
-
+header button.nv-nav-search-btn:hover .nv-kbd { color: var(--foreground); }
 
 /* ==========================================================================
-   WIDGETS & COMPONENTS
+   3. SHARED COMPACT BUTTONS (#back-to-top, Random Note, Lihat di GitHub)
    ========================================================================== */
-
-/* Back to Top Button
-   Posisi diatur lewat variabel di bawah (pojok kanan bawah, aman dari notch/home bar HP). */
-:root {
-  --nv-btt-right: 1.5rem;
-  --nv-btt-bottom: 1.5rem;
-}
-
-#back-to-top {
-  position: fixed;
-  right: calc(var(--nv-btt-right) + env(safe-area-inset-right, 0px));
-  bottom: calc(var(--nv-btt-bottom) + env(safe-area-inset-bottom, 0px));
-  z-index: 70;
-  opacity: 0;
-  pointer-events: none;
+#back-to-top,
+.nv-df-random-btn,
+.nv-df-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -168,11 +132,31 @@ body {
   font-size: 0.78rem;
   font-weight: 500;
   line-height: 1;
+  font-family: inherit;
+  text-decoration: none;
   box-sizing: border-box;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
   cursor: pointer;
-  transition: opacity 0.16s ease, transform 0.16s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+}
+
+#back-to-top:hover,
+.nv-df-random-btn:hover,
+.nv-df-btn:hover {
+  border-color: var(--nv-yellow);
+  background: var(--nv-card-bg, var(--background));
+  color: var(--foreground);
+}
+
+#back-to-top {
+  position: fixed;
+  right: calc(var(--nv-btt-right) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--nv-btt-bottom) + env(safe-area-inset-bottom, 0px));
+  z-index: 70;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.24);
   transform: translateY(6px);
+  transition: opacity 0.16s ease, transform 0.16s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
 #back-to-top.is-visible {
@@ -181,32 +165,19 @@ body {
   pointer-events: auto;
 }
 
-#back-to-top:hover {
-  border-color: var(--nv-accent-yellow, #ffef0c);
-  background: var(--nv-card-bg, var(--card));
-  color: var(--foreground);
-}
+#back-to-top svg { width: 14px; height: 14px; transition: transform 0.2s ease; }
+#back-to-top:hover svg { transform: translateY(-2px); }
+#back-to-top:active { transform: translateY(0) scale(0.97); }
 
-#back-to-top svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 0.2s ease;
-}
+.nv-df-random-btn:active { transform: scale(0.97); }
+.nv-df-random-icon { flex-shrink: 0; transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1); }
+.nv-df-random-btn:hover .nv-df-random-icon { transform: rotate(18deg) scale(1.06); }
+.nv-df-random-btn.is-loading .nv-df-random-icon { animation: nv-df-spin 0.7s linear infinite; }
+@keyframes nv-df-spin { to { transform: rotate(360deg); } }
 
-#back-to-top:hover svg {
-  transform: translateY(-2px);
-}
-
-#back-to-top:active {
-  transform: translateY(0) scale(0.97);
-}
-
-@media (max-width: 768px) {
-  :root {
-    --nv-btt-right: 1rem;
-    --nv-btt-bottom: 1rem;
-  }
-}
+.nv-df-ext-icon { transition: transform 0.2s ease; }
+.nv-df-btn:hover .nv-df-ext-icon { transform: translate(2px, -2px); }
+.nv-df-btn:active { transform: scale(0.98); }
 
 /* Reading Progress Bar */
 .progress-container {
@@ -224,37 +195,19 @@ body {
   height: 40% !important;
   width: 0%;
   background: #ffef0c !important;
-  box-shadow: 0 0 8px rgba(253, 52, 229, .5);
-  transition: width .1s ease-out, opacity .2s ease;
+  box-shadow: 0 0 8px rgba(253, 52, 229, 0.5);
+  transition: width 0.1s ease-out, opacity 0.2s ease;
   opacity: 0;
 }
 
-.progress-bar:not([style*="width: 0%"]) {
-  opacity: 1;
-}
+.progress-bar:not([style*="width: 0%"]) { opacity: 1; }
 
 /* ==========================================================================
-   CRISP VERTICAL ARCHITECTURAL DIVIDERS (BLOG, FINDING, WRETAP, WIKI)
-   Samakan garis vertikal sidebar kiri & TOC kanan dengan landing page:
-   solid 1px (--nv-card-border), tegas, full dari header ke footer tanpa fade.
+   4. DOCS LAYOUT, OVERFLOW SAFETY NET & SIDEBAR / TOC (SCROLLSPY)
    ========================================================================== */
-body:not(.is-home) [data-slot="sidebar"] > .bg-gradient-to-b.via-border {
-  display: none !important;
-}
-
-body:not(.is-home) [data-slot="sidebar-wrapper"] {
-  align-items: stretch !important;
-}
-
-/* ==========================================================================
-   PAGAR PENGAMAN OVERFLOW KONTEN DOCS (ANTI ZOOM-OUT MOBILE & ANTI TEMBUS TOC)
-   Mencegah string panjang tanpa spasi, code block, tabel, atau gambar
-   melar keluar kolom konten dan menembus TOC / menyebabkan horizontal scroll.
-   ========================================================================== */
-body:not(.is-home) {
-  max-width: 100%;
-  overflow-x: clip;
-}
+body:not(.is-home) { max-width: 100%; overflow-x: clip; }
+body:not(.is-home) [data-slot="sidebar"] > .bg-gradient-to-b.via-border { display: none !important; }
+body:not(.is-home) [data-slot="sidebar-wrapper"] { align-items: stretch !important; }
 
 body:not(.is-home) [data-slot="sidebar-wrapper"] > .h-full.w-full {
   display: flex;
@@ -288,214 +241,131 @@ body:not(.is-home) .typography {
   word-break: break-word;
 }
 
-body:not(.is-home) .typography p,
-body:not(.is-home) .typography li,
-body:not(.is-home) .typography blockquote,
-body:not(.is-home) .typography a,
-body:not(.is-home) .typography :not(pre) > code {
+body:not(.is-home) .typography :is(p, li, blockquote, a, :not(pre) > code) {
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
-body:not(.is-home) .typography pre,
-body:not(.is-home) .typography .codehilite,
-body:not(.is-home) .typography .highlight {
+body:not(.is-home) .typography :is(pre, .codehilite, .highlight) {
   max-width: 100%;
   overflow-x: auto;
   box-sizing: border-box;
 }
 
-body:not(.is-home) .typography pre code {
-  overflow-wrap: normal;
-  word-break: normal;
-}
+body:not(.is-home) .typography pre code { overflow-wrap: normal; word-break: normal; }
+body:not(.is-home) .typography :is(img, video, iframe) { max-width: 100% !important; height: auto !important; }
+body:not(.is-home) .typography table { display: block; max-width: 100%; overflow-x: auto; }
 
-body:not(.is-home) .typography img,
-body:not(.is-home) .typography video,
-body:not(.is-home) .typography iframe {
+/* Shared Sidebar & TOC Hover / Active Box (240px full width + 3px yellow bar) */
+body:not(.is-home) [data-slot="sidebar-menu-button"],
+body:not(.is-home) #toc a {
+  position: relative;
+  width: 100% !important;
   max-width: 100% !important;
+  box-sizing: border-box;
+  padding: 0.38rem 0.65rem !important;
+  border-radius: 0.45rem !important;
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+  line-height: 1.35 !important;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.14s ease !important;
+}
+
+body:not(.is-home) [data-slot="sidebar-menu-button"] {
   height: auto !important;
+  min-height: 30px;
+  border-color: transparent !important;
+  white-space: normal !important;
+  overflow: hidden !important;
+  align-items: center;
 }
 
-body:not(.is-home) .typography table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
+body:not(.is-home) #toc a { display: block; }
+body:not(.is-home) #toc a[data-depth="3"] { padding-left: 1.35rem !important; font-size: 0.76rem; }
+
+body:not(.is-home) [data-slot="sidebar-menu-button"]::before,
+body:not(.is-home) #toc a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 3px;
+  height: 64%;
+  border-radius: 999px;
+  background: rgba(235, 217, 16, 0.88);
+  opacity: 0;
+  transform: translateY(-50%) scaleY(0.35);
+  transition: opacity 0.18s ease, transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+  pointer-events: none;
 }
 
-@media (min-width: 1024px) {
-  body:not(.is-home) [data-slot="sidebar"] {
-    top: var(--header-height, 3.5rem) !important;
-    max-height: calc(100svh - var(--header-height, 3.5rem)) !important;
-  }
-
-  body:not(.is-home) [data-slot="sidebar-wrapper"] > .h-full.w-full {
-    border-left: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-  }
-
-  body:not(.is-home) [data-slot="docs"] > .flex.min-w-0.flex-1.flex-col {
-    padding-inline: 2rem;
-  }
+body:not(.is-home) [data-slot="sidebar-menu-button"]:hover,
+body:not(.is-home) #toc a:hover {
+  background: var(--nv-card-muted, var(--accent)) !important;
+  color: var(--foreground) !important;
 }
 
-.sticky.ml-auto.hidden.w-72 {
-  position: sticky !important;
-  padding-left: 0.5rem;
+body:not(.is-home) [data-slot="sidebar-menu-button"][data-active="true"],
+body:not(.is-home) #toc a[data-active="true"] {
+  background: var(--accent, var(--nv-card-muted)) !important;
+  color: var(--foreground) !important;
+  font-weight: 500;
 }
 
-@media (min-width: 1280px) {
-  body:not(.is-home) [data-slot="docs"] > .flex.min-w-0.flex-1.flex-col {
-    border-right: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-  }
+body:not(.is-home) [data-slot="sidebar-menu-button"][data-active="true"]::before,
+body:not(.is-home) #toc a[data-active="true"]::before {
+  opacity: 1;
+  transform: translateY(-50%) scaleY(1);
+}
+
+body:not(.is-home) [data-slot="sidebar-menu-button"]:active,
+body:not(.is-home) #toc a:active {
+  transform: scale(0.985);
+}
+
+body:not(.is-home) [data-slot="sidebar-menu-button"] > span.rounded-full {
+  flex-shrink: 0 !important;
+  margin-left: auto;
+}
+
+.sticky.ml-auto.hidden.w-72 { position: sticky !important; padding-left: 0.5rem; }
+body:not(.is-home) #toc { padding-inline: 1rem !important; }
+body:not(.is-home) #toc > div { gap: 0.2rem !important; padding: 0 0.25rem !important; }
+body:not(.is-home) #toc > div > p {
+  font-family: var(--nv-mono);
+  font-size: 0.7rem !important;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  height: auto !important;
+  padding: 0.25rem 0.65rem 0.55rem !important;
+  margin: 0 !important;
+  z-index: 2;
 }
 
 /* ==========================================================================
-   DOCS FOOTER (GITHUB DOCS STYLE — NEMPEL KONTEN TENGAH + TOC)
+   5. DOCS FOOTER (GITHUB DOCS STYLE — 2 KOLOM)
    ========================================================================== */
 footer.nv-docs-footer {
   width: 100%;
   margin-top: auto;
-  border-top: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
+  border-top: 1px solid var(--nv-line);
   background: var(--background);
   color: var(--foreground);
   box-sizing: border-box;
   overflow: clip;
 }
 
-.nv-df-col-action {
-  margin-top: 1rem;
-}
-
-.nv-df-random-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  height: 2.05rem;
-  padding: 0 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--nv-card-border, var(--border));
-  background: var(--nv-card-muted, var(--card));
-  color: var(--foreground);
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1;
-  font-family: inherit;
-  box-sizing: border-box;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
-}
-
-.nv-df-random-btn:hover {
-  border-color: var(--nv-accent-yellow, #ffef0c);
-  background: var(--nv-card-bg, var(--background));
-}
-
-.nv-df-random-btn:active {
-  transform: scale(0.97);
-}
-
-.nv-df-random-icon {
-  flex-shrink: 0;
-  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
-}
-
-.nv-df-random-btn:hover .nv-df-random-icon {
-  transform: rotate(18deg) scale(1.06);
-}
-
-.nv-df-random-btn.is-loading .nv-df-random-icon {
-  animation: nv-df-spin 0.7s linear infinite;
-}
-
-@keyframes nv-df-spin {
-  to { transform: rotate(360deg); }
-}
-
-.nv-df-ext-icon {
-  transition: transform 0.2s ease;
-}
-
-.nv-df-btn:hover .nv-df-ext-icon {
-  transform: translate(2px, -2px);
-}
-
-.nv-df-btn:active {
-  transform: scale(0.98);
-}
-
-@media (max-width: 639.98px) {
-  .nv-df-random-btn,
-  .nv-df-btn {
-    min-height: 2.35rem;
-  }
-
-  .nv-df-links a {
-    padding-block: 0.2rem;
-  }
-}
-
-@media (hover: none) {
-  header button.nv-nav-search-btn:hover,
-  .nv-df-random-btn:hover,
-  .nv-df-btn:hover,
-  #back-to-top:hover {
-    border-color: var(--nv-card-border, var(--border)) !important;
-  }
-
-  header button.nv-nav-search-btn:active,
-  .nv-df-random-btn:active,
-  .nv-df-btn:active,
-  #back-to-top:active {
-    border-color: var(--nv-accent-yellow, #ffef0c) !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .nv-df-random-btn.is-loading .nv-df-random-icon {
-    animation: none !important;
-  }
-}
-
-.nv-df-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-  .nv-df-top {
-    padding-inline: 2rem;
-  }
-
-  .nv-df-grid {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
-  }
-}
-
-.nv-df-col {
-  padding: 1.5rem;
-  box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .nv-df-col {
-    padding: 1.75rem 2rem;
-  }
-
-  .nv-df-col + .nv-df-col {
-    border-left: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-  }
-}
-
-@media (max-width: 767.98px) {
-  .nv-df-col + .nv-df-col {
-    border-top: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-  }
-}
+.nv-df-grid { display: grid; grid-template-columns: 1fr; }
+.nv-df-col { padding: 1.5rem; box-sizing: border-box; }
+.nv-df-col-action { margin-top: 1rem; }
 
 .nv-df-eyebrow {
   margin: 0 0 0.5rem;
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-family: var(--nv-mono);
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -503,63 +373,27 @@ footer.nv-docs-footer {
   color: var(--muted-foreground);
 }
 
-.nv-df-heading {
-  margin: 0 0 0.75rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--foreground);
-}
+.nv-df-heading { margin: 0 0 0.75rem; font-size: 0.95rem; font-weight: 600; line-height: 1.4; color: var(--foreground); }
+.nv-df-text { margin: 0 0 1rem; font-size: 0.84rem; line-height: 1.55; color: var(--muted-foreground); }
+.nv-df-links { display: flex; flex-direction: column; gap: 0.45rem; }
 
-.nv-df-text {
-  margin: 0 0 1rem;
-  font-size: 0.84rem;
-  line-height: 1.55;
-  color: var(--muted-foreground);
-}
-
-.nv-df-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-}
-
-.nv-df-links a {
+.nv-df-links a,
+.nv-df-bottom-links a {
   width: fit-content;
-  font-size: 0.84rem;
   color: var(--muted-foreground);
   text-decoration: none;
   transition: color 0.18s ease;
 }
 
-.nv-df-links a:hover {
+.nv-df-links a { font-size: 0.84rem; }
+.nv-df-bottom-links a { font-size: 0.8rem; }
+
+.nv-df-links a:hover,
+.nv-df-bottom-links a:hover,
+.nv-df-credit a:hover {
   color: var(--foreground);
   text-decoration: underline;
   text-underline-offset: 3px;
-}
-
-.nv-df-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  height: 2.05rem;
-  padding: 0 0.8rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--nv-card-border, var(--border));
-  background: var(--nv-card-muted, var(--card));
-  color: var(--foreground);
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
-}
-
-.nv-df-btn:hover {
-  border-color: var(--nv-accent-yellow, #ffef0c);
-  background: var(--nv-card-bg, var(--background));
 }
 
 .nv-df-bottom {
@@ -569,59 +403,15 @@ footer.nv-docs-footer {
   justify-content: space-between;
   gap: 0.85rem 1.5rem;
   padding: 1.15rem 1.5rem;
-  border-top: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
+  border-top: 1px solid var(--nv-line);
   font-size: 0.8rem;
   color: var(--muted-foreground);
 }
 
-@media (min-width: 768px) {
-  .nv-df-bottom {
-    padding-inline: 2rem;
-  }
-}
-
-.nv-df-credit {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.nv-df-credit a {
-  color: var(--foreground);
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.nv-df-credit a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.nv-df-sep {
-  opacity: 0.5;
-  margin-inline: 0.2rem;
-}
-
-.nv-df-bottom-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.9rem;
-}
-
-.nv-df-bottom-links a {
-  color: var(--muted-foreground);
-  text-decoration: none;
-  font-size: 0.8rem;
-  transition: color 0.18s ease;
-}
-
-.nv-df-bottom-links a:hover {
-  color: var(--foreground);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+.nv-df-credit { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+.nv-df-credit a { color: var(--foreground); font-weight: 500; text-decoration: none; }
+.nv-df-sep { opacity: 0.5; margin-inline: 0.2rem; }
+.nv-df-bottom-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem; }
 
 .nv-df-bottom-links a:not(:first-child)::before {
   content: "";
@@ -633,39 +423,8 @@ footer.nv-docs-footer {
   background-color: var(--nv-card-border, var(--border));
 }
 
-@media (max-width: 767.98px) {
-  .nv-df-bottom {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 0;
-  }
-
-  .nv-df-bottom-links {
-    order: 1;
-    justify-content: center;
-    gap: 0.65rem 0.9rem;
-    padding: 0.95rem 1.25rem;
-  }
-
-  .nv-df-bottom-links a:not(:first-child)::before {
-    margin-right: 0.9rem;
-  }
-
-  .nv-df-credit {
-    order: 2;
-    justify-content: center;
-    text-align: center;
-    padding: 0.95rem 1.25rem;
-    border-top: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-    font-size: 0.76rem;
-  }
-}
-
-
 /* ==========================================================================
-   DOCS SECONDARY BAR (BREADCRUMBS SCROLLABLE + MOBILE TOC "IN THIS ARTICLE")
-   Ditempatkan khusus di dalam kolom konten tengah (tidak melebar menimpa TOC kanan).
+   6. DOCS SECONDARY BAR (BREADCRUMBS + MOBILE TOC)
    ========================================================================== */
 .nv-docs-subbar {
   position: sticky;
@@ -678,26 +437,13 @@ footer.nv-docs-footer {
   box-sizing: border-box;
 }
 
-@media (min-width: 1024px) {
-  .nv-docs-subbar {
-    width: calc(100% + 4rem);
-    margin-inline: -2rem;
-  }
-}
-
 .nv-subbar-row {
   display: flex;
   align-items: center;
   min-height: 2.5rem;
   padding: 0 0.75rem;
-  border-bottom: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
+  border-bottom: 1px solid var(--nv-line);
   box-sizing: border-box;
-}
-
-@media (min-width: 1024px) {
-  .nv-subbar-row {
-    padding: 0 2rem;
-  }
 }
 
 .nv-subbar-scroll {
@@ -709,67 +455,16 @@ footer.nv-docs-footer {
   -ms-overflow-style: none;
 }
 
-.nv-subbar-scroll::-webkit-scrollbar {
-  display: none;
-}
+.nv-subbar-scroll::-webkit-scrollbar { display: none; }
+.nw-breadcrumbs { margin: 0; color: var(--muted-foreground); font-size: 0.8rem; }
+.nw-bc-list { display: flex; flex-wrap: nowrap; align-items: center; gap: 0.25rem; list-style: none; margin: 0; padding: 0; white-space: nowrap; width: max-content; }
+.nw-bc-item { display: inline-flex; align-items: center; }
+.nw-bc-item + .nw-bc-item::before { content: "/"; opacity: 0.45; margin: 0 0.45rem 0 0.2rem; }
+.nw-bc-link { color: inherit; text-decoration: none; transition: color 0.16s ease; }
+.nw-bc-link:hover { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
+.nw-bc-current span { color: var(--foreground); font-weight: 500; }
 
-.nw-breadcrumbs {
-  margin: 0;
-  color: var(--muted-foreground);
-  font-size: 0.8rem;
-}
-
-.nw-bc-list {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 0.25rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  white-space: nowrap;
-  width: max-content;
-}
-
-.nw-bc-item {
-  display: inline-flex;
-  align-items: center;
-}
-
-.nw-bc-item + .nw-bc-item::before {
-  content: "/";
-  opacity: 0.45;
-  margin: 0 0.45rem 0 0.2rem;
-}
-
-.nw-bc-link {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.16s ease;
-}
-
-.nw-bc-link:hover {
-  color: var(--foreground);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.nw-bc-current span {
-  color: var(--foreground);
-  font-weight: 500;
-}
-
-/* Mobile TOC ("In this article") — tampil hanya saat TOC kanan tersembunyi (< 1280px) */
-.nv-mobile-toc {
-  position: relative;
-  border-bottom: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
-}
-
-@media (min-width: 1280px) {
-  .nv-mobile-toc {
-    display: none !important;
-  }
-}
+.nv-mobile-toc { position: relative; border-bottom: 1px solid var(--nv-line); }
 
 .nv-mobile-toc-toggle {
   width: 100%;
@@ -790,25 +485,9 @@ footer.nv-docs-footer {
   transition: background-color 0.16s ease;
 }
 
-@media (min-width: 1024px) {
-  .nv-mobile-toc-toggle {
-    padding-inline: 2rem;
-  }
-}
-
-.nv-mobile-toc-toggle:hover {
-  background: var(--nv-card-muted, var(--card));
-}
-
-.nv-mobile-toc-chevron {
-  flex-shrink: 0;
-  color: var(--muted-foreground);
-  transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
-}
-
-.nv-mobile-toc-toggle[aria-expanded="true"] .nv-mobile-toc-chevron {
-  transform: rotate(180deg);
-}
+.nv-mobile-toc-toggle:hover { background: var(--nv-card-muted, var(--card)); }
+.nv-mobile-toc-chevron { flex-shrink: 0; color: var(--muted-foreground); transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1); }
+.nv-mobile-toc-toggle[aria-expanded="true"] .nv-mobile-toc-chevron { transform: rotate(180deg); }
 
 .nv-mobile-toc-menu {
   position: absolute;
@@ -824,18 +503,8 @@ footer.nv-docs-footer {
   z-index: 40;
 }
 
-.nv-mobile-toc-menu[hidden] {
-  display: none !important;
-}
-
-.nv-mobile-toc-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
+.nv-mobile-toc-menu[hidden] { display: none !important; }
+.nv-mobile-toc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.15rem; }
 
 .nv-mobile-toc-list a {
   display: block;
@@ -848,43 +517,23 @@ footer.nv-docs-footer {
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.nv-mobile-toc-list a[data-depth="3"],
-.nv-mobile-toc-list a[data-depth="4"] {
-  padding-left: 1.35rem;
-  font-size: 0.78rem;
-}
-
-.nv-mobile-toc-list a:hover,
-.nv-mobile-toc-list a:active {
-  background: var(--nv-card-muted, var(--card));
-  color: var(--foreground);
-}
+.nv-mobile-toc-list a:is([data-depth="3"], [data-depth="4"]) { padding-left: 1.35rem; font-size: 0.78rem; }
+.nv-mobile-toc-list a:is(:hover, :active) { background: var(--nv-card-muted, var(--card)); color: var(--foreground); }
 
 /* ==========================================================================
-   ARTICLE HEADER (#page-header + Updated Date sejajar 1 baris dengan Share/Prev/Next)
+   7. ARTICLE HEADER, DATES & MINIMALIST BOTTOM PAGINATION
    ========================================================================== */
-body:not(.is-home) [data-slot="docs"] > .flex.min-w-0.flex-1.flex-col > .h-\(--top-spacing\) {
-  height: 0.75rem !important;
-}
-
-body:not(.is-home) article.w-full {
-  padding-top: 0.25rem !important;
-  margin-top: 0 !important;
-}
+body:not(.is-home) [data-slot="docs"] > .flex.min-w-0.flex-1.flex-col > .h-\(--top-spacing\) { height: 0.75rem !important; }
+body:not(.is-home) article.w-full { padding-top: 0.25rem !important; margin-top: 0 !important; }
 
 body:not(.is-home) article.w-full > div:first-child {
   gap: 0 !important;
   padding-bottom: 0.85rem;
   margin-bottom: 1.25rem;
-  border-bottom: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
+  border-bottom: 1px solid var(--nv-line);
 }
 
-body:not(.is-home) #page-header.nv-article-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  width: 100%;
-}
+body:not(.is-home) #page-header.nv-article-header { display: flex; flex-direction: column; gap: 0.65rem; width: 100%; }
 
 body:not(.is-home) #page-header > h1 {
   margin: 0 !important;
@@ -895,34 +544,16 @@ body:not(.is-home) #page-header > h1 {
   word-break: break-word;
 }
 
-.nv-article-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  width: 100%;
-  min-height: 2rem;
-}
-
-.nv-article-meta-left {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-}
-
-.nv-article-actions {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
+.nv-article-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; width: 100%; min-height: 2rem; }
+.nv-article-meta-left { display: inline-flex; align-items: center; min-width: 0; }
+.nv-article-actions { flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.35rem; }
 
 .nv-page-dates {
   display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.3rem 0.55rem;
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-family: var(--nv-mono);
   font-size: 0.78rem;
   color: var(--muted-foreground);
   line-height: 1;
@@ -938,38 +569,13 @@ body:not(.is-home) #page-header > h1 {
   transition: opacity 0.18s ease, color 0.18s ease;
 }
 
-.nv-date-item:hover {
-  opacity: 1;
-  color: var(--foreground);
-}
+.nv-date-item:hover { opacity: 1; color: var(--foreground); }
+.nv-date-icon { display: block; width: 1.05em; height: 1.05em; flex-shrink: 0; opacity: 0.88; transform: translateY(-0.5px); }
+.nv-date-val { display: inline-block; line-height: 1; }
+.nv-date-sep { line-height: 1; opacity: 0.45; }
+.nv-date-item[hidden], .nv-date-sep[hidden] { display: none !important; }
 
-.nv-date-icon {
-  display: block;
-  width: 1.05em;
-  height: 1.05em;
-  flex-shrink: 0;
-  opacity: 0.88;
-  transform: translateY(-0.5px);
-}
-
-.nv-date-val {
-  display: inline-block;
-  line-height: 1;
-}
-
-.nv-date-sep {
-  line-height: 1;
-  opacity: 0.45;
-}
-
-.nv-date-item[hidden],
-.nv-date-sep[hidden] {
-  display: none !important;
-}
-
-body:not(.is-home) #copy-page,
-body:not(.is-home) #previous-button,
-body:not(.is-home) #next-button {
+body:not(.is-home) :is(#copy-page, #previous-button, #next-button) {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -985,72 +591,18 @@ body:not(.is-home) #next-button {
   transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease !important;
 }
 
-body:not(.is-home) #copy-page {
-  padding: 0 0.65rem !important;
-}
+body:not(.is-home) #copy-page { padding: 0 0.65rem !important; }
+body:not(.is-home) :is(#previous-button, #next-button) { width: 1.9rem !important; padding: 0 !important; }
+body:not(.is-home) :is(#copy-page, #previous-button, #next-button) svg { width: 13px !important; height: 13px !important; margin: 0 !important; }
 
-body:not(.is-home) #previous-button,
-body:not(.is-home) #next-button {
-  width: 1.9rem !important;
-  padding: 0 !important;
-}
-
-body:not(.is-home) #copy-page svg,
-body:not(.is-home) #previous-button svg,
-body:not(.is-home) #next-button svg {
-  width: 13px !important;
-  height: 13px !important;
-  margin: 0 !important;
-}
-
-body:not(.is-home) #copy-page:hover,
-body:not(.is-home) #previous-button:hover,
-body:not(.is-home) #next-button:hover {
-  border-color: var(--nv-accent-yellow, #ffef0c) !important;
+body:not(.is-home) :is(#copy-page, #previous-button, #next-button):hover {
+  border-color: var(--nv-yellow) !important;
   background: var(--nv-card-bg, var(--background)) !important;
 }
 
-body:not(.is-home) #copy-page:active,
-body:not(.is-home) #previous-button:active,
-body:not(.is-home) #next-button:active {
-  transform: scale(0.96);
-}
+body:not(.is-home) :is(#copy-page, #previous-button, #next-button):active { transform: scale(0.96); }
 
-@media (max-width: 767.98px) {
-  .nv-page-dates {
-    font-size: 0.7rem;
-  }
-
-  body:not(.is-home) #copy-page span {
-    display: inline !important;
-  }
-
-  body:not(.is-home) #copy-page,
-  body:not(.is-home) #previous-button,
-  body:not(.is-home) #next-button {
-    height: 2.1rem !important;
-  }
-
-  body:not(.is-home) #previous-button,
-  body:not(.is-home) #next-button {
-    width: 2.1rem !important;
-  }
-}
-
-@media (max-width: 390px) {
-  body:not(.is-home) #copy-page span {
-    display: none !important;
-  }
-
-  body:not(.is-home) #copy-page {
-    width: 2.1rem !important;
-    padding: 0 !important;
-  }
-}
-
-/* ==========================================================================
-   BOTTOM PAGINATION MINIMALIS (#bottom-navigation.nv-bottom-nav)
-   ========================================================================== */
+/* Bottom Pagination Minimalis */
 #bottom-navigation.nv-bottom-nav {
   display: flex;
   align-items: center;
@@ -1060,19 +612,12 @@ body:not(.is-home) #next-button:active {
   height: auto !important;
   margin: 2rem 0 1.5rem;
   padding: 1rem 0 0;
-  border-top: 1px solid var(--nv-line-accent, var(--nv-card-border, var(--border)));
+  border-top: 1px solid var(--nv-line);
   box-sizing: border-box;
 }
 
-.nv-bn-slot {
-  min-width: 0;
-  max-width: 48%;
-}
-
-.nv-bn-next {
-  margin-left: auto;
-  text-align: right;
-}
+.nv-bn-slot { min-width: 0; max-width: 48%; }
+.nv-bn-next { margin-left: auto; text-align: right; }
 
 .nv-bn-link {
   display: inline-flex;
@@ -1089,124 +634,38 @@ body:not(.is-home) #next-button:active {
   transition: color 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, transform 0.15s ease;
 }
 
-.nv-bn-link:hover {
-  color: var(--foreground);
-  border-color: var(--nv-accent-yellow, #ffef0c);
-  background: var(--nv-card-muted, var(--card));
-}
-
-.nv-bn-link:active {
-  transform: scale(0.98);
-}
-
-.nv-bn-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.nv-bn-arrow {
-  flex-shrink: 0;
-  transition: transform 0.18s ease;
-}
-
-.nv-bn-prev .nv-bn-link:hover .nv-bn-arrow {
-  transform: translateX(-3px);
-}
-
-.nv-bn-next .nv-bn-link:hover .nv-bn-arrow {
-  transform: translateX(3px);
-}
-
-@media (hover: none) {
-  body:not(.is-home) #copy-page:hover,
-  body:not(.is-home) #previous-button:hover,
-  body:not(.is-home) #next-button:hover,
-  .nv-bn-link:hover {
-    border-color: transparent !important;
-    background: transparent !important;
-  }
-
-  body:not(.is-home) #copy-page:hover,
-  body:not(.is-home) #previous-button:hover,
-  body:not(.is-home) #next-button:hover {
-    border-color: var(--nv-card-border, var(--border)) !important;
-    background: var(--nv-card-muted, var(--card)) !important;
-  }
-
-  body:not(.is-home) #copy-page:active,
-  body:not(.is-home) #previous-button:active,
-  body:not(.is-home) #next-button:active,
-  .nv-bn-link:active {
-    border-color: var(--nv-accent-yellow, #ffef0c) !important;
-  }
-}
-
+.nv-bn-link:hover { color: var(--foreground); border-color: var(--nv-yellow); background: var(--nv-card-muted, var(--card)); }
+.nv-bn-link:active { transform: scale(0.98); }
+.nv-bn-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nv-bn-arrow { flex-shrink: 0; transition: transform 0.18s ease; }
+.nv-bn-prev .nv-bn-link:hover .nv-bn-arrow { transform: translateX(-3px); }
+.nv-bn-next .nv-bn-link:hover .nv-bn-arrow { transform: translateX(3px); }
 
 /* ==========================================================================
-   LANDING PAGE (HOME) FULL-SCREEN OVERRIDES (.is-home)
+   8. LANDING PAGE (.is-home) FULL-SCREEN OVERRIDES
    ========================================================================== */
+body.is-home { height: 100vh; min-height: 100vh; overflow-x: hidden; }
+body.is-home #inner-body { min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; }
+body.is-home main.flex.flex-1.flex-col { flex: 1; display: flex; flex-direction: column; }
 
-body.is-home {
-  height: 100vh;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-body.is-home #inner-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-body.is-home main.flex.flex-1.flex-col {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Mobile: 100vh di HP termasuk area address bar, dan height tetap di body
-   bisa bikin bagian bawah halaman terpotong / scroll bersarang.
-   Pakai min-height + svh, dan biarkan tinggi body mengikuti isi. */
-@media (max-width: 768px) {
-  body.is-home {
-    height: auto;
-    min-height: 100vh;
-    min-height: 100svh;
-    overflow-x: hidden;
-    overflow-x: clip;
-  }
-
-  body.is-home #inner-body {
-    min-height: 100vh;
-    min-height: 100svh;
-  }
-}
-
-/* Hide Unwanted Elements on Home */
-body.is-home header,
-body.is-home footer,
-body.is-home #bottom-navigation,   /* tombol prev/next bawaan tema (Index) */
-body.is-home .w-\(--sidebar-width\),
-body.is-home div.sticky.top-\[calc\(var\(--header-height\)\+1px\)\].ml-auto.hidden,
-body.is-home .h-\(--top-spacing\),
-body.is-home article.w-full > div:first-child:not(.typography),
-body.is-home #page-header,
-body.is-home .nw-breadcrumbs,
-body.is-home .mx-auto.flex.flex-wrap.h-16,
-body.is-home .grow.text-muted-foreground,
-body.is-home .md-source-file {
+body.is-home :is(
+  header,
+  footer,
+  #bottom-navigation,
+  .w-\(--sidebar-width\),
+  div.sticky.top-\[calc\(var\(--header-height\)\+1px\)\].ml-auto.hidden,
+  .h-\(--top-spacing\),
+  article.w-full > div:first-child:not(.typography),
+  #page-header,
+  .nw-breadcrumbs,
+  .mx-auto.flex.flex-wrap.h-16,
+  .grow.text-muted-foreground,
+  .md-source-file
+) {
   display: none !important;
 }
 
-/* Expand Content Area to Full Width */
-body.is-home .container-wrapper,
-body.is-home .md-content,
-body.is-home .md-main__inner,
-body.is-home article.w-full,
-body.is-home div[data-slot="docs"],
-body.is-home .flex.min-w-0.flex-1.flex-col {
+body.is-home :is(.container-wrapper, .md-content, .md-main__inner, article.w-full, div[data-slot="docs"], .flex.min-w-0.flex-1.flex-col) {
   max-width: 100% !important;
   width: 100% !important;
   margin: 0 !important;
@@ -1216,12 +675,8 @@ body.is-home .flex.min-w-0.flex-1.flex-col {
   grid-column: 1 / -1 !important;
 }
 
-body.is-home .group\/sidebar-wrapper {
-  display: block !important;
-  grid-template-columns: none !important;
-}
+body.is-home .group\/sidebar-wrapper { display: block !important; grid-template-columns: none !important; }
 
-/* Landing Page Wrapper & Hero Section */
 #nv-landing {
   width: 100vw;
   position: relative;
@@ -1241,14 +696,9 @@ body.is-home .group\/sidebar-wrapper {
 }
 
 /* ==========================================================================
-   REPLACE BURGER MOBILE & PREVENT DOUBLE LOGO
-   Di mobile, tombol menu = logo + teks "nwabel" (ikon burger & teks "Menu" bawaan disembunyikan).
-   Hook pakai :is(...) supaya kena di tema versi lama (#menu-button) maupun baru (#burger-button).
+   9. MOBILE LOGO / BURGER REPLACEMENT
    ========================================================================== */
-
-/* Upsize logo navbar desktop */
-a[data-slot="button"] img,
-a[data-slot="button"] svg {
+a[data-slot="button"] :is(img, svg) {
   width: 25px !important;
   height: 25px !important;
   max-width: unset !important;
@@ -1257,69 +707,74 @@ a[data-slot="button"] svg {
   margin-right: 0.375rem !important;
 }
 
-/* 1. Tambahkan logo via ::before */
-:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"])::before {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  background-image: url('/assets/images/logo/logoku.svg'); /* pastikan path SVG benar */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* 2. Tambahkan teks "nwabel" via ::after */
-:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"])::after {
-  content: "nwabel";
-  font-size: 1.125rem;   /* sama dengan text-lg */
-  font-weight: 600;
-  line-height: 1;
-}
-
-/* 3. Sembunyikan SEMUA isi bawaan tombol (ikon burger + teks "Menu") */
-:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) > div,
-:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) > span {
-  display: none !important;
-}
-
-/* 4. Layout tombol: logo dan teks sejajar */
 :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) {
   display: flex !important;
   align-items: center;
   justify-content: flex-start;
   height: 2rem;
-  gap: 0.5rem !important;          /* jarak logo - teks */
+  gap: 0.5rem !important;
   padding: 0 0 0 4px !important;
 }
 
-/* Tombol custom ini disembunyikan di desktop */
-@media (min-width: 1024px) {
-  :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) {
-    display: none !important;
-  }
+:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"])::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url('/assets/images/logo/logoku.svg') center / contain no-repeat;
 }
 
-/* Di bawah 1024px: logo desktop bawaan tidak boleh muncul dobel + tata letak header mobile */
+:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"])::after {
+  content: "nwabel";
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+:is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) > :is(div, span) {
+  display: none !important;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE BREAKPOINTS & INTERACTION QUERIES
+   ========================================================================== */
+@media (min-width: 768px) {
+  .nv-df-grid { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr); }
+  .nv-df-col { padding: 1.75rem 2rem; }
+  .nv-df-col + .nv-df-col { border-left: 1px solid var(--nv-line); }
+  .nv-df-bottom { padding-inline: 2rem; }
+}
+
+@media (min-width: 1024px) {
+  :is(#menu-button, #burger-button, button[onclick*="onMobileMenuButtonClick"]) { display: none !important; }
+
+  body:not(.is-home) [data-slot="sidebar"] {
+    top: var(--header-height, 3.5rem) !important;
+    max-height: calc(100svh - var(--header-height, 3.5rem)) !important;
+    --sidebar-menu-width: 17rem !important;
+  }
+
+  body:not(.is-home) [data-slot="sidebar-wrapper"] > .h-full.w-full { border-left: 1px solid var(--nv-line); }
+  body:not(.is-home) [data-slot="docs"] > .flex.min-w-0.flex-1.flex-col { padding-inline: 2rem; }
+  .nv-docs-subbar { width: calc(100% + 4rem); margin-inline: -2rem; }
+  .nv-subbar-row, .nv-mobile-toc-toggle { padding-inline: 2rem; }
+}
+
+@media (min-width: 1280px) {
+  body:not(.is-home) [data-slot="docs"] > .flex.min-w-0.flex-1.flex-col { border-right: 1px solid var(--nv-line); }
+  .nv-mobile-toc { display: none !important; }
+}
+
 @media (max-width: 1023.98px) {
-  /* Di tema versi baru utility "hidden" bisa kalah dari class .button, jadi dipaksa.
-     Catatan: aturan ini global untuk semua elemen ber-class "hidden" di bawah 1024px. */
-  .hidden {
-    display: none !important;
-  }
-
-  a[data-slot="button"].hidden.lg\:flex {
-    display: none !important;
-  }
-
+  .hidden,
+  a[data-slot="button"].hidden.lg\:flex,
   header button[title="Toggle layout"],
   header button[title="Toggle layout"] + [data-slot="separator"],
   header [data-slot="separator"] + button[title="Toggle layout"] {
     display: none !important;
   }
 
-  header button[onclick="onSearchBarClick(event)"],
-  header [data-slot="dialog-trigger"] {
+  header :is(button[onclick="onSearchBarClick(event)"], [data-slot="dialog-trigger"]) {
     display: inline-flex !important;
     flex: 1 1 auto !important;
     width: auto !important;
@@ -1327,22 +782,10 @@ a[data-slot="button"] svg {
     min-width: 0;
   }
 
-  /* menang atas ".hidden" di atas (spesifisitas lebih tinggi) */
-  header .md\:flex,
-  header .w-full {
-    display: flex !important;
-  }
+  header :is(.md\:flex, .w-full) { display: flex !important; }
 
-  /* ========================================================================
-     FIX SCROLL MOBILE HIDDEN SIDEBAR (dialog#bottom-sidebar)
-     Tema mkdocs-shadcn meng-hardcode height: 857px & width: 504px serta
-     nested overflow sehingga sulit di-scroll di HP. Kita kunci pas ke 100dvh
-     dengan satu scroll container mulus + kunci scroll halaman di belakangnya.
-     ======================================================================== */
-  body:has(dialog#bottom-sidebar[open]) {
-    overflow: hidden !important;
-    touch-action: none;
-  }
+  /* Fix Scroll Mobile Hidden Sidebar (dialog#bottom-sidebar) */
+  body:has(dialog#bottom-sidebar[open]) { overflow: hidden !important; touch-action: none; }
 
   dialog#bottom-sidebar[open] {
     position: fixed !important;
@@ -1391,8 +834,58 @@ a[data-slot="button"] svg {
     transition: color 0.15s ease, transform 0.15s ease;
   }
 
-  dialog#bottom-sidebar a:active {
-    color: var(--nv-accent-yellow, #ffef0c);
-    transform: translateX(3px);
+  dialog#bottom-sidebar a:active { color: var(--nv-yellow); transform: translateX(3px); }
+}
+
+@media (max-width: 768px) {
+  :root { --nv-btt-right: 1rem; --nv-btt-bottom: 1rem; }
+  body.is-home { height: auto; min-height: 100svh; overflow-x: clip; }
+  body.is-home #inner-body { min-height: 100svh; }
+}
+
+@media (max-width: 767.98px) {
+  header button.nv-nav-search-btn { min-width: 0 !important; height: 2.2rem !important; padding: 0 0.7rem !important; }
+  header button.nv-nav-search-btn .nv-kbd-group { display: none !important; }
+
+  .nv-df-col + .nv-df-col { border-top: 1px solid var(--nv-line); }
+  .nv-df-bottom { flex-direction: column; align-items: stretch; gap: 0; padding: 0; }
+  .nv-df-bottom-links { order: 1; justify-content: center; gap: 0.65rem 0.9rem; padding: 0.95rem 1.25rem; }
+  .nv-df-credit { order: 2; justify-content: center; text-align: center; padding: 0.95rem 1.25rem; border-top: 1px solid var(--nv-line); font-size: 0.76rem; }
+
+  .nv-page-dates { font-size: 0.7rem; }
+  body:not(.is-home) #copy-page span { display: inline !important; }
+  body:not(.is-home) :is(#copy-page, #previous-button, #next-button) { height: 2.1rem !important; }
+  body:not(.is-home) :is(#previous-button, #next-button) { width: 2.1rem !important; }
+}
+
+@media (max-width: 639.98px) {
+  .nv-df-random-btn, .nv-df-btn { min-height: 2.35rem; }
+  .nv-df-links a { padding-block: 0.2rem; }
+}
+
+@media (max-width: 390px) {
+  body:not(.is-home) #copy-page span { display: none !important; }
+  body:not(.is-home) #copy-page { width: 2.1rem !important; padding: 0 !important; }
+}
+
+@media (hover: none) {
+  :is(header button.nv-nav-search-btn, .nv-df-random-btn, .nv-df-btn, #back-to-top, body:not(.is-home) #copy-page, body:not(.is-home) #previous-button, body:not(.is-home) #next-button):hover {
+    border-color: var(--nv-card-border, var(--border)) !important;
+    background: var(--nv-card-muted, var(--card)) !important;
   }
+
+  .nv-bn-link:hover { border-color: transparent !important; background: transparent !important; }
+
+  :is(header button.nv-nav-search-btn, .nv-df-random-btn, .nv-df-btn, #back-to-top, body:not(.is-home) #copy-page, body:not(.is-home) #previous-button, body:not(.is-home) #next-button, .nv-bn-link):active {
+    border-color: var(--nv-yellow) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-df-random-btn.is-loading .nv-df-random-icon { animation: none !important; }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-df-random-btn.is-loading .nv-df-random-icon { animation: none !important; }
 }
