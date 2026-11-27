@@ -1,12 +1,10 @@
 site_name: "nwabel"
 site_url: https://nwabel.github.io/
-repo_url: https://github.com/nwabel/nwabel.github.io
 
 theme:
   name: shadcn
   custom_dir: overrides
   show_title: true
-  show_stargazers: true
   pygments_style:
         light: shadcn-light
         dark: github-dark
