@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VERCEL x SHADCN HYBRID VARIABLES
+   1. DESIGN TOKENS (VERCEL x SHADCN HYBRID)
    ========================================================================== */
 :root {
   --nv-card-bg: #ffffff;
@@ -11,7 +11,6 @@
   --nv-accent-yellow: #ffef0c;
   --nv-card-hover-yellow: rgba(180, 156, 0, 0.55);
   --nv-line-accent: rgba(202, 178, 0, 0.28);
-  --nv-card-radius: 1.2rem;
   --nv-card-padding: 1rem;
   --nv-card-transition: 0.2s cubic-bezier(0.2, 0, 0, 1);
   --nv-select-bg: rgba(0, 112, 243, 0.22);
@@ -32,42 +31,9 @@
 }
 
 /* ==========================================================================
-   CONTAINER & GLOBAL WRAPPERS
+   2. GLOBAL RESET & ARCHITECTURAL FRAME
    ========================================================================== */
-.nv-wrap {
-  max-width: 1120px;
-  margin-inline: auto;
-  padding-inline: 1.5rem;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-.nv-section {
-  padding-block: 2.5rem;
-}
-
-/* ==========================================================================
-   HERO SECTION & LANDING
-   ========================================================================== */
-.nv-hero {
-  padding: 6rem 0 2.5rem;
-}
-
-.nv-hero-inner {
-  display: grid;
-  gap: 1.5rem;
-  align-items: center;
-  grid-template-columns: 96px 1fr;
-}
-
-@media (min-width: 860px) {
-  .nv-hero-inner {
-    grid-template-columns: 120px 1fr;
-    gap: 2rem;
-  }
-}
-
-/* Pastikan semua pembungkus di atas #nv-landing tanpa gap agar garis vertikal mentok sampai ujung atas layar */
+/* Hilangkan gap wrapper di atas #nv-landing agar garis vertikal mentok ke atas layar */
 body.is-home :has(#nv-landing),
 body.is-home .typography {
   padding-top: 0 !important;
@@ -76,6 +42,58 @@ body.is-home .typography {
   margin-bottom: 0 !important;
 }
 
+.nv-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.nv-icon {
+  display: inline-block;
+  vertical-align: text-bottom;
+  flex-shrink: 0;
+}
+
+.nv-band {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--nv-line-accent);
+}
+
+.nv-band-grow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-band-cta {
+  flex-shrink: 0;
+  border-bottom: 0;
+}
+
+.nv-frame {
+  max-width: 1120px;
+  width: calc(100% - 2rem);
+  margin-inline: auto;
+  box-sizing: border-box;
+  border-inline: 1px solid var(--nv-line-accent);
+}
+
+.nv-band-grow > .nv-frame {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   3. SCREEN 1: HERO & MARQUEE
+   ========================================================================== */
 .nv-landing-hero {
   height: 100vh;
   height: 100svh;
@@ -96,17 +114,9 @@ body.is-home .typography {
 
 .nv-hero-main-band {
   border-bottom: 0;
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .nv-hero-frame {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -119,12 +129,6 @@ body.is-home .typography {
   gap: 1.4rem;
   padding: 2rem 1.5rem;
   box-sizing: border-box;
-}
-
-@media (min-width: 860px) {
-  .nv-hero-inner-full {
-    padding: 2rem 2.25rem;
-  }
 }
 
 #nv-landing .nv-hero-greet {
@@ -152,14 +156,6 @@ body.is-home .typography {
   border: 1px solid var(--nv-card-border);
   box-shadow: 0 0 0 5px var(--nv-card-muted);
   transition: box-shadow var(--nv-card-transition);
-}
-
-@media (min-width: 860px) {
-  #nv-landing .nv-hero-avatar {
-    width: 112px;
-    height: 112px;
-    box-shadow: 0 0 0 6px var(--nv-card-muted);
-  }
 }
 
 #nv-landing .nv-hero-avatar-link:hover .nv-hero-avatar {
@@ -194,9 +190,9 @@ body.is-home .typography {
 }
 
 #nv-landing .nv-select {
-  padding-inline: .06em;
-  margin-inline: -.06em;
-  border-radius: .12em;
+  padding-inline: 0.06em;
+  margin-inline: -0.06em;
+  border-radius: 0.12em;
   background-color: transparent;
   background-image: linear-gradient(var(--nv-select-bg), var(--nv-select-bg));
   background-repeat: no-repeat;
@@ -207,19 +203,15 @@ body.is-home .typography {
 }
 
 @keyframes nv-select {
-  /* 0 → 18% (~0.9s): sweep-in halus */
-  0%      { background-size: 0% 100%;   animation-timing-function: ease-out; }
-  18%     { background-size: 100% 100%; }
-  /* 18% → 82%: tahan highlight (~3.2s) */
-  82%     { background-size: 100% 100%; }
-  /* 82% → 82.01%: snap instant balik ke 0 (durasi ~0.5ms, praktis tidak terlihat) */
-  82.01%  { background-size: 0% 100%; }
-  /* 82.01% → 100%: kosong nunggu loop berikutnya */
-  100%    { background-size: 0% 100%; }
+  0%     { background-size: 0% 100%; animation-timing-function: ease-out; }
+  18%    { background-size: 100% 100%; }
+  82%    { background-size: 100% 100%; }
+  82.01% { background-size: 0% 100%; }
+  100%   { background-size: 0% 100%; }
 }
 
 #nv-landing .nv-hero-roles {
-  margin: .25rem 0 0;
+  margin: 0.25rem 0 0;
   min-height: 1.5em;
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 600;
@@ -246,107 +238,56 @@ body.is-home .typography {
 }
 
 @keyframes nv-blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
-.nv-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
+/* Marquee */
+.nv-marquee {
+  position: relative;
+  flex-shrink: 0;
   overflow: hidden;
-  clip: rect(0 0 0 0);
+  background: var(--nv-card-bg);
+  color: var(--nv-card-muted-fg);
+  border-block: 1px solid var(--nv-line-accent);
+}
+
+.nv-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: nv-marquee 32s linear infinite;
+}
+
+.nv-marquee:hover .nv-marquee-track {
+  animation-play-state: paused;
+}
+
+.nv-marquee-group {
+  flex-shrink: 0;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-block: 0.7rem;
+}
+
+.nv-marquee-group > span {
+  margin-inline: 1.25rem;
   white-space: nowrap;
 }
 
-/* ==========================================================================
-   BUTTONS & SOCIALS
-   ========================================================================== */
-.nv-cta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .6rem;
-  margin-top: 1rem;
-}
-
-.nv-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-  padding: .7rem 1rem;
-  border-radius: .9rem;
-  font-weight: 600;
-  border: 1px solid var(--border, rgba(125, 125, 125, .25));
-  text-decoration: none;
-}
-
-.nv-btn-primary {
-  background: var(--primary, #7c3aed);
-  color: var(--primary-foreground, #fff);
-  border-color: transparent;
-}
-
-.nv-btn-ghost {
-  background: transparent;
-  color: var(--foreground, inherit);
+@keyframes nv-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 /* ==========================================================================
-   DOCS BAND, FRAME & ARTICLE GRID WITH FILTER (SCREEN 2)
+   4. SCREEN 2: DOCS SECTION, FILTER HEADER & CONTROLS
    ========================================================================== */
 .nv-below-fold {
   display: flex;
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
-}
-
-@media (min-width: 900px) {
-  .nv-below-fold {
-    height: 100vh;
-    height: 100svh;
-    min-height: 620px;
-    max-height: 100svh;
-    overflow: hidden;
-  }
-}
-
-.nv-band {
-  width: 100%;
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--nv-line-accent);
-  border-bottom: 1px solid var(--nv-line-accent);
-  position: relative;
-}
-
-.nv-band-grow {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.nv-band-cta {
-  flex-shrink: 0;
-  border-bottom: 0;
-}
-
-.nv-frame {
-  max-width: 1120px;
-  width: calc(100% - 2rem);
-  margin-inline: auto;
-  box-sizing: border-box;
-  border-inline: 1px solid var(--nv-line-accent);
-  border-inline: 1px solid var(--nv-line-accent);
-}
-
-.nv-band-grow > .nv-frame {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 .nv-docs-section {
@@ -357,7 +298,6 @@ body.is-home .typography {
   box-sizing: border-box;
 }
 
-/* Filter Header (sejajar dengan garis frame, z-index di atas grid kartu supaya dropdown tidak ketiban) */
 .nv-sec-head {
   position: relative;
   z-index: 30;
@@ -367,7 +307,6 @@ body.is-home .typography {
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--nv-line-accent);
   border-bottom: 1px solid var(--nv-line-accent);
   flex-shrink: 0;
 }
@@ -406,12 +345,6 @@ body.is-home .typography {
   align-items: center;
   gap: 0.65rem;
   flex-wrap: wrap;
-}
-
-.nv-icon {
-  display: inline-block;
-  vertical-align: text-bottom;
-  flex-shrink: 0;
 }
 
 /* Category Dropdown */
@@ -457,6 +390,11 @@ body.is-home .typography {
 
 .nv-dropdown-btn .nv-icon {
   color: var(--nv-card-muted-fg);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nv-dropdown-btn[aria-expanded="true"] .nv-icon {
+  transform: rotate(180deg);
 }
 
 .nv-dropdown-menu {
@@ -512,7 +450,7 @@ body.is-home .typography {
   opacity: 1;
 }
 
-/* Search Input (disamakan dengan tombol search navbar + keycap simetris) */
+/* Search Input */
 .nv-search {
   margin: 0;
 }
@@ -528,17 +466,19 @@ body.is-home .typography {
   background: var(--nv-card-muted);
   color: var(--nv-card-fg);
   cursor: text;
-  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition), box-shadow var(--nv-card-transition);
+  transition:
+    border-color var(--nv-card-transition),
+    background-color var(--nv-card-transition),
+    box-shadow var(--nv-card-transition);
 }
 
-.nv-search-box:hover {
+.nv-search-box:hover,
+.nv-search-box:focus-within {
   border-color: var(--nv-accent-yellow);
   background: var(--nv-card-bg);
 }
 
 .nv-search-box:focus-within {
-  border-color: var(--nv-accent-yellow);
-  background: var(--nv-card-bg);
   box-shadow: 0 0 0 1px rgba(255, 239, 12, 0.25);
 }
 
@@ -573,7 +513,9 @@ body.is-home .typography {
   opacity: 0.45;
 }
 
-/* 6-Box Grid (3x2 on Desktop) */
+/* ==========================================================================
+   5. ARTICLE GRID & CARDS
+   ========================================================================== */
 .nv-grid {
   position: relative;
   z-index: 1;
@@ -586,20 +528,6 @@ body.is-home .typography {
   box-sizing: border-box;
 }
 
-@media (min-width: 680px) {
-  .nv-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 900px) {
-  .nv-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-}
-
 #nv-landing .nv-card {
   position: relative;
   width: 100%;
@@ -609,16 +537,16 @@ body.is-home .typography {
   flex-direction: column;
   justify-content: space-between;
   padding: 0;
+  margin: 0 !important;
   box-sizing: border-box;
   border: 1px solid var(--nv-card-border);
   border-radius: 0.75rem;
   background: var(--nv-card-bg);
   color: var(--nv-card-fg);
+  overflow: hidden;
   transition:
     border-color var(--nv-card-transition),
     box-shadow var(--nv-card-transition);
-  overflow: hidden;
-  margin: 0 !important;
 }
 
 #nv-landing .nv-card:hover {
@@ -626,7 +554,6 @@ body.is-home .typography {
   box-shadow: 0 6px 18px -6px rgba(210, 194, 14, 0.12);
 }
 
-/* Bagian 1 (Atas): Hitam gelap / Card BG, posisi Badge -> Title -> Desc tersebar merata (tidak dempet) */
 .nv-card-body {
   flex: 1;
   display: flex;
@@ -697,7 +624,6 @@ body.is-home .typography {
   overflow: hidden;
 }
 
-/* Bagian 2 (Bawah): Divider Line + Abu-abu gelap (Surface/Muted) + Path & Tombol Aksi */
 .nv-card-footer {
   flex-shrink: 0;
   display: flex;
@@ -751,7 +677,9 @@ body.is-home .typography {
   border-radius: 0.75rem;
 }
 
-/* CTA Band inside Frame */
+/* ==========================================================================
+   6. CTA PANEL & BUTTONS
+   ========================================================================== */
 .nv-cta-wrap {
   padding: 0.9rem 1.5rem;
   box-sizing: border-box;
@@ -759,70 +687,14 @@ body.is-home .typography {
 
 .nv-cta-panel {
   box-sizing: border-box;
+  padding: var(--nv-card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
   border: 1px solid var(--nv-card-border);
   border-radius: 0.75rem;
   background: var(--nv-card-bg);
   color: var(--nv-card-fg);
-}
-
-/* ==========================================================================
-   MARQUEE LOOP ANIMATION
-   ========================================================================== */
-.nv-marquee {
-  position: relative;
-  flex-shrink: 0;
-  overflow: hidden;
-  background: var(--nv-card-bg);
-  color: var(--nv-card-muted-fg);
-  border-block: 1px solid var(--nv-line-accent);
-  border-block: 1px solid var(--nv-line-accent);
-}
-
-.nv-marquee-track {
-  display: flex;
-  width: max-content;
-  animation: nv-marquee 32s linear infinite;
-}
-
-.nv-marquee:hover .nv-marquee-track {
-  animation-play-state: paused;
-}
-
-.nv-marquee-group {
-  flex-shrink: 0;
-  min-width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding-block: .7rem;
-}
-
-.nv-marquee-group > span {
-  margin-inline: 1.25rem;
-  white-space: nowrap;
-}
-
-@keyframes nv-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* ==========================================================================
-   CTA PANEL
-   ========================================================================== */
-.nv-cta-panel {
-  padding: var(--nv-card-padding);
-  display: flex;
-  flex-direction: column;
-  gap: .9rem;
-}
-
-@media (min-width: 860px) {
-  .nv-cta-panel {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
 }
 
 .nv-cta-panel h3 {
@@ -833,8 +705,27 @@ body.is-home .typography {
   color: var(--nv-card-muted-fg);
 }
 
-.nv-cta-panel .nv-btn {
-  transition: border-color var(--nv-card-transition), background-color var(--nv-card-transition), opacity var(--nv-card-transition);
+.nv-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.nv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border, rgba(125, 125, 125, 0.25));
+  text-decoration: none;
+  transition:
+    border-color var(--nv-card-transition),
+    background-color var(--nv-card-transition),
+    opacity var(--nv-card-transition);
 }
 
 .nv-cta-panel .nv-btn-primary {
@@ -844,7 +735,7 @@ body.is-home .typography {
 }
 
 .nv-cta-panel .nv-btn-primary:hover {
-  opacity: .85;
+  opacity: 0.85;
 }
 
 .nv-cta-panel .nv-btn-ghost {
@@ -859,33 +750,70 @@ body.is-home .typography {
 }
 
 /* ==========================================================================
-DROPDOWN ICON ROTATION
-========================================================================== */
-.nv-dropdown-btn .nv-icon {
-color: var(--nv-card-muted-fg);
-transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nv-dropdown-btn[aria-expanded="true"] .nv-icon {
-transform: rotate(180deg);
-}
-
-/* ==========================================================================
-   MOBILE RESPONSIVENESS & TOUCH FIXES
+   7. RESPONSIVE & ACCESSIBILITY
    ========================================================================== */
+@media (min-width: 680px) {
+  .nv-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 860px) {
+  .nv-hero-inner-full {
+    padding: 2rem 2.25rem;
+  }
+
+  #nv-landing .nv-hero-avatar {
+    width: 112px;
+    height: 112px;
+    box-shadow: 0 0 0 6px var(--nv-card-muted);
+  }
+
+  .nv-cta-panel {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 900px) {
+  .nv-below-fold {
+    height: 100vh;
+    height: 100svh;
+    min-height: 620px;
+    max-height: 100svh;
+    overflow: hidden;
+  }
+
+  .nv-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
-  .nv-hero-inner-full { gap: 1.25rem; padding-block: 2rem; }
-  #nv-landing .nv-hero-roles { font-size: 1.05rem; }
+  .nv-hero-inner-full {
+    gap: 1.25rem;
+    padding-block: 2rem;
+  }
+
+  #nv-landing .nv-hero-roles {
+    font-size: 1.05rem;
+  }
+
   .nv-sec-head {
     padding: 0.85rem 1rem;
     gap: 0.65rem;
   }
+
   .nv-sec-title-group {
     width: 100%;
     justify-content: space-between;
     align-items: baseline;
     gap: 0.5rem;
   }
+
   .nv-filter-controls {
     width: 100%;
     display: grid;
@@ -893,56 +821,71 @@ transform: rotate(180deg);
     gap: 0.5rem;
     align-items: center;
   }
-  .nv-dropdown {
+
+  .nv-dropdown,
+  .nv-search {
     width: 100%;
     min-width: 0;
   }
+
+  .nv-search {
+    margin: 0 !important;
+  }
+
   .nv-dropdown-btn {
     width: 100%;
     padding: 0 0.6rem;
     font-size: 0.78rem;
   }
+
   .nv-dropdown-btn > span {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .nv-search {
-    width: 100%;
-    min-width: 0;
-    margin: 0 !important;
-  }
+
   .nv-search-box {
     width: 100%;
     box-sizing: border-box;
     padding-inline: 0.6rem;
     gap: 0.35rem;
   }
+
   .nv-search-kbd {
     display: none !important;
   }
+
   .nv-search-input {
     width: 100%;
     min-width: 0;
     font-size: 0.78rem;
   }
+
   .nv-grid {
     padding: 1rem;
     grid-template-columns: 1fr;
   }
-  /* Di mobile tampilkan maksimal 3 kartu saja agar tidak kepanjangan */
-  #nv-landing .nv-grid > .nv-card:nth-child(n+4) {
+
+  /* Tampilkan maksimal 3 kartu di mobile agar ringkas */
+  #nv-landing .nv-grid > .nv-card:nth-child(n + 4) {
     display: none !important;
   }
-  .nv-cta-wrap { padding: 0.85rem 1rem; }
-  .nv-cta .nv-btn { flex: 1 1 auto; }
+
+  .nv-cta-wrap {
+    padding: 0.85rem 1rem;
+  }
+
+  .nv-cta .nv-btn {
+    flex: 1 1 auto;
+  }
 }
 
 @media (max-width: 400px) {
   .nv-dropdown-label {
     display: none;
   }
+
   .nv-filter-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -954,23 +897,35 @@ transform: rotate(180deg);
 }
 
 @media (hover: none) {
-  .nv-card:hover, .nv-latest li:hover {
+  .nv-card:hover {
     border-color: var(--nv-card-border);
     background: var(--nv-card-bg);
   }
-  .nv-card:active, .nv-latest li:active {
+
+  .nv-card:active {
     background: var(--nv-card-muted);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-aos] {
-    opacity: 1 !important; transform: none !important; transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
   }
-  .nv-marquee-track, .nv-type-caret { animation: none; }
-  #nv-landing .nv-select { animation: none; background-size: 100% 100%; }
+
+  .nv-marquee-track,
+  .nv-type-caret {
+    animation: none;
+  }
+
+  #nv-landing .nv-select {
+    animation: none;
+    background-size: 100% 100%;
+  }
 }
 
-article h1:first-child, .md-content h1:first-child {
+article h1:first-child,
+.md-content h1:first-child {
   display: none !important;
 }
