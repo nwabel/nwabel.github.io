@@ -19,12 +19,6 @@ header.bg-background { border-bottom: 1px solid var(--nv-line); }
 footer { border-top: 1px solid var(--nv-line); }
 button[title="Toggle layout"] { display: inline-flex !important; }
 
-header a[href*="github.com"],
-header [data-slot="separator"] + a[href*="github.com"],
-header a[href*="github.com"] + [data-slot="separator"] {
-  display: none !important;
-}
-
 /* ==========================================================================
    2. NAVBAR SEARCH BUTTON & SHARED KBD GROUP
    ========================================================================== */
@@ -791,6 +785,7 @@ a[data-slot="button"] :is(img, svg) {
     position: fixed !important;
     inset: var(--header-height, 3.5rem) 0 0 0 !important;
     transform: none !important;
+    min-width: 0 !important;
     width: 100vw !important;
     max-width: 100vw !important;
     height: calc(100dvh - var(--header-height, 3.5rem)) !important;
@@ -819,17 +814,30 @@ a[data-slot="button"] :is(img, svg) {
   }
 
   dialog#bottom-sidebar > [data-slot="popover-content"] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
     overflow: visible !important;
     gap: 1.75rem !important;
     padding: 1.25rem 1.5rem calc(3rem + env(safe-area-inset-bottom, 0px)) !important;
   }
 
+  dialog#bottom-sidebar > [data-slot="popover-content"] > div > div,
+  dialog#bottom-sidebar > [data-slot="popover-content"] > div > div > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
   dialog#bottom-sidebar a {
-    display: flex;
-    align-items: center;
-    min-height: 2.35rem;
+    display: block !important;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 2.35rem;
     font-size: 1.25rem !important;
-    line-height: 1.35;
     border-radius: 0.45rem;
     transition: color 0.15s ease, transform 0.15s ease;
   }
@@ -880,11 +888,6 @@ a[data-slot="button"] :is(img, svg) {
     border-color: var(--nv-yellow) !important;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .nv-df-random-btn.is-loading .nv-df-random-icon { animation: none !important; }
-}
-
 
 @media (prefers-reduced-motion: reduce) {
   .nv-df-random-btn.is-loading .nv-df-random-icon { animation: none !important; }
