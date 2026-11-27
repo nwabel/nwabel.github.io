@@ -1,0 +1,85 @@
+{% block seo %}
+{% set _site_url = (config.site_url or '') | trim | regex_replace('/+$', '') if regex_replace is defined else (config.site_url or '').rstrip('/') %}
+{% set _og_title = page.meta.title or (config.site_name if page.is_homepage else (page.title or config.site_name)) %}
+{% set _auto_excerpt = (page.content | striptags | replace('\n', ' ') | replace('\r', ' ') | trim | truncate(155, false, '...')) if (page and page.content and not page.is_homepage) else '' %}
+{% set _og_desc = page.meta.description or _auto_excerpt or config.site_description or config.site_name %}
+{% if page.meta.image %}
+  {% set _og_image = page.meta.image if page.meta.image.startswith('http') else (_site_url ~ '/' ~ page.meta.image.lstrip('/')) %}
+{% else %}
+  {% set _og_image = _site_url ~ '/assets/images/og-default.png' %}
+{% endif %}
+{% set _og_type = 'website' if page.is_homepage else 'article' %}
+
+<title>{% if page.is_homepage or _og_title == config.site_name %}{{ config.site_name }}{% else %}{{ _og_title }} — {{ config.site_name }}{% endif %}</title>
+
+<meta name="description" content="{{ _og_desc | e }}">
+
+{% if page.meta.keywords %}
+<meta name="keywords" content="{{ page.meta.keywords | e }}">
+{% endif %}
+
+{% if page.meta.author or config.site_author %}
+<meta name="author" content="{{ (page.meta.author or config.site_author) | e }}">
+{% endif %}
+
+{% if page.canonical_url %}
+<link rel="canonical" href="{{ page.canonical_url }}">
+{% endif %}
+
+<!-- Open Graph -->
+<meta property="og:type" content="{{ _og_type }}">
+<meta property="og:title" content="{{ _og_title | e }}">
+<meta property="og:description" content="{{ _og_desc | e }}">
+{% if page.canonical_url %}
+<meta property="og:url" content="{{ page.canonical_url }}">
+{% endif %}
+<meta property="og:image" content="{{ _og_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{% if config.site_name %}
+<meta property="og:site_name" content="{{ config.site_name | e }}">
+{% endif %}
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ _og_title | e }}">
+<meta name="twitter:description" content="{{ _og_desc | e }}">
+<meta name="twitter:image" content="{{ _og_image }}">
+
+<!-- JSON-LD Structured Data -->
+{% if not page.is_homepage %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ _og_title | tojson }},
+  "description": {{ _og_desc | tojson }},
+  {% if page.canonical_url %}
+  "url": {{ page.canonical_url | tojson }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ page.canonical_url | tojson }}
+  },
+  {% endif %}
+  {% if page.meta.created_at %}
+  "datePublished": {{ page.meta.created_at.isoformat() | tojson }},
+  {% elif page.meta.date %}
+  "datePublished": {{ page.meta.date | string | tojson }},
+  {% endif %}
+  {% if page.meta.updated_at %}
+  "dateModified": {{ page.meta.updated_at.isoformat() | tojson }},
+  {% endif %}
+  "image": {
+    "@type": "ImageObject",
+    "url": {{ _og_image | tojson }},
+    "width": 1200,
+    "height": 630
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ config.site_name | tojson }}
+  }
+}
+</script>
+{% endif %}
+{% endblock seo %}

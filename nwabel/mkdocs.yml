@@ -1,5 +1,6 @@
 site_name: "nwabel"
 site_url: https://nwabel.github.io/
+site_description: "Catatan teknis, CTF writeup, wiki, dan eksperimen — by nwabel."
 
 theme:
   name: shadcn
